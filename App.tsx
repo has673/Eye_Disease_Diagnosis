@@ -36,7 +36,9 @@ function App(){
   return (
   <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/>
+      <Stack.Screen name='Login' component={Login} options={({navigation})=>({
+        headerShown:false
+      })}/>
       <Stack.Screen name='Signup' component={Signup} options={({ navigation }) => ({
             title: 'Signup',
             headerStyle: {
