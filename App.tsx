@@ -15,12 +15,14 @@ import {
   Text,
   useColorScheme,
   View,
+  Button
 } from 'react-native';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from './Screen/User/Login';
 import Signup from './Screen/User/Signup';
+import Forgot from './Screen/User/Forgotpass';
 
 
 
@@ -35,38 +37,49 @@ function App(){
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/>
-      <Stack.Screen name='Signup' component={Signup} options={{
-         title: 'Signup',
-         headerStyle: {
-           backgroundColor: '#d34b4b',
-         },
-         headerTintColor: '#fff',
-         headerTitleStyle: {
-           fontWeight: 'bold',
-         },
-      }}
+      <Stack.Screen name='Signup' component={Signup} options={({ navigation }) => ({
+            title: 'Signup',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Button
+                onPress={() => navigation.goBack()}
+                title="Go Back"
+                
+              />
+            ),
+          })}
+      />
+      <Stack.Screen name='Forgot' component={Forgot} options={({ navigation }) => ({
+            title: 'Forgot Password',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Button
+                onPress={() => navigation.goBack()}
+                title="Go Back"
+                
+              />
+            ),
+          })}
+      />
     </Stack.Navigator>
   </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+
 
 export default App;
