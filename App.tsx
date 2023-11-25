@@ -17,22 +17,36 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Login from './Screen/User/Login';
+import Signup from './Screen/User/Signup';
 
 
 
+
+
+const Stack = createNativeStackNavigator();
 
 
 function App(){
   
   return (
-   <></>
+  <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/>
+      <Stack.Screen name='Signup' component={Signup} options={{
+         title: 'Signup',
+         headerStyle: {
+           backgroundColor: '#d34b4b',
+         },
+         headerTintColor: '#fff',
+         headerTitleStyle: {
+           fontWeight: 'bold',
+         },
+      }}
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }
 
