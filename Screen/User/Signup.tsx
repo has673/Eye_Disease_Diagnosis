@@ -14,11 +14,11 @@ import {NavigationContainer} from '@react-navigation/native';
 // import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 // const Stack = createNativeStackNavigator();
-export default function Signup() {
-//   const handleNavigation = screenname => {
-//     console.log(screenname);
-//     navigation.navigate(screenname);
-//   };
+export default function Signup({navigation}) {
+  const handleNavigation = screenname => {
+    console.log(screenname);
+    navigation.navigate(screenname);
+  };
   return (
     <View style={styles.containerSignup}>
          {/* <View>
@@ -50,10 +50,10 @@ export default function Signup() {
         </View>
       </View>
       
-      <Text style={styles.pass}>Login</Text>
+      <Text  onPress={() => handleNavigation('Login')}>ll</Text>
       <View style={styles.signin}>
         <TouchableOpacity
-        //   onPress={() => handleNavigation('login')}
+          
           style={styles.btn}>
           <Text style={{color:"azure"}}>Signup</Text>
         </TouchableOpacity>
@@ -62,38 +62,7 @@ export default function Signup() {
   );
 }
 
-// function App() {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         <Stack.Screen
-//           name="Home"
-//           component={CreateAcc}
-//           options={{
-//             title: 'Create Account',
-//             headerStyle: {
-//               backgroundColor: '#d34b4b',
-//             },
-//             headerTitleStyle: {
-//               color: 'white',
-//             },
-//             headerLeft: () => (
-//               <TouchableOpacity
-//                 onPress={() => {
-//                   navigation.goBack();
-//                 }}>
-//                 <Image
-//                   source={require('../assets/back.png')}
-//                   style={{width: 32, height: 32, marginTop: 5}}
-//                 />
-//               </TouchableOpacity>
-//             ),
-//           }}
-//         />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
+
 
 const styles = StyleSheet.create({
     heading: {

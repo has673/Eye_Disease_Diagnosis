@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default function Login() {
-//   const handleNavigation = screenname => {
-//     console.log(screenname);
-//     navigation.navigate(screenname);
-//   };
+export default function Login({navigation}) {
+  const handleNavigation = screenname => {
+    console.log(screenname);
+    navigation.navigate(screenname);
+  };
   const [isChecked, setChecked] = useState(false);
 
   return (
@@ -50,14 +50,14 @@ export default function Login() {
         </TouchableOpacity>
       </View>
       <TouchableOpacity 
-    //   onPress={() => handleNavigation('Forgetpass')}
+      onPress={() => handleNavigation('Forgot')}
       >
         <Text style={styles.pass}>Forgot Password?</Text>
       </TouchableOpacity>
       <View style={styles.bottom}>
         <Text style={styles.dont}>Don't have an account?</Text>
         <TouchableOpacity 
-        // onPress={() => handleNavigation('Signup')}
+        onPress={() => handleNavigation('Signup')}
         >
           <Text style={styles.endtext}>Sign up</Text>
         </TouchableOpacity>
