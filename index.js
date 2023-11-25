@@ -11,4 +11,4 @@ import Login from './Screen/User/Login';
 import Signup from './Screen/User/Signup';
 import Forgot from './Screen/User/Forgotpass';
 
-AppRegistry.registerComponent(appName, () => Forgot);
+AppRegistry.registerComponent(appName, () => Signuop);
