@@ -23,7 +23,7 @@ function Forgot() {
         <Text style={styles.heading}>Forgot Password</Text>
       </View>
       <View>
-        <Text style={styles.heading2}>Provide Email to  Account</Text>
+        <Text style={styles.heading2}>Provide Email to Recover Account</Text>
       </View>
       <View style={styles.box1}>
         <TextInput style={styles.input1} placeholder="Enter Email" />
