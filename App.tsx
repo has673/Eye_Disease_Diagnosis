@@ -52,11 +52,7 @@ function App(){
             },
             headerTitleAlign: 'center',
             headerLeft: () => (
-              // <Button
-              //   onPress={() => navigation.goBack()}
-              //   title="Go Back"
-                
-              // />
+              >
               <Ionicons
               onPress={() => navigation.goBack()}
               name="arrow-back"
