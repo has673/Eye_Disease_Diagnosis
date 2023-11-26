@@ -16,7 +16,9 @@ import {
   useColorScheme,
   View,
   Button
+
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -69,9 +71,9 @@ function App(){
             },
             headerTitleAlign: 'center',
             headerLeft: () => (
-              <Button
+              <Ionicons
                 onPress={() => navigation.goBack()}
-                title="Go Back"
+                name="arrow-back"
                 
               />
             ),
