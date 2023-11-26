@@ -26,7 +26,7 @@ function Forgot() {
         <Text style={styles.heading2}>Provide Email to Recover Account</Text>
       </View>
       <View style={styles.box1}>
-        <TextInput style={styles.input1} placeholder="Enter Email" />
+       
       </View>
       <TouchableOpacity style={styles.send}>
         <Text style={{fontWeight: 'bold'}}>Send</Text>

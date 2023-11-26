@@ -15,8 +15,13 @@ import {
   Text,
   useColorScheme,
   View,
+<<<<<<< HEAD
   Button
 
+=======
+  Button,
+  Image
+>>>>>>> main
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -52,11 +57,12 @@ function App(){
             },
             headerTitleAlign: 'center',
             headerLeft: () => (
-              <Button
-                onPress={() => navigation.goBack()}
-                title="Go Back"
+              // <Button
+              //   onPress={() => navigation.goBack()}
+              //   title="Go Back"
                 
-              />
+              // />
+              <Image source={require('./assets/back.png')}/>
             ),
           })}
       />
