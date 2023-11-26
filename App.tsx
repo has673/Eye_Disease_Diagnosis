@@ -15,7 +15,8 @@ import {
   Text,
   useColorScheme,
   View,
-  Button
+  Button,
+  Image
 } from 'react-native';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -50,11 +51,12 @@ function App(){
             },
             headerTitleAlign: 'center',
             headerLeft: () => (
-              <Button
-                onPress={() => navigation.goBack()}
-                title="Go Back"
+              // <Button
+              //   onPress={() => navigation.goBack()}
+              //   title="Go Back"
                 
-              />
+              // />
+              <Image source={require('./assets/back.png')}/>
             ),
           })}
       />
