@@ -74,6 +74,8 @@ function App(){
               <Ionicons
                 onPress={() => navigation.goBack()}
                 name="arrow-back"
+                size={25}
+                color="white"
                 
               />
             ),
