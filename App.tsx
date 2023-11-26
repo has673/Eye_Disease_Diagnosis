@@ -57,7 +57,13 @@ function App(){
               //   title="Go Back"
                 
               // />
-              <Image source={require('./assets/back.png')}/>
+              <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+              
+            />
             ),
           })}
       />
