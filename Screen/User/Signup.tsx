@@ -37,7 +37,7 @@ export default function Signup({ navigation }) {
 
       // Additional actions after successful signup (e.g., navigation, state updates)
     } catch (err) {
-      console.error(err)
+      // console.error(err)
       if (err.code === 'auth/email-already-in-use') {
         console.log('That email address is already in use!');
         setError('That email address is already in use!');
