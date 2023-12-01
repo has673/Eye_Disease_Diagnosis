@@ -22,9 +22,9 @@ export default function Signup({navigation}) {
   };
   return (
     <View style={styles.containerSignup}>
-         {/* <View>
+         <View>
         <Image style={styles.stretch} source={require('../../assets/logo.png')} />
-      </View> */}
+      </View>
       
       
       <View style={styles.inputContainer}>
