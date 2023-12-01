@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
 // import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 // const Stack = createNativeStackNavigator();
@@ -31,23 +32,16 @@ export default function Signup({navigation}) {
         <Text style={styles.heading}> Signup </Text>
       </View>
         <View style={styles.box1}>
-          <TextInput style={styles.input2} placeholder="Name" 
+          <TextInput style={styles.input2} placeholder="Email" 
            underlineColorAndroid="transparent"/>
         </View>
        
         <View style={styles.box1}>
-          <TextInput style={styles.input2} placeholder="Email" 
+          <TextInput style={styles.input2} placeholder="Password" 
        underlineColorAndroid='rgba(0,0,0,0)'
           />
         </View>
-        <View style={styles.box1}>
-          <TextInput style={styles.input2} placeholder="Password" 
-           secureTextEntry={true}
-           maxLength={10}
-           
-
-          />
-        </View>
+       
       </View>
       
       <Text  onPress={() => handleNavigation('Login')}>ll</Text>
