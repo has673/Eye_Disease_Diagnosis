@@ -8,32 +8,47 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 export default function Login({navigation}) {
   const handleNavigation = screenname => {
     console.log(screenname);
     navigation.navigate(screenname);
   };
-  const [isChecked, setChecked] = useState(false);
-  useEffect(()=>{
-    getdata();
-        
-    },[])
-    const getdata = async ()=>{
-        try{
-            const data =await firestore()
-            .collection('Users')
-            .doc("UcYzFhvOOgkIbaVJ31JS")
-            .get();
-            //  const data = documentSnapshot.data() 
-            console.log(data)
-            console.log("siuu")
-        
-        }
-        catch(err){
-            console.log(err)
 
-        }
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const Handlelogin = async () => {
+    try {
+      console.log("login function")
+      
+      const isuserloggedin = await auth().signInWithEmailAndPassword(email, password);
+      
+      if (isuserloggedin.user) {
+        console.log('User loggedin  successfully!', isuserloggedin.user.uid);
+        
+
+        // Additional actions after successful signup (e.g., navigation, state updates)
+      } else {
+        console.log('User login failed.');
+      }
+
+      // Additional actions after successful signup (e.g., navigation, state updates)
+    } catch (err) {
+      // console.error(err)
+      if (err.code === 'auth/email-already-in-use') {
+        console.log('That email address is already in use!');
+        setError('That email address is already in use!');
+      }
+      if (err.code === 'auth/invalid-email') {
+        console.log('That email address is invalid!');
+        setError('That email address is invalid!');
+      }
+      
     }
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -44,27 +59,20 @@ export default function Login({navigation}) {
         <Text style={styles.heading}>Login To Your Account </Text>
       </View>
       <View style={styles.box1}>
-        <TextInput style={styles.input1} placeholder="Email"></TextInput>
+        <TextInput style={styles.input1} placeholder="Email" onChangeText={(text)=>{setEmail(text)}}></TextInput>
       </View>
       <View style={styles.box1}>
         <TextInput
           style={styles.input2}
           placeholder="Password"
-          secureTextEntry={true}></TextInput>
+          secureTextEntry={true}
+          onChangeText={(text)=>{setPassword(text)}}
+          ></TextInput>
       </View>
-      <View style={styles.checkboxcontainer}>
-        <TouchableOpacity
-          style={styles.checkbox}
-          onPress={() => setChecked(!isChecked)}>
-          <View style={styles.checkboxInner}>
-            {isChecked && <View style={styles.checkboxIcon} />}
-          </View>
-        </TouchableOpacity>
-        <Text style={styles.text}>Remember me</Text>
-      </View>
+     
       <View style={styles.signin}>
         <TouchableOpacity
-        //   onPress={() => handleNavigation('Dashboard')}
+           onPress={() => Handlelogin()}
           style={styles.btn}>
           <Text>Sign in</Text>
         </TouchableOpacity>
@@ -77,7 +85,7 @@ export default function Login({navigation}) {
       <View style={styles.bottom}>
         <Text style={styles.dont}>Don't have an account?</Text>
         <TouchableOpacity 
-        onPress={() => handleNavigation('Signup')}
+        onPress={()=>handleNavigation("Signup")}
         >
           <Text style={styles.endtext}>Sign up</Text>
         </TouchableOpacity>
