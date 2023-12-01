@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
   stretch: {
     width: 335,
     height: 186,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: -65,
+    marginBottom: -60,
     alignSelf: 'center',
   },
   heading: {
