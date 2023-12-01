@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -27,7 +27,13 @@ export default function Login({navigation}) {
       
       if (isuserloggedin.user) {
         console.log('User loggedin  successfully!', isuserloggedin.user.uid);
-        
+        // setEmail("")
+        // setPassword("")
+        // setError("")
+        navigation.navigate("Home",{
+          userid:isuserloggedin.user.uid,
+          email:isuserloggedin.user.email
+        })
 
         // Additional actions after successful signup (e.g., navigation, state updates)
       } else {
@@ -37,9 +43,9 @@ export default function Login({navigation}) {
       // Additional actions after successful signup (e.g., navigation, state updates)
     } catch (err) {
       console.error(err)
-      if (err.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-        setError('That email address is already in use!');
+      if (err.code === 'auth/wrong-password') {
+        console.log('The password is wrong!');
+        setError('The password is wrong!');
       }
       if (err.code === 'auth/invalid-credential') {
         console.log('That email address  or password is invalid!');

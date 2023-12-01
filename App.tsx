@@ -26,6 +26,7 @@ import Login from './Screen/User/Login';
 import Signup from './Screen/User/Signup';
 import Forgot from './Screen/User/Forgotpass';
 import Db from './Screen/User/Db';
+import Home from './Screen/User/Home';
 
 
 
@@ -43,6 +44,9 @@ function App(){
         headerShown:false
       })} />   */}
       <Stack.Screen name='Login' component={Login} options={({navigation})=>({
+        headerShown:false
+      })}/>
+      <Stack.Screen name='Home' component={Home}  options={({navigation})=>({
         headerShown:false
       })}/>
       <Stack.Screen name='Signup' component={Signup} options={({ navigation }) => ({
