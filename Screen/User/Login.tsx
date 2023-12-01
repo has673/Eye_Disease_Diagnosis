@@ -36,15 +36,16 @@ export default function Login({navigation}) {
 
       // Additional actions after successful signup (e.g., navigation, state updates)
     } catch (err) {
-      // console.error(err)
+      console.error(err)
       if (err.code === 'auth/email-already-in-use') {
         console.log('That email address is already in use!');
         setError('That email address is already in use!');
       }
-      if (err.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-        setError('That email address is invalid!');
+      if (err.code === 'auth/invalid-credential') {
+        console.log('That email address  or password is invalid!');
+        setError('The email or password is invalid is invalid!');
       }
+      // setError(err.message)
       
     }
   };
@@ -69,6 +70,8 @@ export default function Login({navigation}) {
           onChangeText={(text)=>{setPassword(text)}}
           ></TextInput>
       </View>
+      <Text style={styles.errormsg}>{error}</Text>
+
      
       <View style={styles.signin}>
         <TouchableOpacity
@@ -201,4 +204,8 @@ const styles = StyleSheet.create({
   dont: {
     color: 'black',
   },
+  errormsg:{
+    textAlign:'center',
+    color:'red'
+  }
 });
