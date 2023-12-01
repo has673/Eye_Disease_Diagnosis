@@ -33,12 +33,12 @@ export default function Signup({navigation}) {
       </View>
         <View style={styles.box1}>
           <TextInput style={styles.input2} placeholder="Email" 
-           underlineColorAndroid="transparent"/>
+         />
         </View>
        
         <View style={styles.box1}>
           <TextInput style={styles.input2} placeholder="Password" 
-       underlineColorAndroid='rgba(0,0,0,0)'
+       
           />
         </View>
        
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 24,
         fontWeight: 'bold',
-        marginTop: 19,
+        marginTop: 10,
         marginBottom: 19,
         fontFamily: 'poppins',
         color: 'black',
@@ -71,9 +71,12 @@ const styles = StyleSheet.create({
     stretch: {
         width: 335,
         height: 186,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
+        marginTop:-65,
+        marginBottom:-60,
+        
+        alignSelf:'center'
+       
+        
       },
   input2: {
     borderWidth: 1,

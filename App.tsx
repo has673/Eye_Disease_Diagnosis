@@ -39,9 +39,9 @@ function App(){
   return (
   <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name='Db' component={Db} options={({navigation})=>({
+      {/* <Stack.Screen name='Db' component={Db} options={({navigation})=>({
         headerShown:false
-      })} />  
+      })} />   */}
       <Stack.Screen name='Login' component={Login} options={({navigation})=>({
         headerShown:false
       })}/>
