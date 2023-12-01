@@ -25,6 +25,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Login from './Screen/User/Login';
 import Signup from './Screen/User/Signup';
 import Forgot from './Screen/User/Forgotpass';
+import Db from './Screen/User/Db';
 
 
 
@@ -38,6 +39,9 @@ function App(){
   return (
   <NavigationContainer>
     <Stack.Navigator>
+      <Stack.Screen name='Db' component={Db} options={({navigation})=>({
+        headerShown:false
+      })} />  
       <Stack.Screen name='Login' component={Login} options={({navigation})=>({
         headerShown:false
       })}/>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "372222088359",
+    "project_id": "eye-disease-8a074",
+    "storage_bucket": "eye-disease-8a074.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372222088359:android:9b044606dd2c2641573782",
+        "android_client_info": {
+          "package_name": "com.eye_disease_diagnosis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBBYBWXG4suR19EQcUQ6MUx6P4pRGRoDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

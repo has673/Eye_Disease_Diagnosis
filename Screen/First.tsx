@@ -1,6 +1,6 @@
 import React from 'react';
 import { View ,Text,StyleSheet,Image} from 'react-native';
-import LottieView from 'lottie-react-native';
+
 function First(){
   
     return(
@@ -10,7 +10,7 @@ function First(){
         <Image style={styles.image} source={require('../assets/logo.png')} />
       </View>
       <View style={styles.loader}>
-        <LottieView source={require('../assets/loader.json')} autoPlay loop />
+       
       </View>
       
       

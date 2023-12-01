@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   Text,
   View,
@@ -7,13 +7,33 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-
+import firestore from '@react-native-firebase/firestore';
 export default function Login({navigation}) {
   const handleNavigation = screenname => {
     console.log(screenname);
     navigation.navigate(screenname);
   };
   const [isChecked, setChecked] = useState(false);
+  useEffect(()=>{
+    getdata();
+        
+    },[])
+    const getdata = async ()=>{
+        try{
+            const data =await firestore()
+            .collection('Users')
+            .doc("UcYzFhvOOgkIbaVJ31JS")
+            .get();
+            //  const data = documentSnapshot.data() 
+            console.log(data)
+            console.log("siuu")
+        
+        }
+        catch(err){
+            console.log(err)
+
+        }
+    }
 
   return (
     <View style={styles.container}>
