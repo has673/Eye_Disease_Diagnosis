@@ -15,6 +15,9 @@ export default function Signup({ navigation }) {
     console.log(screenname);
     navigation.navigate(screenname);
   };
+  const gotologin=()=>{
+    handleNavigation('Login')
+  }
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -83,8 +86,10 @@ export default function Signup({ navigation }) {
         <TouchableOpacity
           style={styles.btn}
           onPress={() =>
-            // handleNavigation('Login')
-            Handlesignup()
+            {
+            Handlesignup() ;
+            handleNavigation("Login")
+            }
           }>
           <Text style={{ color: 'azure' }}>Signup</Text>
         </TouchableOpacity>
