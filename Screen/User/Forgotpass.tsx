@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  Alert
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
@@ -17,7 +18,8 @@ function Forgot() {
     if (email.length > 0) {
       try {
         await auth().sendPasswordResetEmail(email)
-        alert("Check you Email for password Reset")
+        
+        Alert.alert("Check you Email for password Reset")
       }
       catch (err) {
         setMessage(err);
@@ -25,7 +27,7 @@ function Forgot() {
 
     }
     else {
-      alert('please enter email')
+     Alert.alert('please enter email')
     }
 
 

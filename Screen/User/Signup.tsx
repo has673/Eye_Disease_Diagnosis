@@ -6,8 +6,8 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert, // Import Alert for showing an error alert
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
 export default function Signup({ navigation }) {
@@ -15,9 +15,10 @@ export default function Signup({ navigation }) {
     console.log(screenname);
     navigation.navigate(screenname);
   };
-  const gotologin=()=>{
-    handleNavigation('Login')
-  }
+
+  const gotologin = () => {
+    handleNavigation('Login');
+  };
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,31 +26,32 @@ export default function Signup({ navigation }) {
 
   const Handlesignup = async () => {
     try {
-      console.log("signup function")
-      
-      const isusercraeted = await auth().createUserWithEmailAndPassword(email, password);
-      
-      if (isusercraeted.user) {
-        console.log('User created successfully!', isusercraeted.user.uid);
-        
+      console.log("signup function");
+      if (email.length > 0 && password.length > 0) {
+        const isusercreated = await auth().createUserWithEmailAndPassword(email, password);
 
-        // Additional actions after successful signup (e.g., navigation, state updates)
+        if (isusercreated.user) {
+          console.log('User created successfully!', isusercreated.user.uid);
+          // Additional actions after successful signup (if any)
+          gotologin();
+        } else {
+          console.log('User creation failed.');
+        }
       } else {
-        console.log('User creation failed.');
+        // Show an alert if the user didn't fill in all fields
+        Alert.alert('Error', 'Please fill in all fields');
       }
-
-      // Additional actions after successful signup (e.g., navigation, state updates)
     } catch (err) {
-      // console.error(err)
       if (err.code === 'auth/email-already-in-use') {
         console.log('That email address is already in use!');
         setError('That email address is already in use!');
-      }
-      if (err.code === 'auth/invalid-email') {
+      } else if (err.code === 'auth/invalid-email') {
         console.log('That email address is invalid!');
         setError('That email address is invalid!');
+      } else {
+        console.error(err);
+        setError('Signup failed. Please try again later.');
       }
-      
     }
   };
 
@@ -85,18 +87,18 @@ export default function Signup({ navigation }) {
       <View style={styles.signin}>
         <TouchableOpacity
           style={styles.btn}
-          onPress={() =>
-            {
-            Handlesignup() ;
-            handleNavigation("Login")
-            }
-          }>
+          onPress={() => {
+            Handlesignup();
+          // Navigate to login screen after signup
+          }}
+        >
           <Text style={{ color: 'azure' }}>Signup</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   heading: {
@@ -156,8 +158,8 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginTop: 10,
   },
-  errormsg:{
-    textAlign:'center',
-    color:'red'
+  errormsg: {
+    textAlign: 'center',
+    color: 'red'
   }
 });

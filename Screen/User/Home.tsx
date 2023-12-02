@@ -10,16 +10,18 @@ const Home = ({navigation}) => {
       };
     const route = useRoute()
     const {email , userid} = route.params
+ const handlelogout = async()=>{
+  await  Auth().signOut
+  console.log('logoeed out')
 
+ }
     
   return (
     <View>
       <Text>Home</Text>
       <Text>Email:{email}</Text>
       <Text>Id:{userid}</Text>
-      <TouchableOpacity onPress={async()=>{
-       await  Auth().signOut
-      }}><Text> Logout </Text></TouchableOpacity>
+      <TouchableOpacity onPress={handlelogout}><Text> Logout </Text></TouchableOpacity>
     </View>
   )
 }

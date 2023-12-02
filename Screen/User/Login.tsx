@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import {
   Text,
   View,
@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -23,30 +24,34 @@ export default function Login({ navigation }) {
     try {
       console.log("login function")
       if (email.length > 0 && password.length > 0) {
-        const isuserloggedin = await auth().signInWithEmailAndPassword(email, password);
-
-        if (isuserloggedin.user) {
-          console.log('User loggedin  successfully!', isuserloggedin.user.uid);
-          navigation.navigate("Home", {
-            userid: isuserloggedin.user.uid,
-            email: isuserloggedin.user.email
-          })
-          // Additional actions after successful signup (e.g., navigation, state updates)
-        }
+       
+      const isUserLogin = await auth().signInWithEmailAndPassword(
+        email,
+        password,
+      );
+      setError('');
+      console.log(isUserLogin);
+      // setEmail('')
+      // setPassword('')
       
+      navigation.navigate('Home', {
+        email: isUserLogin.user.email,
+        uid: isUserLogin.user.uid,
+        
+      });
+    } 
       else {
-        console.log('User login failed.');
-      }
-      // Additional actions after successful signup (e.g., navigation, state updates)
-      }
-      else {
-      alert("press enter data")
+      Alert.alert("press enter data")
        }
     } 
+
    
     
   catch (err) {
     console.error(err)
+    setEmail('')
+    setPassword('')
+    setError('')
     if (err.code === 'auth/wrong-password') {
       console.log('The password is wrong!');
       setError('The password is wrong!');
@@ -59,6 +64,7 @@ export default function Login({ navigation }) {
 
   }
 };
+//
 
 
 return (
@@ -70,17 +76,18 @@ return (
       <Text style={styles.heading}>Login To Your Account </Text>
     </View>
     <View style={styles.box1}>
-      <TextInput style={styles.input1} placeholder="Email" onChangeText={(text) => { setEmail(text) }}></TextInput>
+      <TextInput style={styles.input1} placeholder="Email" value={email} onChangeText={text =>  setEmail(text) }></TextInput>
     </View>
     <View style={styles.box1}>
       <TextInput
         style={styles.input2}
         placeholder="Password"
         secureTextEntry={true}
-        onChangeText={(text) => { setPassword(text) }}
+        value={password}
+        onChangeText={text => { setPassword(text) }}
       ></TextInput>
     </View>
-    <Text style={styles.errormsg}>{error}</Text>
+    <Text  style={styles.errormsg} > {error}</Text>
 
 
     <View style={styles.signin}>
@@ -126,26 +133,24 @@ const styles = StyleSheet.create({
   },
   input1: {
     borderWidth: 1,
-    height: 50,
+    borderBottomWidth: 0,
+    height: 54,
     width: 304,
     borderRadius: 14,
     marginTop: 15,
-    marginBottom: 10,
     backgroundColor: '#629FFA',
-    padding: 10,
-    color: 'black',
     textAlign: 'center',
+  
   },
   input2: {
     borderWidth: 1,
-    height: 50,
+    borderBottomWidth: 0,
+    height: 54,
     width: 304,
     borderRadius: 14,
     marginTop: 15,
     backgroundColor: '#629FFA',
-    color: 'black',
     textAlign: 'center',
-    marginBottom: 10,
   },
   box1: {
     justifyContent: 'center',
