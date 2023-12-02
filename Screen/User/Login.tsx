@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
   const handleNavigation = screenname => {
     console.log(screenname);
     navigation.navigate(screenname);
@@ -22,85 +22,89 @@ export default function Login({navigation}) {
   const Handlelogin = async () => {
     try {
       console.log("login function")
-      
-      const isuserloggedin = await auth().signInWithEmailAndPassword(email, password);
-      
-      if (isuserloggedin.user) {
-        console.log('User loggedin  successfully!', isuserloggedin.user.uid);
-        // setEmail("")
-        // setPassword("")
-        // setError("")
-        navigation.navigate("Home",{
-          userid:isuserloggedin.user.uid,
-          email:isuserloggedin.user.email
-        })
+      if (email.length > 0 && password.length > 0) {
+        const isuserloggedin = await auth().signInWithEmailAndPassword(email, password);
 
-        // Additional actions after successful signup (e.g., navigation, state updates)
-      } else {
+        if (isuserloggedin.user) {
+          console.log('User loggedin  successfully!', isuserloggedin.user.uid);
+          navigation.navigate("Home", {
+            userid: isuserloggedin.user.uid,
+            email: isuserloggedin.user.email
+          })
+          // Additional actions after successful signup (e.g., navigation, state updates)
+        }
+      
+      else {
         console.log('User login failed.');
       }
-
       // Additional actions after successful signup (e.g., navigation, state updates)
-    } catch (err) {
-      console.error(err)
-      if (err.code === 'auth/wrong-password') {
-        console.log('The password is wrong!');
-        setError('The password is wrong!');
       }
-      if (err.code === 'auth/invalid-credential') {
-        console.log('That email address  or password is invalid!');
-        setError('The email or password is invalid is invalid!');
-      }
-      // setError(err.message)
-      
+      else {
+      alert("press enter data")
+       }
+    } 
+   
+    
+  catch (err) {
+    console.error(err)
+    if (err.code === 'auth/wrong-password') {
+      console.log('The password is wrong!');
+      setError('The password is wrong!');
     }
-  };
-  
+    if (err.code === 'auth/invalid-credential') {
+      console.log('That email address  or password is invalid!');
+      setError('The email or password is invalid is invalid!');
+    }
+    // setError(err.message)
 
-  return (
-    <View style={styles.container}>
-      <View>
-        <Image style={styles.stretch} source={require('../../assets/logo.png')} />
-      </View>
-      <View>
-        <Text style={styles.heading}>Login To Your Account </Text>
-      </View>
-      <View style={styles.box1}>
-        <TextInput style={styles.input1} placeholder="Email" onChangeText={(text)=>{setEmail(text)}}></TextInput>
-      </View>
-      <View style={styles.box1}>
-        <TextInput
-          style={styles.input2}
-          placeholder="Password"
-          secureTextEntry={true}
-          onChangeText={(text)=>{setPassword(text)}}
-          ></TextInput>
-      </View>
-      <Text style={styles.errormsg}>{error}</Text>
+  }
+};
 
-     
-      <View style={styles.signin}>
-        <TouchableOpacity
-           onPress={() => Handlelogin()}
-          style={styles.btn}>
-          <Text>Sign in</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity 
-      onPress={() => handleNavigation('Forgot')}
-      >
-        <Text style={styles.pass}>Forgot Password?</Text>
-      </TouchableOpacity>
-      <View style={styles.bottom}>
-        <Text style={styles.dont}>Don't have an account?</Text>
-        <TouchableOpacity 
-        onPress={()=>handleNavigation("Signup")}
-        >
-          <Text style={styles.endtext}>Sign up</Text>
-        </TouchableOpacity>
-      </View>
+
+return (
+  <View style={styles.container}>
+    <View>
+      <Image style={styles.stretch} source={require('../../assets/logo.png')} />
     </View>
-  );
+    <View>
+      <Text style={styles.heading}>Login To Your Account </Text>
+    </View>
+    <View style={styles.box1}>
+      <TextInput style={styles.input1} placeholder="Email" onChangeText={(text) => { setEmail(text) }}></TextInput>
+    </View>
+    <View style={styles.box1}>
+      <TextInput
+        style={styles.input2}
+        placeholder="Password"
+        secureTextEntry={true}
+        onChangeText={(text) => { setPassword(text) }}
+      ></TextInput>
+    </View>
+    <Text style={styles.errormsg}>{error}</Text>
+
+
+    <View style={styles.signin}>
+      <TouchableOpacity
+        onPress={() => Handlelogin()}
+        style={styles.btn}>
+        <Text>Sign in</Text>
+      </TouchableOpacity>
+    </View>
+    <TouchableOpacity
+      onPress={() => handleNavigation('Forgot')}
+    >
+      <Text style={styles.pass}>Forgot Password?</Text>
+    </TouchableOpacity>
+    <View style={styles.bottom}>
+      <Text style={styles.dont}>Don't have an account?</Text>
+      <TouchableOpacity
+        onPress={() => handleNavigation("Signup")}
+      >
+        <Text style={styles.endtext}>Sign up</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+);
 }
 
 const styles = StyleSheet.create({
@@ -194,7 +198,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#629FFA',
     marginBottom: 10,
-    
+
   },
   bottom: {
     flexDirection: 'row',
@@ -210,8 +214,8 @@ const styles = StyleSheet.create({
   dont: {
     color: 'black',
   },
-  errormsg:{
-    textAlign:'center',
-    color:'red'
+  errormsg: {
+    textAlign: 'center',
+    color: 'red'
   }
 });

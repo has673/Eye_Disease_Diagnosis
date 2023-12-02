@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React , {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -27,6 +27,7 @@ import Signup from './Screen/User/Signup';
 import Forgot from './Screen/User/Forgotpass';
 import Db from './Screen/User/Db';
 import Home from './Screen/User/Home';
+import auth from '@react-native-firebase/auth';
 
 
 
@@ -36,16 +37,18 @@ const Stack = createNativeStackNavigator();
 
 
 function App(){
+  const[isloggedin, setIsloggedin] =useState(false)
+  auth().onAuthStateChanged((user)=>{
+    console.log(user)
+  })
   
   return (
   <NavigationContainer>
     <Stack.Navigator>
-      {/* <Stack.Screen name='Db' component={Db} options={({navigation})=>({
-        headerShown:false
-      })} />   */}
-      <Stack.Screen name='Login' component={Login} options={({navigation})=>({
+        <Stack.Screen name='Login' component={Login} options={({navigation})=>({
         headerShown:false
       })}/>
+     
       <Stack.Screen name='Home' component={Home}  options={({navigation})=>({
         headerShown:false
       })}/>
