@@ -9,7 +9,7 @@ import {
   Alert, // Import Alert for showing an error alert
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 export default function Signup({ navigation }) {
   const handleNavigation = (screenname) => {
     console.log(screenname);
@@ -33,7 +33,13 @@ export default function Signup({ navigation }) {
         if (isusercreated.user) {
           console.log('User created successfully!', isusercreated.user.uid);
           // Additional actions after successful signup (if any)
+          // await auth().currentUser.sendEmailVerification()
+          // Alert.alert("Please verify your email")
+          // await auth().currentUser.reload();
+       
           gotologin();
+        
+       
         } else {
           console.log('User creation failed.');
         }
@@ -79,7 +85,9 @@ export default function Signup({ navigation }) {
             placeholder="Password"
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
+           
           />
+         
         </View>
       </View>
       <Text style={styles.errormsg}>{error}</Text>

@@ -46,7 +46,15 @@ function App(){
   <NavigationContainer>
     <Stack.Navigator>
         <Stack.Screen name='Login' component={Login} options={({navigation})=>({
-        headerShown:false
+       title: 'Dashboard',
+       headerStyle: {
+         backgroundColor: '#629FFA',
+       },
+       headerTintColor: '#fff',
+       headerTitleStyle: {
+         fontWeight: 'bold',
+       },
+       headerTitleAlign: 'center',
       })}/>
      
       <Stack.Screen name='Home' component={Home}  options={({navigation})=>({

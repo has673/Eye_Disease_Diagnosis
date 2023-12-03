@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 export default function Login({ navigation }) {
   const handleNavigation = screenname => {
     console.log(screenname);
@@ -31,8 +32,8 @@ export default function Login({ navigation }) {
       );
       setError('');
       console.log(isUserLogin);
-      // setEmail('')
-      // setPassword('')
+      setEmail('')
+      setPassword('')
       
       navigation.navigate('Home', {
         email: isUserLogin.user.email,
