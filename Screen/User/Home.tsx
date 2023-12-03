@@ -12,7 +12,7 @@ const Home = ({navigation}) => {
         navigation.navigate(screenname);
       };
     const route = useRoute()
-    const {email , userid} = route.params
+    // const {email , userid} = route.params
  const handlelogout = async()=>{
   await  Auth().signOut
   console.log('logoeed out')
@@ -22,12 +22,13 @@ const Home = ({navigation}) => {
   return (
     <View>
       <Text>Home</Text>
-      <Text>Email:{email}</Text>
-      <Text>Id:{userid}</Text>
+      {/* <Text>Email:{email}</Text>
+      <Text>Id:{userid}</Text> */}
       <TouchableOpacity onPress={handlelogout}><Text> Logout </Text></TouchableOpacity>
       <Tab.Navigator screenOptions={{
         tabBarStyle:{
-          backgroundColor:"#629FFA"
+          backgroundColor:"#629FFA",
+          height:58
         }
       }}>
         <Tab.Screen name='Login ' component={Login}/>

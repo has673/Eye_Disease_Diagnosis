@@ -25,9 +25,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import Login from './Screen/User/Login';
 import Signup from './Screen/User/Signup';
 import Forgot from './Screen/User/Forgotpass';
-import Db from './Screen/User/Db';
+
 import Home from './Screen/User/Home';
 import auth from '@react-native-firebase/auth';
+import First from './Screen/First';
 
 
 
@@ -45,6 +46,10 @@ function App(){
   return (
   <NavigationContainer>
     <Stack.Navigator>
+    <Stack.Screen name='Splash' component={First} options={({navigation})=>({
+        headerShown:false
+      })}/>
+      
         <Stack.Screen name='Login' component={Login} options={({navigation})=>({
      
       headerShown:false
