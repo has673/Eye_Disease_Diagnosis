@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState  } from 'react';
 import {
   Text,
   View,
@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Alert
 } from 'react-native';
-import firestore from '@react-native-firebase/firestore';
+
 import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 export default function Login({ navigation }) {
