@@ -1,6 +1,8 @@
 import React from 'react';
 import { View ,Text,StyleSheet,Image} from 'react-native';
 import LottieView from 'lottie-react-native';
+import Auth from '@react-native-firebase/auth';
+
 
 function First({navigation}){
   const navigateToNextScreen = () => {
@@ -10,6 +12,7 @@ function First({navigation}){
   };
   
   setTimeout(navigateToNextScreen, 1000);
+  
     return(
         
         <View style={styles.container}>

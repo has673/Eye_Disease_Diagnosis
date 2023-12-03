@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import React ,{useEffect} from 'react'
 import { useRoute } from '@react-navigation/native';
 import Auth from '@react-native-firebase/auth';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './Login';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 const Tab = createBottomTabNavigator();
 
 const Home = ({navigation}) => {
@@ -13,29 +14,40 @@ const Home = ({navigation}) => {
       };
     const route = useRoute()
     // const {email , userid} = route.params
+  
+    useEffect(() => {
+      const unsubscribe = Auth().onAuthStateChanged((user) => {
+        if (!user) {
+          // If user is not authenticated, navigate to the login screen
+          navigation.navigate('Login');
+        }
+      });
+    
+      // Cleanup the subscription when the component unmounts
+      return unsubscribe;
+    }, [navigation]);
  const handlelogout = async()=>{
-  await  Auth().signOut
+  await  Auth().signOut()
   console.log('logoeed out')
 
  }
     
   return (
+    <>
     <View>
       <Text>Home</Text>
-      {/* <Text>Email:{email}</Text>
-      <Text>Id:{userid}</Text> */}
+       <Text>Email:{Auth().currentUser?.email}</Text>
+      <Text>Id:{Auth().currentUser?.uid}</Text> 
       <TouchableOpacity onPress={handlelogout}><Text> Logout </Text></TouchableOpacity>
-      <Tab.Navigator screenOptions={{
-        tabBarStyle:{
-          backgroundColor:"#629FFA",
-          height:58
-        }
-      }}>
-        <Tab.Screen name='Login ' component={Login}/>
-
-      </Tab.Navigator>
-    </View>
+      </View>
+     
+      </>
+    
   )
 }
-
+const styles = StyleSheet.create({
+  bottomtab:{
+  flex:1
+  }
+})
 export default Home

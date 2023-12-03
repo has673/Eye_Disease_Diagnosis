@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import firestore from '@react-native-firebase/firestore';
+
 export default function Signup({ navigation }) {
   const handleNavigation = (screenname) => {
     console.log(screenname);
@@ -19,6 +21,7 @@ export default function Signup({ navigation }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const[name , setName] = useState('')
   const [error, setError] = useState('');
 
   const Handlesignup = async () => {
@@ -31,6 +34,16 @@ export default function Signup({ navigation }) {
           console.log('User created successfully!', isusercreated.user.uid);
          
           await auth().currentUser.sendEmailVerification()
+
+          const Userdata = {
+            id : isusercreated.user.uid,
+            name: name,
+            email:email
+
+          }
+          await firestore().collection('User').doc(isusercreated.user.uid).set(Userdata)
+          
+          
           Alert.alert("Please verify your email")
           // await auth().currentUser.reload();
           navigation.navigate('Login')
@@ -67,6 +80,17 @@ export default function Signup({ navigation }) {
       <View style={styles.inputContainer}>
         <View>
           <Text style={styles.heading}> Signup </Text>
+        </View>
+
+
+      
+
+        <View style={styles.box1}>
+          <TextInput
+            style={styles.input2}
+            placeholder="Name"
+            onChangeText={(text) => setName(text)}
+          />
         </View>
         <View style={styles.box1}>
           <TextInput
