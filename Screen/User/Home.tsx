@@ -3,9 +3,8 @@ import React ,{useEffect} from 'react'
 import { useRoute } from '@react-navigation/native';
 import Auth from '@react-native-firebase/auth';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Login from './Login';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-const Tab = createBottomTabNavigator();
+
+
 
 const Home = ({navigation}) => {
     const handleNavigation = screenname => {

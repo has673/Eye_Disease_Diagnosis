@@ -1,18 +1,31 @@
-import React from 'react';
+import React  , {useEffect}from 'react';
 import { View ,Text,StyleSheet,Image} from 'react-native';
 import LottieView from 'lottie-react-native';
 import Auth from '@react-native-firebase/auth';
 
 
 function First({navigation}){
-  const navigateToNextScreen = () => {
-    const screenName = 'Login';
-    console.log(screenName);
-    navigation.navigate(screenName);
-  };
+  // const navigateToNextScreen = () => {
+  //   const screenName = 'Login';
+  //   console.log(screenName);
+  //   navigation.navigate(screenName);
+  // };
   
-  setTimeout(navigateToNextScreen, 1000);
-  
+  // setTimeout(navigateToNextScreen, 1000);
+  useEffect(() => {
+    const navigateToNextScreen = () => {
+      const isAuthenticated = Auth().currentUser;
+      const screenName = isAuthenticated ? 'Home' : 'Login';
+      navigation.navigate(screenName);
+    };
+
+    setTimeout(navigateToNextScreen, 1000);
+
+    // Clean up any resources or subscriptions if needed
+    return () => {
+      clearTimeout(navigateToNextScreen);
+    };
+  }, [navigation]);
     return(
         
         <View style={styles.container}>
