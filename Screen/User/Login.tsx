@@ -34,12 +34,21 @@ export default function Login({ navigation }) {
       console.log(isUserLogin);
       setEmail('')
       setPassword('')
+     if(isUserLogin.user.emailVerified){
       
       navigation.navigate('Home', {
         email: isUserLogin.user.email,
         uid: isUserLogin.user.uid,
         
       });
+
+     }
+     else{
+      Alert.alert("Check your Inbox for email Verification")
+      await auth().currentUser.sendEmailVerification()
+     }
+      
+     
     } 
       else {
       Alert.alert("press enter data")

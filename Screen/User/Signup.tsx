@@ -16,9 +16,6 @@ export default function Signup({ navigation }) {
     navigation.navigate(screenname);
   };
 
-  const gotologin = () => {
-    handleNavigation('Login');
-  };
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,12 +29,12 @@ export default function Signup({ navigation }) {
 
         if (isusercreated.user) {
           console.log('User created successfully!', isusercreated.user.uid);
-          // Additional actions after successful signup (if any)
-          // await auth().currentUser.sendEmailVerification()
-          // Alert.alert("Please verify your email")
+         
+          await auth().currentUser.sendEmailVerification()
+          Alert.alert("Please verify your email")
           // await auth().currentUser.reload();
-       
-          gotologin();
+          navigation.navigate('Login')
+          // gotologin();
         
        
         } else {
