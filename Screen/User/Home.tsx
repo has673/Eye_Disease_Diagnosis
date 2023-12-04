@@ -2,16 +2,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React ,{useEffect} from 'react'
 import { useRoute } from '@react-navigation/native';
 import Auth from '@react-native-firebase/auth';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useNavigation } from '@react-navigation/native';
+
 
 
 
 const Home = ({navigation}) => {
   
-   
-    
-    const route = useRoute()
+
     // const {email , userid} = route.params
   
     useEffect(() => {

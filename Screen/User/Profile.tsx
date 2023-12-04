@@ -3,10 +3,16 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react'
+import Auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 
 const Profile = () => {
   const navigation = useNavigation()
+  const handlelogout = async()=>{
+    await  Auth().signOut()
+    console.log('logoeed out')
+  
+   }
   return (
     <View>
       <View style={styles.containerLanguage}>
@@ -85,7 +91,7 @@ const Profile = () => {
 
       <View style={styles.myView}>
         <View>
-          <Ionicons  name='log-out-outline' size={25}/>
+          <Ionicons  name='log-out-outline' size={25} onPress={handlelogout}/>
         </View>
 
         <Text style={{fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20}}>
@@ -115,6 +121,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   container:{
-    marginTop:20
+    marginTop:0
   }
 });

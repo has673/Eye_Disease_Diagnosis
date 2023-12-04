@@ -37,7 +37,6 @@ export default function Signup({ navigation }) {
 
           const Userdata = {
             id : isusercreated.user.uid,
-            name: name,
             email:email
 
           }
@@ -85,13 +84,7 @@ export default function Signup({ navigation }) {
 
       
 
-        <View style={styles.box1}>
-          <TextInput
-            style={styles.input2}
-            placeholder="Name"
-            onChangeText={(text) => setName(text)}
-          />
-        </View>
+     
         <View style={styles.box1}>
           <TextInput
             style={styles.input2}
