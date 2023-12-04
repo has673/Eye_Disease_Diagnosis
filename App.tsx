@@ -15,7 +15,7 @@ import {
   Text,
   useColorScheme,
   View,
-  Button
+  
 
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
