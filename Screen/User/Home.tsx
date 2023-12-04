@@ -3,14 +3,14 @@ import React ,{useEffect} from 'react'
 import { useRoute } from '@react-navigation/native';
 import Auth from '@react-native-firebase/auth';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 const Home = ({navigation}) => {
-    const handleNavigation = screenname => {
-        console.log(screenname);
-        navigation.navigate(screenname);
-      };
+  
+   
+    
     const route = useRoute()
     // const {email , userid} = route.params
   
@@ -30,7 +30,7 @@ const Home = ({navigation}) => {
   console.log('logoeed out')
 
  }
-    
+ 
   return (
     <>
     <View>
@@ -38,7 +38,9 @@ const Home = ({navigation}) => {
        <Text>Email:{Auth().currentUser?.email}</Text>
       <Text>Id:{Auth().currentUser?.uid}</Text> 
       <TouchableOpacity onPress={handlelogout}><Text> Logout </Text></TouchableOpacity>
+      <Text onPress={()=>navigation.navigate('EditProfile')}>EDit</Text>
       </View>
+
      
       </>
     

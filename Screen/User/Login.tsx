@@ -36,7 +36,7 @@ export default function Login({ navigation }) {
       setPassword('')
      if(isUserLogin.user.emailVerified){
       
-      navigation.navigate('Home', {
+      navigation.navigate('Dashboard', {
         email: isUserLogin.user.email,
         uid: isUserLogin.user.uid,
         

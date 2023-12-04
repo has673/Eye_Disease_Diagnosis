@@ -15,7 +15,7 @@ function First({navigation}){
   useEffect(() => {
     const navigateToNextScreen = () => {
       const isAuthenticated = Auth().currentUser;
-      const screenName = isAuthenticated ? 'Home' : 'Login';
+      const screenName = isAuthenticated ? 'Dashboard' : 'Login';
       navigation.navigate(screenName);
     };
 

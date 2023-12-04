@@ -19,6 +19,7 @@ import {
 
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -29,19 +30,114 @@ import Forgot from './Screen/User/Forgotpass';
 import Home from './Screen/User/Home';
 import auth from '@react-native-firebase/auth';
 import First from './Screen/First';
+import EditProfile from './Screen/User/EditProfile';
+import Message from './Screen/User/Message';
+import Profile from './Screen/User/Profile';
 
 
 
 
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+function BottomTab(){
+  return(
+    <Tab.Navigator  screenOptions={{
+      tabBarInactiveTintColor: 'black',
+      tabBarActiveTintColor: 'white',
+      tabBarStyle: {
+        backgroundColor: '#629FFA',
+        height: 58,
+      },
+    }}>
+       <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          // title: 'Chat',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'inter',
+            fontSize: 28,
+          },
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Ionicons
+                name='home-outline'
+                size={28}
+             
+              />
+            </View>
+          ),
+        }}
+      />
+      
+        <Tab.Screen
+        name="messeging"
+        component={Message}
+        options={{
+          title: 'Chat',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'inter',
+            fontSize: 24,
+          },
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Ionicons
+                name='chatbox-outline'
+                size={25}
+             
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          title: 'Your Profile',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'inter',
+            fontSize: 24,
+          
+          },
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Ionicons
+                name='person-circle'
+                size={28}
+             
+              />
+            </View>
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  )
+}
 
 
 function App(){
-  const[isloggedin, setIsloggedin] =useState(false)
-  auth().onAuthStateChanged((user)=>{
-    console.log(user)
-  })
+ 
+ 
   
   return (
   <NavigationContainer>
@@ -55,17 +151,7 @@ function App(){
       headerShown:false
       })}/>
      
-      <Stack.Screen name='Home' component={Home}  options={({navigation})=>({
-          title: 'Dashboard',
-          headerStyle: {
-            backgroundColor: '#629FFA',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerTitleAlign: 'center',
-      })}/>
+     
       <Stack.Screen name='Signup' component={Signup} options={({ navigation }) => ({
             title: 'Signup',
             headerStyle: {
@@ -109,6 +195,32 @@ function App(){
             ),
           })}
       />
+       <Stack.Screen
+          name="Dashboard"
+          component={BottomTab}
+          options={{headerShown: false}}
+            
+        />
+      <Stack.Screen name='EditProfile' component={EditProfile} options={({ navigation }) => ({
+            title: 'Forgot Password',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}/>
     </Stack.Navigator>
   </NavigationContainer>
   );
