@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 
 export default function Detect() {
@@ -72,17 +73,18 @@ export default function Detect() {
         />
       </TouchableOpacity>
       <TouchableOpacity style={styles.downloadicon1}>
-        <Image
-          source={require('../../assets/ForwardIcon.png')}
-          style={{
-            alignSelf: 'center',
-            height: 0.15,
-            width: 0.15,
-            top: 10,
+      
+        <MaterialIcons name='arrow-forward-ios'
+        size={25} 
+        style={{
+          
+            
+            top: -3,
             padding: 15,
             paddingLeft: 5,
-          }}
-        />
+            right: -8,
+          
+        }}/>
       </TouchableOpacity>
     </View>
   );
