@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button , Alert } from 'react-native';
 import Auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 const EditProfile = () => {
+const navigation = useNavigation()
   const user = Auth().currentUser?.uid;
 
   const [userData, setUserData] = useState({
@@ -42,7 +44,8 @@ const EditProfile = () => {
       };
 
       await firestore().collection('User').doc(user).update(updateData);
-
+Alert.alert("Profile Updated")
+      navigation.goBack()
       console.log('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error.message);

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import {
   Text,
@@ -8,27 +9,29 @@ import {
   TextInput,
 } from 'react-native';
 
-export default function Check() {
+
+export default function Detect() {
+  const navigation = useNavigation()
+  const buttonData = [
+    { text: 'Detect Tumor' },
+    { text: 'Detect Epilepsy' },
+    { text: 'Detect Alzheimer' },
+  ];
   
   return (
     <View style={styles.container}>
-      <View style={styles.signin}>
-        <TouchableOpacity
-          onPress={() => handleNavigation('Tumor_det')}
-          style={styles.btn}>
-          <Text style={styles.textbtton}>Detect Tumor</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.signin}>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.textbtton}>Detect Epilepsy</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.signin}>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.textbtton}>Detect Alzheimer</Text>
-        </TouchableOpacity>
-      </View>
+   <View>
+      {buttonData.map((button, index) => (
+        <View style={styles.signin} key={index}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => handleButtonPress(button.text)}
+          >
+            <Text style={styles.textbtton}>{button.text}</Text>
+          </TouchableOpacity>
+        </View>
+      ))}
+    </View>
       <View style={styles.history}></View>
       <Text
         style={{
@@ -44,7 +47,7 @@ export default function Check() {
         <TouchableOpacity>
           <Text
             style={{
-              color: '#d34b4b',
+              color: '#629FFA',
               textAlign: 'center',
               alignItems: 'center',
               fontSize: 16,
@@ -57,7 +60,7 @@ export default function Check() {
       </View>
       <TouchableOpacity style={styles.downloadicon}>
         <Image
-          source={require('../assets/ReportIcon.png')}
+          source={require('../../assets/ReportIcon.png')}
           style={{
             alignSelf: 'center',
             height: 0.15,
@@ -70,7 +73,7 @@ export default function Check() {
       </TouchableOpacity>
       <TouchableOpacity style={styles.downloadicon1}>
         <Image
-          source={require('../assets/ForwardIcon.png')}
+          source={require('../../assets/ForwardIcon.png')}
           style={{
             alignSelf: 'center',
             height: 0.15,
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btn: {
-    backgroundColor: '#d34b4b',
+    backgroundColor: '#629FFA',
     width: 257,
     height: 67,
     borderRadius: 14,
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   downloadicon: {
-    backgroundColor: '#D34B4B',
+    backgroundColor: '#629FFA',
     borderRadius: 190,
     width: 52,
     height: 52,

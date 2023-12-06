@@ -33,6 +33,8 @@ import First from './Screen/First';
 import EditProfile from './Screen/User/EditProfile';
 import Message from './Screen/User/Message';
 import Profile from './Screen/User/Profile';
+import { Screen } from 'react-native-screens';
+import Detect from './Screen/User/Detect';
 
 
 
@@ -203,6 +205,26 @@ function App(){
         />
       <Stack.Screen name='EditProfile' component={EditProfile} options={({ navigation }) => ({
             title: 'Forgot Password',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}/>
+          <Stack.Screen name='Detect' component={Detect}  options={({ navigation }) => ({
+            title: 'Detect',
             headerStyle: {
               backgroundColor: '#629FFA',
             },
