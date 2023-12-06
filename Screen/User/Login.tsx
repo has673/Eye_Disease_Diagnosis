@@ -143,7 +143,6 @@ const styles = StyleSheet.create({
   },
   input1: {
     borderWidth: 1,
-    borderBottomWidth: 0,
     height: 54,
     width: 304,
     borderRadius: 14,
@@ -172,24 +171,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
-  checkbox: {
-    marginRight: 5,
-    height: 17,
-    marginBottom: 0.7,
-  },
-  checkboxInner: {
-    borderWidth: 1,
-    width: 15,
-    height: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  checkboxIcon: {
-    backgroundColor: '#629FFA',
-    width: 9,
-    height: 9,
-    borderRadius: 2,
-  },
+ 
+
   text: {
     fontSize: 15,
     color: 'black',

@@ -141,7 +141,6 @@ const styles = StyleSheet.create({
   },
   input2: {
     borderWidth: 1,
-    borderBottomWidth: 0,
     height: 54,
     width: 304,
     borderRadius: 14,
@@ -176,6 +175,7 @@ const styles = StyleSheet.create({
   },
   containerSignup: {
     marginTop: 120,
+    flex:1,
   },
   inputContainer: {
     marginTop: 10,
