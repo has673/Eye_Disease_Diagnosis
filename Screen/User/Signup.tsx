@@ -75,16 +75,7 @@ export default function Signup({ navigation }) {
       <View>
         <Image style={styles.stretch} source={require('../../assets/logo.png')} />
       </View>
-
       <View style={styles.inputContainer}>
-        <View>
-          <Text style={styles.heading}> Signup </Text>
-        </View>
-
-
-      
-
-     
         <View style={styles.box1}>
           <TextInput
             style={styles.input2}
@@ -99,9 +90,7 @@ export default function Signup({ navigation }) {
             placeholder="Password"
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
-           
-          />
-         
+                />
         </View>
       </View>
       <Text style={styles.errormsg}>{error}</Text>

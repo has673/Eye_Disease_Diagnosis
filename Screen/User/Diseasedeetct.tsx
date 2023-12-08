@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         padding: 8,
         height: 300,
         width: 250,
-        backgroundColor: '#d34b4b',
+        backgroundColor: '#629FFA',
         marginTop: 40,
         position: 'relative',
         borderRadius: 8,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
       },
       date: {
         flexDirection: 'row',
-        backgroundColor: '#d34b4b',
+        backgroundColor:'#629FFA',
         height: 22,
         borderRadius: 3,
         padding: 3,

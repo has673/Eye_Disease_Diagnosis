@@ -42,7 +42,7 @@ import Detect from './Screen/User/Detect';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-function BottomTab(){
+function Dashboard(){
   return(
     <Tab.Navigator  screenOptions={{
       tabBarInactiveTintColor: 'black',
@@ -199,7 +199,7 @@ function App(){
       />
        <Stack.Screen
           name="Dashboard"
-          component={BottomTab}
+          component={Dashboard}
           options={{headerShown: false}}
             
         />
@@ -223,7 +223,7 @@ function App(){
               />
             ),
           })}/>
-          <Stack.Screen name='Detect' component={Detect}  options={({ navigation }) => ({
+          {/* <Stack.Screen name='Detect' component={Detect}  options={({ navigation }) => ({
             title: 'Detect',
             headerStyle: {
               backgroundColor: '#629FFA',
@@ -242,7 +242,7 @@ function App(){
                 
               />
             ),
-          })}/>
+          })}/> */}
     </Stack.Navigator>
   </NavigationContainer>
   );

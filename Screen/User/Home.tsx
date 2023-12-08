@@ -1,16 +1,20 @@
 import { View, Text, TouchableOpacity, StyleSheet  , Image} from 'react-native'
+useNavigation
 
 
 import React ,{useEffect} from 'react'
 import Auth from '@react-native-firebase/auth';
 
+import { useNavigation } from '@react-navigation/native';
+
 
   
 
 
-const Home = ({navigation}) => {
+const Home = () => {
+  const navigation = useNavigation()
   
-    // const {email , userid} = route.params
+    
   
     useEffect(() => {
       const unsubscribe = Auth().onAuthStateChanged((user) => {
@@ -23,11 +27,7 @@ const Home = ({navigation}) => {
       // Cleanup the subscription when the component unmounts
       return unsubscribe;
     }, [navigation]);
- const handlelogout = async()=>{
-  await  Auth().signOut()
-  console.log('logoeed out')
-
- }
+ 
  
   return (
     <>
@@ -58,7 +58,7 @@ const Home = ({navigation}) => {
 
         <View style={styles.imageandbutton}>
           <View style={styles.BookAppointmentViewbtn}>
-            <TouchableOpacity>
+            {/* <TouchableOpacity onPress={navigation.navigate('Detect')}>
               <Text
                 style={{
                   color: 'white',
@@ -71,7 +71,7 @@ const Home = ({navigation}) => {
                 }}>
                 Check Now
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           <View>
