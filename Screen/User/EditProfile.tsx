@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TextInput, View, Button , Alert } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import Auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 
 const EditProfile = () => {
-const navigation = useNavigation()
+  const navigation = useNavigation();
   const user = Auth().currentUser?.uid;
 
   const [userData, setUserData] = useState({
@@ -18,10 +18,7 @@ const navigation = useNavigation()
 
   const getUser = async () => {
     try {
-      const documentSnapshot = await firestore()
-        .collection('User')
-        .doc(user)
-        .get();
+      const documentSnapshot = await firestore().collection('User').doc(user).get();
 
       if (documentSnapshot.exists) {
         const fetchedData = documentSnapshot.data();
@@ -44,8 +41,8 @@ const navigation = useNavigation()
       };
 
       await firestore().collection('User').doc(user).update(updateData);
-Alert.alert("Profile Updated")
-      navigation.goBack()
+      Alert.alert('Profile Updated');
+      navigation.goBack();
       console.log('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error.message);
@@ -59,7 +56,6 @@ Alert.alert("Profile Updated")
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Edit Profile</Text>
-
       <TextInput
         style={styles.input}
         placeholder="First Name"
@@ -92,7 +88,6 @@ Alert.alert("Profile Updated")
         keyboardType="numeric"
         onChangeText={(txt) => setUserData({ ...userData, phonenumber: txt })}
       />
-
       <Button title="Update Profile" onPress={handleUpdateProfile} />
     </View>
   );
@@ -115,7 +110,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 12,
     paddingHorizontal: 10,
-    textAlign:'center'
+    textAlign: 'center',
   },
 });
 

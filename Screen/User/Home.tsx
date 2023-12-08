@@ -37,7 +37,7 @@ const Home = ({navigation}) => {
        <Text>Email:{Auth().currentUser?.email}</Text>
       <Text>Id:{Auth().currentUser?.uid}</Text> 
       {/* <TouchableOpacity onPress={handlelogout}><Text> Logout </Text></TouchableOpacity> */}
-      <Text onPress={()=>navigation.navigate('EditProfile')}>EDit</Text>
+     
       <Text onPress={()=>navigation.navigate('Detect')}>Detect</Text>
       </View> 
        {/* <View style={styles.Dashboard}>

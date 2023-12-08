@@ -12,10 +12,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 export default function Login({ navigation }) {
-  const handleNavigation = screenname => {
-    console.log(screenname);
-    navigation.navigate(screenname);
-  };
+ 
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

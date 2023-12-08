@@ -204,7 +204,7 @@ function App(){
             
         />
       <Stack.Screen name='EditProfile' component={EditProfile} options={({ navigation }) => ({
-            title: 'Forgot Password',
+            title: 'Edit Profile',
             headerStyle: {
               backgroundColor: '#629FFA',
             },
