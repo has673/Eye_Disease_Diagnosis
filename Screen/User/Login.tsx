@@ -11,7 +11,10 @@ import {
 
 import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-export default function Login({ navigation }) {
+import { useNavigation } from '@react-navigation/native';
+
+export default function Login() {
+  const navigation = useNavigation()
  
 
   const [email, setEmail] = useState('');
@@ -33,11 +36,7 @@ export default function Login({ navigation }) {
       setPassword('')
      if(isUserLogin.user.emailVerified){
       
-      navigation.navigate('Dashboard', {
-        email: isUserLogin.user.email,
-        uid: isUserLogin.user.uid,
-        
-      });
+      navigation.navigate('Dashboard');
 
      }
      else{
@@ -105,14 +104,14 @@ return (
       </TouchableOpacity>
     </View>
     <TouchableOpacity
-      onPress={() => handleNavigation('Forgot')}
+      onPress={() => navigation.navigate('Forgot')}
     >
       <Text style={styles.pass}>Forgot Password?</Text>
     </TouchableOpacity>
     <View style={styles.bottom}>
       <Text style={styles.dont}>Don't have an account?</Text>
       <TouchableOpacity
-        onPress={() => handleNavigation("Signup")}
+        onPress={() => navigation.navigate("Signup")}
       >
         <Text style={styles.endtext}>Sign up</Text>
       </TouchableOpacity>
