@@ -1,13 +1,12 @@
 import { View, Text, TouchableOpacity, StyleSheet  , Image} from 'react-native'
-import {SearchBar} from 'react-native-elements';
+
 
 import React ,{useEffect} from 'react'
-import { useRoute } from '@react-navigation/native';
 import Auth from '@react-native-firebase/auth';
 
 
   
-const search = '';
+
 
 const Home = ({navigation}) => {
   
