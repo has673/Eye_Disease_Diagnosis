@@ -33,22 +33,10 @@ const Home = ({navigation}) => {
   return (
     <>
      <View>
-      <Text>Home</Text>
-       <Text>Email:{Auth().currentUser?.email}</Text>
-      <Text>Id:{Auth().currentUser?.uid}</Text> 
-      {/* <TouchableOpacity onPress={handlelogout}><Text> Logout </Text></TouchableOpacity> */}
      
-      <Text onPress={()=>navigation.navigate('Detect')}>Detect</Text>
       </View> 
-       {/* <View style={styles.Dashboard}>
-      <View style={styles.SearchBar}>
-        <SearchBar
-          style={{backgroundColor: 'white', color: 'white', borderRadius: 14}}
-          placeholder="Search"
-          onChangeText={this.updateSearch}
-          value={search}
-        />
-      </View>
+        <View style={styles.Dashboard}>
+
 
       <View style={styles.medicalcheck}>
         <Text
@@ -90,7 +78,7 @@ const Home = ({navigation}) => {
           <View>
             <Image
               style={styles.stretch}
-              source={require('../assets/image1.png')}
+              source={require('../../assets/image1.png')}
             />
           </View>
         </View>
@@ -111,7 +99,7 @@ const Home = ({navigation}) => {
         <TouchableOpacity>
           <Text
             style={{
-              color: '#d34b4b',
+              color: '#629FFA',
               textAlign: 'center',
               alignItems: 'center',
               fontSize: 16,
@@ -125,7 +113,7 @@ const Home = ({navigation}) => {
 
       <TouchableOpacity style={styles.downloadicon}>
         <Image
-          source={require('../assets/HistoryIcon.png')}
+          source={require('../../assets/HistoryIcon.png')}
           style={{
             alignSelf: 'center',
             height: 0.15,
@@ -138,7 +126,7 @@ const Home = ({navigation}) => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.downloadicon1}>
         <Image
-          source={require('../assets/ForwardIcon.png')}
+          source={require('../../assets/ForwardIcon.png')}
           style={{
             alignSelf: 'center',
             height: 0.15,
@@ -165,7 +153,7 @@ const Home = ({navigation}) => {
         <TouchableOpacity>
           <Text
             style={{
-              color: '#d34b4b',
+              color: '#629FFA',
               textAlign: 'center',
               alignItems: 'center',
               fontSize: 16,
@@ -178,7 +166,7 @@ const Home = ({navigation}) => {
       </View>
       <TouchableOpacity style={styles.downloadicon}>
         <Image
-          source={require('../assets/ReportIcon.png')}
+          source={require('../../assets/ReportIcon.png')}
           style={{
             alignSelf: 'center',
             height: 0.15,
@@ -191,7 +179,7 @@ const Home = ({navigation}) => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.downloadicon1}>
         <Image
-          source={require('../assets/ForwardIcon.png')}
+          source={require('../../assets/ForwardIcon.png')}
           style={{
             alignSelf: 'center',
             height: 0.15,
@@ -202,7 +190,7 @@ const Home = ({navigation}) => {
           }}
         />
       </TouchableOpacity>
-    </View> */}
+    </View> 
 
      
       </>
@@ -223,11 +211,12 @@ const styles = StyleSheet.create({
   Dashboard: {
     flexDirection: 'column',
     backgroundColor: 'white',
+    flex:1,
   },
 
   medicalcheck: {
     height: 160,
-    backgroundColor: '#d34b4b',
+    backgroundColor: '#629FFA',
     marginTop: 80,
     marginLeft: 25,
     marginRight: 25,
@@ -254,7 +243,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   downloadicon: {
-    backgroundColor: '#D34B4B',
+    backgroundColor: '#629FFA',
     borderRadius: 190,
     width: 52,
     height: 52,
