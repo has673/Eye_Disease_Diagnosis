@@ -7,6 +7,7 @@ import storage from '@react-native-firebase/storage';
 import DocumentPicker from 'react-native-document-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const EditProfile = () => {
   const navigation = useNavigation();
@@ -134,6 +135,7 @@ const EditProfile = () => {
           justifyContent: 'space-around',
         }}>
         <TouchableOpacity  onPress={pickImage}  style={{marginBottom:10 , width:25 }}><Ionicons size={25} name='add' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
+        <TouchableOpacity  onPress={uploadImage} style={{marginBottom:10 , width:25 }} ><MaterialIcons size={25} name='delete-outline' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
         <TouchableOpacity  onPress={uploadImage} style={{marginBottom:10 , width:25 }} ><Feather size={25} name='upload' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
       </View>
       <TextInput
