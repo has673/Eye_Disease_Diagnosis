@@ -126,7 +126,7 @@ const EditProfile = () => {
           style={{height: 200, width: 200, marginBottom: 20, alignSelf: 'center' ,  borderRadius:130 ,  borderWidth: 2 , borderColor:"black" }}
         />
       ) : (
-        <Text>No Image Found</Text>
+        <Text style={{ alignSelf: 'center' , marginBottom: 20,}}>No Image Found</Text>
       )} 
        <View
         style={{
