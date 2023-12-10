@@ -1,24 +1,61 @@
 import { StyleSheet, Text, View ,TouchableOpacity,Image} from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import storage from '@react-native-firebase/storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import React from 'react'
+import firestore from '@react-native-firebase/firestore';
+import React, { useEffect  , useState} from 'react'
 import Auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 
+
 const Profile = () => {
+  const [userData, setUserData] = useState({
+    fname: '',
+    lname: '',
+    city: '',
+    age: '',
+    phonenumber: '',
+    profileImage: '',
+  });
+  
   const navigation = useNavigation()
+  const user = Auth().currentUser?.uid;
   const handlelogout = async()=>{
     await  Auth().signOut()
     console.log('logoeed out')
   
    }
+   useEffect(() => {
+    getUser();
+  }, []);
+
+   const getUser = async () => {
+    try {
+      const documentSnapshot = await firestore().collection('User').doc(user).get();
+
+      if (documentSnapshot.exists) {
+        const fetchedData = documentSnapshot.data();
+        console.log('User Data', fetchedData);
+        setUserData(fetchedData || {});
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error.message);
+    }
+  };
   return (
     <View>
       <View style={styles.containerLanguage}>
       <View style={styles.ProfileImage}>
-        <Image source={require('../../assets/ProfileImage.png')} />
+          {userData.profileImage ? (
+        <Image
+          source={{ uri: userData.profileImage }}
+          style={{ height: 200, width: 200, marginBottom: 20, alignSelf: 'center' ,  borderRadius:130 ,  borderWidth: 2 , borderColor:"black"}}
+        />
+      ) : (
+        <Text>No Image Found</Text>
+      )}
       </View>
+      <Text style={{textAlign:"center" , fontWeight:"bold" , color:"black" , fontSize:20}}>{`${userData.fname} ${userData.lname}`}</Text>
       <View style={styles.container}>
       <View style={styles.myView}>
   <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -110,7 +147,7 @@ export default Profile
 
 const styles = StyleSheet.create({
   ProfileImage: {
-    marginLeft: 120,
+    
     marginTop: 40,
   },
 

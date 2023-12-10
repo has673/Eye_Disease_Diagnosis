@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, Alert, Image } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, Alert, Image, TouchableOpacity } from 'react-native';
 import Auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
@@ -19,9 +19,7 @@ const EditProfile = () => {
     city: '',
     age: '',
     phonenumber: '',
-  
-
-    
+    // profileImage: imgDownloadUrl || ''   
   });
 
   const getUser = async () => {
@@ -46,7 +44,7 @@ const EditProfile = () => {
         city: userData.city || '',
         age: userData.age || '',
         phonenumber: userData.phonenumber || '',
-      
+        // profileImage: userData.profileImage || '',
       };
       if (imageData) {
         // Upload the image and get the download URL
@@ -73,7 +71,16 @@ const EditProfile = () => {
   useEffect(() => {
     getUser();
   }, []);
-
+  // useEffect(() => {
+  //   // This effect runs when imgDownloadUrl changes
+  //   if (imgDownloadUrl) {
+  //     // Update userData with the new image URL
+  //     setUserData((prevData) => ({
+  //       ...prevData,
+  //       profileImage: imgDownloadUrl,
+  //     }));
+  //   }
+  // }, [imgDownloadUrl]);
   const pickImage = async () => {
     try {
       const response = await DocumentPicker.pickSingle({
@@ -104,15 +111,16 @@ const EditProfile = () => {
     } catch (err) {
       console.error('Error uploading image:', err.message);
     }
+  
   };
-
+  console.log('imgDownloadUrl:', imgDownloadUrl);
   return (
     <View style={styles.container}>
      
       {imgDownloadUrl? (
         <Image
           source={{ uri: imgDownloadUrl }}
-          style={{ height: 200, width: 200, marginBottom: 20 , alignSelf:'center' }}
+          style={{height: 200, width: 200, marginBottom: 20, alignSelf: 'center' ,  borderRadius:130 ,  borderWidth: 2 , borderColor:"black" }}
         />
       ) : (
         <Text>No Image Found</Text>
@@ -158,7 +166,8 @@ const EditProfile = () => {
         keyboardType="numeric"
         onChangeText={(txt) => setUserData({ ...userData, phonenumber: txt })}
       />
-      <Button title="Update Profile" onPress={handleUpdateProfile} />
+      <TouchableOpacity style={styles.update} onPress={handleUpdateProfile} ><Text style={{color:"azure" ,   justifyContent: 'center',
+    alignItems: 'center',}}>Update</Text></TouchableOpacity>
     </View>
   );
 };
@@ -182,6 +191,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     textAlign: 'center',
   },
+  update:{
+    backgroundColor: '#629FFA',
+    width: 236,
+    height: 53,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+    alignSelf:'center'
+  }
 });
 
 export default EditProfile;
