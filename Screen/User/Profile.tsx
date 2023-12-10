@@ -49,10 +49,10 @@ const Profile = () => {
           {userData.profileImage ? (
         <Image
           source={{ uri: userData.profileImage }}
-          style={{ height: 200, width: 200, marginBottom: 20, alignSelf: 'center' ,  borderRadius:130 ,  borderWidth: 2 , borderColor:"black"}}
+          style={{ height: 200, width: 200, marginBottom: 20, alignSelf: 'center' ,  borderRadius:130 ,  borderWidth: 2 , borderColor:"azure"}}
         />
       ) : (
-        <Text>No Image Found</Text>
+        <Text  style={{ marginBottom: 20, alignSelf: 'center' }}>No Image Found</Text>
       )}
       </View>
       <Text style={{textAlign:"center" , fontWeight:"bold" , color:"black" , fontSize:20}}>{`${userData.fname} ${userData.lname}`}</Text>
