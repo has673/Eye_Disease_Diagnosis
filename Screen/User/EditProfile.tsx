@@ -19,6 +19,9 @@ const EditProfile = () => {
     city: '',
     age: '',
     phonenumber: '',
+  
+
+    
   });
 
   const getUser = async () => {
@@ -37,14 +40,26 @@ const EditProfile = () => {
 
   const handleUpdateProfile = async () => {
     try {
-      const updateData = {
+      let updateData = {
         fname: userData.fname || '',
         lname: userData.lname || '',
         city: userData.city || '',
         age: userData.age || '',
         phonenumber: userData.phonenumber || '',
-        profileImage: imgDownloadUrl || ''
+      
       };
+      if (imageData) {
+        // Upload the image and get the download URL
+        const reference = storage().ref(`/profile/${imageData.name}`);
+        await reference.putFile(imageData.uri);
+        const url = await reference.getDownloadURL();
+
+        // Add the image download URL to the updateData
+        updateData = {
+          ...updateData,
+          profileImage: url,
+        };
+      }
 
       await firestore().collection('User').doc(user).update(updateData);
       Alert.alert('Profile Updated');
@@ -59,50 +74,50 @@ const EditProfile = () => {
     getUser();
   }, []);
 
-  // const pickImage = async () => {
-  //   try {
-  //     const response = await DocumentPicker.pickSingle({
-  //       type: [DocumentPicker.types.images],
-  //     });
-  //     console.log(response);
-  //     setImageData(response);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const pickImage = async () => {
+    try {
+      const response = await DocumentPicker.pickSingle({
+        type: [DocumentPicker.types.images],
+      });
+      console.log(response);
+      setImageData(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  // const uploadImage = async () => {
-  //   try {
-  //     if (!imageData || !imageData.uri) {
-  //       Alert.alert('No image selected');
-  //       return;
-  //     }
+  const uploadImage = async () => {
+    try {
+      if (!imageData || !imageData.uri) {
+        Alert.alert('No image selected');
+        return;
+      }
 
-  //     const reference = storage().ref(`/profile/${imageData.name}`);
-  //     await reference.putFile(imageData.uri);
+      const reference = storage().ref(`/profile/${imageData.name}`);
+      await reference.putFile(imageData.uri);
 
-  //     setFullImgRefPath(reference.fullPath);
-  //     const url = await reference.getDownloadURL();
-  //     setImgDownloadUrl(url);
+      setFullImgRefPath(reference.fullPath);
+      const url = await reference.getDownloadURL();
+      setImgDownloadUrl(url);
 
-  //     Alert.alert('Image Uploaded Successfully');
-  //   } catch (err) {
-  //     console.error('Error uploading image:', err.message);
-  //   }
-  // };
+      Alert.alert('Image Uploaded Successfully');
+    } catch (err) {
+      console.error('Error uploading image:', err.message);
+    }
+  };
 
   return (
     <View style={styles.container}>
      
-      {/* {imageData ? (
+      {imgDownloadUrl? (
         <Image
-          source={{ uri: imageData.uri }}
+          source={{ uri: imgDownloadUrl }}
           style={{ height: 200, width: 200, marginBottom: 20 , alignSelf:'center' }}
         />
       ) : (
         <Text>No Image Found</Text>
-      )} */}
-      {/* <View
+      )} 
+       <View
         style={{
           width: '100%',
           flexDirection: 'row',
@@ -110,7 +125,7 @@ const EditProfile = () => {
         }}>
         <Button title="Select Image" onPress={pickImage} />
         <Button title="Upload Image" onPress={uploadImage} />
-      </View> */}
+      </View>
       <TextInput
         style={styles.input}
         placeholder="First Name"

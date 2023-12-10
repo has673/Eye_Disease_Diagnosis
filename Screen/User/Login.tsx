@@ -116,6 +116,11 @@ return (
         <Text style={styles.endtext}>Sign up</Text>
       </TouchableOpacity>
     </View>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('Forgot')}
+    >
+      <Text style={styles.doc}>Registor as Doctor</Text>
+      </TouchableOpacity>
   </View>
 );
 }
@@ -124,16 +129,16 @@ const styles = StyleSheet.create({
   stretch: {
     width: 335,
     height: 186,
-    marginTop: -65,
-    marginBottom: -60,
+    marginTop: -100,
+   
     alignSelf: 'center',
   },
   heading: {
     textAlign: 'center',
     fontSize: 24,
     fontWeight: 'bold',
-    marginTop: 19,
-    marginBottom: 19,
+    marginTop: -10,
+    
     fontFamily: 'poppins',
     color: 'black',
   },
@@ -161,12 +166,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  checkboxcontainer: {
-    marginTop: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
+
  
 
   text: {
@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15,
     marginBottom: 10,
     fontSize: 16,
   },
@@ -211,5 +210,12 @@ const styles = StyleSheet.create({
   errormsg: {
     textAlign: 'center',
     color: 'red'
-  }
+  },
+  doc: {
+    textAlign: 'center',
+    color: '#629FFA',
+    marginTop: 10,
+    fontWeight:'bold'
+
+  },
 });

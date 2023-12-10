@@ -112,20 +112,12 @@ export default function Signup({ navigation }) {
 
 
 const styles = StyleSheet.create({
-  heading: {
-    textAlign: 'center',
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 10,
-    marginBottom: 19,
-    fontFamily: 'poppins',
-    color: 'black',
-  },
+
   stretch: {
     width: 335,
     height: 186,
-    marginTop: -65,
-    marginBottom: -60,
+  
+    marginTop: -100,
     alignSelf: 'center',
   },
   input2: {
@@ -148,12 +140,12 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: '#629FFA',
-    width: 304,
-    height: 54,
+    width: 236,
+    height: 53,
     borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
+
     marginBottom: 10,
     color: 'azure',
   },
