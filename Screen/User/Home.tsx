@@ -50,27 +50,27 @@ const Home = () => {
           Medical Checks !
         </Text>
 
-        <Text style={{color: 'white', marginTop: 10, alignItems: 'center'  , marginLeft:18}}>
+        <Text style={{color: 'white', marginTop: 10  , marginLeft:18}}>
          Check your eye regularly 
         </Text>
-        <Text style={{color: 'white',   marginLeft:18}}> to avoid any mishap</Text>
+        <Text style={{color: 'white',    marginLeft:18}}> to avoid any mishap</Text>
 
         <View style={styles.imageandbutton}>
           <View style={styles.BookAppointmentViewbtn}>
           {/* onPress={navigation.navigate('Detect')} */}
-            {/* <TouchableOpacity >
+            <TouchableOpacity >
               <Text
                 style={{
                   color: 'white',
-                  textAlign: 'center',
-                  alignItems: 'center',
+                  marginLeft:21,
                   fontWeight: 'bold',
                   fontSize: 16,
-                  padding: 15,
+                  marginTop:15
+                  
                 }}>
                 Check Now
               </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
 
           <View>
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   stretch: {
     width: 105,
     height: 110,
-    marginLeft: 225,
+    marginLeft: 125,
     marginBottom: 60,
     marginTop: -60,
   },
