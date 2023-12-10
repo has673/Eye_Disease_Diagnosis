@@ -117,7 +117,7 @@ return (
       </TouchableOpacity>
     </View>
     <TouchableOpacity
-      onPress={() => navigation.navigate('Forgot')}
+      onPress={() => navigation.navigate('Registor')}
     >
       <Text style={styles.doc}>Registor as Doctor</Text>
       </TouchableOpacity>

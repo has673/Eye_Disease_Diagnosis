@@ -35,6 +35,7 @@ import Message from './Screen/User/Message';
 import Profile from './Screen/User/Profile';
 import { Screen } from 'react-native-screens';
 import Detect from './Screen/User/Detect';
+import Registor from './Screen/Doctor/Registor';
 
 
 
@@ -243,6 +244,25 @@ function App(){
               />
             ),
           })}/> */}
+                <Stack.Screen name='Registor' component={Registor} options={({ navigation }) => ({
+            title: 'Registor as Doctor',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
     </Stack.Navigator>
   </NavigationContainer>
   );
