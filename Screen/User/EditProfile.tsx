@@ -5,6 +5,8 @@ import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import storage from '@react-native-firebase/storage';
 import DocumentPicker from 'react-native-document-picker';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 
 const EditProfile = () => {
   const navigation = useNavigation();
@@ -131,8 +133,8 @@ const EditProfile = () => {
           flexDirection: 'row',
           justifyContent: 'space-around',
         }}>
-        <Button title="Select Image" onPress={pickImage} />
-        <Button title="Upload Image" onPress={uploadImage} />
+        <TouchableOpacity  onPress={pickImage}  style={{marginBottom:10 , width:25 }}><Ionicons size={25} name='add' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
+        <TouchableOpacity  onPress={uploadImage} style={{marginBottom:10 , width:25 }} ><Feather size={25} name='upload' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
       </View>
       <TextInput
         style={styles.input}
@@ -184,12 +186,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   input: {
-    height: 40,
+    height: 35,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 12,
     paddingHorizontal: 10,
     textAlign: 'center',
+    backgroundColor: '#629FFA',
+    borderRadius:14,
   },
   update:{
     backgroundColor: '#629FFA',
