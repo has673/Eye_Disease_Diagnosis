@@ -50,15 +50,15 @@ const Home = () => {
           Medical Checks !
         </Text>
 
-        <Text style={{color: 'white', marginTop: 10, alignItems: 'center'}}>
-          {' '}
-          Check your health condition{' '}
+        <Text style={{color: 'white', marginTop: 10, alignItems: 'center'  , marginLeft:18}}>
+         Check your eye regularly 
         </Text>
-        <Text style={{color: 'white'}}> regularly to avoid any mishap</Text>
+        <Text style={{color: 'white',   marginLeft:18}}> to avoid any mishap</Text>
 
         <View style={styles.imageandbutton}>
           <View style={styles.BookAppointmentViewbtn}>
-            {/* <TouchableOpacity onPress={navigation.navigate('Detect')}>
+          {/* onPress={navigation.navigate('Detect')} */}
+            {/* <TouchableOpacity >
               <Text
                 style={{
                   color: 'white',
@@ -66,8 +66,7 @@ const Home = () => {
                   alignItems: 'center',
                   fontWeight: 'bold',
                   fontSize: 16,
-                  paddingTop: 15,
-                  paddingLeft: 15,
+                  padding: 15,
                 }}>
                 Check Now
               </Text>
@@ -197,15 +196,7 @@ const Home = () => {
   )
 }
 const styles = StyleSheet.create({
-  SearchBar: {
-    backgroundColor: 'white',
-    color: 'white',
-    marginTop: 40,
-    marginLeft: 20,
-    marginRight: 20,
-    height: 20,
-    borderRadius: 40,
-  },
+
 
   Dashboard: {
     flexDirection: 'column',
@@ -216,7 +207,7 @@ const styles = StyleSheet.create({
   medicalcheck: {
     height: 160,
     backgroundColor: '#629FFA',
-    marginTop: 80,
+    marginTop: 30,
     marginLeft: 25,
     marginRight: 25,
     borderRadius: 10,
@@ -225,7 +216,7 @@ const styles = StyleSheet.create({
   stretch: {
     width: 105,
     height: 110,
-    marginLeft: 135,
+    marginLeft: 225,
     marginBottom: 60,
     marginTop: -60,
   },
