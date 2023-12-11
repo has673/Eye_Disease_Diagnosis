@@ -13,7 +13,7 @@ import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Login() {
+export default function DoctorLogin() {
   const navigation = useNavigation()
  
 
@@ -23,7 +23,7 @@ export default function Login() {
 
   const Handlelogin = async () => {
     try {
-      console.log("login function")
+      console.log("login  doctor function")
       if (email.length > 0 && password.length > 0) {
        
       const isUserLogin = await auth().signInWithEmailAndPassword(
@@ -36,7 +36,7 @@ export default function Login() {
       setPassword('')
      if(isUserLogin.user.emailVerified){
       
-      navigation.navigate('Dashboard');
+      navigation.navigate('DoctorDashboard');
 
      }
      else{
@@ -108,14 +108,14 @@ return (
     >
       <Text style={styles.pass}>Forgot Password?</Text>
     </TouchableOpacity>
-    <View style={styles.bottom}>
+    {/* <View style={styles.bottom}>
       <Text style={styles.dont}>Don't have an account?</Text>
       <TouchableOpacity
         onPress={() => navigation.navigate("Signup")}
       >
         <Text style={styles.endtext}>Sign up</Text>
       </TouchableOpacity>
-    </View>
+    </View> */}
     <TouchableOpacity
       onPress={() => navigation.navigate('Registor')}
     >

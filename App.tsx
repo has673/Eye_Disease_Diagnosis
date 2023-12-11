@@ -36,6 +36,9 @@ import Profile from './Screen/User/Profile';
 import { Screen } from 'react-native-screens';
 import Detect from './Screen/User/Detect';
 import Registor from './Screen/Doctor/Registor';
+import DoctorLogin from './Screen/Doctor/DoctorLogin';
+import DocProfile from './Screen/Doctor/DocProfile';
+import DocEdit from './Screen/Doctor/DocEdit';
 
 
 
@@ -43,6 +46,99 @@ import Registor from './Screen/Doctor/Registor';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+function DoctorDashboard(){
+  return(
+    <Tab.Navigator  screenOptions={{
+      tabBarInactiveTintColor: 'black',
+      tabBarActiveTintColor: 'white',
+      tabBarStyle: {
+        backgroundColor: '#629FFA',
+        height: 58,
+      },
+    }}>
+       <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          // title: 'Chat',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'inter',
+            fontSize: 28,
+          },
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Ionicons
+                name='home-outline'
+                size={28}
+             
+              />
+            </View>
+          ),
+        }}
+      />
+      
+        <Tab.Screen
+        name="messeging"
+        component={Message}
+        options={{
+          title: 'Chat',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'inter',
+            fontSize: 24,
+          },
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Ionicons
+                name='chatbox-outline'
+                size={25}
+             
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="DocProfile"
+        component={DocProfile}
+        options={{
+          title: 'Your Profile',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'inter',
+            fontSize: 24,
+          
+          },
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Ionicons
+                name='person-circle'
+                size={28}
+             
+              />
+            </View>
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  )
+}
 function Dashboard(){
   return(
     <Tab.Navigator  screenOptions={{
@@ -224,7 +320,7 @@ function App(){
               />
             ),
           })}/>
-          {/* <Stack.Screen name='Detect' component={Detect}  options={({ navigation }) => ({
+           {/* <Stack.Screen name='Detect' component={Detect}  options={({ navigation }) => ({
             title: 'Detect',
             headerStyle: {
               backgroundColor: '#629FFA',
@@ -243,7 +339,7 @@ function App(){
                 
               />
             ),
-          })}/> */}
+          })}/>  */}
                 <Stack.Screen name='Registor' component={Registor} options={({ navigation }) => ({
             title: 'Registor as Doctor',
             headerStyle: {
@@ -263,6 +359,40 @@ function App(){
                 
               />
             ),
+          })}/>
+           <Stack.Screen
+          name="DoctorLogin"
+          component={DoctorLogin}
+          options={{headerShown: false}}
+            
+        />
+          <Stack.Screen
+          name="DoctorDashboard"
+          component={DoctorDashboard}
+          options={{headerShown: false}}
+            
+        />
+         <Stack.Screen name='DocEdit' component={DocEdit} options={({ navigation }) => ({
+            title: 'Edit Profile',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}/>
+          
     </Stack.Navigator>
   </NavigationContainer>
   );
