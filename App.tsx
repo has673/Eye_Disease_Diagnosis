@@ -39,6 +39,7 @@ import Registor from './Screen/Doctor/Registor';
 import DoctorLogin from './Screen/Doctor/DoctorLogin';
 import DocProfile from './Screen/Doctor/DocProfile';
 import DocEdit from './Screen/Doctor/DocEdit';
+import Check from './Screen/User/Check';
 
 
 
@@ -300,6 +301,26 @@ function App(){
           options={{headerShown: false}}
             
         />
+          {/* <Stack.Screen name='Detect' component={Detect}  options={({ navigation }) => ({
+            title: 'Detect',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}/>  */}
       <Stack.Screen name='EditProfile' component={EditProfile} options={({ navigation }) => ({
             title: 'Edit Profile',
             headerStyle: {
@@ -320,26 +341,7 @@ function App(){
               />
             ),
           })}/>
-           {/* <Stack.Screen name='Detect' component={Detect}  options={({ navigation }) => ({
-            title: 'Detect',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>  */}
+         
                 <Stack.Screen name='Registor' component={Registor} options={({ navigation }) => ({
             title: 'Registor as Doctor',
             headerStyle: {
@@ -374,6 +376,26 @@ function App(){
         />
          <Stack.Screen name='DocEdit' component={DocEdit} options={({ navigation }) => ({
             title: 'Edit Profile',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}/>
+           <Stack.Screen name='Check' component={Check} options={({ navigation }) => ({
+            title: 'Diagnose',
             headerStyle: {
               backgroundColor: '#629FFA',
             },

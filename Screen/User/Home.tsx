@@ -57,8 +57,8 @@ const Home = () => {
 
         <View style={styles.imageandbutton}>
           <View style={styles.BookAppointmentViewbtn}>
-          {/* onPress={navigation.navigate('Detect')} */}
-            <TouchableOpacity >
+          
+            <TouchableOpacity onPress={()=>navigation.navigate('Check')}>
               <Text
                 style={{
                   color: 'white',
@@ -67,7 +67,7 @@ const Home = () => {
                   fontSize: 16,
                   marginTop:15
                   
-                }}>
+                }} >
                 Check Now
               </Text>
             </TouchableOpacity>

@@ -13,8 +13,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export default function Detect() {
   const navigation = useNavigation()
+  const handleButtonPress =()=>{
+    navigation.navigate('Check')
+  }
   const buttonData = [
-    { text: 'Detect Tumor' },
+    { text: 'Detect DR' },
     { text: 'Detect Epilepsy' },
     { text: 'Detect Alzheimer' },
   ];
