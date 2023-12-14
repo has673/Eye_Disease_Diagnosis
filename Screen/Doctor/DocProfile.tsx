@@ -63,7 +63,7 @@ const DocProfile = () => {
       <MaterialCommunityIcons name='account-edit-outline' size={29} />
     </View>
 
-    <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 20, marginTop: 5 }}>
+    <Text style={{ fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20, marginTop: 5 }}>
       Edit Profile
     </Text>
   </TouchableOpacity>
@@ -77,7 +77,7 @@ const DocProfile = () => {
           <Ionicons name='notifications-outline' size={25}/>
         </View>
         <TouchableOpacity>
-          <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 20}}>
+          <Text style={{fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20}}>
             Notification
           </Text>
         </TouchableOpacity>
@@ -87,17 +87,7 @@ const DocProfile = () => {
         <Image source={require('../../assets/Line.png')} />
       </View>
 
-      <View style={styles.myView}>
-        <View>
-          <MaterialCommunityIcons  name='doctor' size={25}/>
-        </View>
-
-        <Text style={{fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20}}>
-          Doctor Registor
-        </Text>
-
-      
-      </View>
+   
       <View style={{paddingTop: 10, paddingLeft: 17}}>
         <Image source={require('../../assets/Line.png')} />
       </View>

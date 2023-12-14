@@ -121,6 +121,10 @@ return (
     >
       <Text style={styles.doc} >Registor as Doctor</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('DoctorLogin')}>
+        <Text style={styles.doc}>Doctor Login</Text>
+      </TouchableOpacity>
+      
   </View>
 );
 }

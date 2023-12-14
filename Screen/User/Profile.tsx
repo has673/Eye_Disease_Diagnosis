@@ -63,7 +63,7 @@ const Profile = () => {
       <MaterialCommunityIcons name='account-edit-outline' size={29} />
     </View>
 
-    <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 20, marginTop: 5 }}>
+    <Text style={{ fontSize: 20, fontWeight: 'bold',  color:"black", marginLeft: 20, marginTop: 5 }}>
       Edit Profile
     </Text>
   </TouchableOpacity>
@@ -77,7 +77,7 @@ const Profile = () => {
           <Ionicons name='notifications-outline' size={25}/>
         </View>
         <TouchableOpacity>
-          <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 20}}>
+          <Text style={{fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20}}>
             Notification
           </Text>
         </TouchableOpacity>

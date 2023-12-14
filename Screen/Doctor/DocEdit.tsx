@@ -41,51 +41,51 @@ const DocEdit = () => {
     }
   };
 
-//   const handleUpdateProfile = async () => {
-//     try {
-//       let updateData = {
-//         fname: userData.fname || '',
-//         lname: userData.lname || '',
-//         city: userData.city || '',
-//         age: userData.age || '',
-//         phonenumber: userData.phonenumber || '',
-//         // profileImage: userData.profileImage || '',
-//       };
-//       if (imageData) {
-//         // Upload the image and get the download URL
-//         const reference = storage().ref(`/profile/${imageData.name}`);
-//         await reference.putFile(imageData.uri);
-//         const url = await reference.getDownloadURL();
+  const handleUpdateProfile = async () => {
+    try {
+      let updateData = {
+        fname: userData.fname || '',
+        lname: userData.lname || '',
+        city: userData.city || '',
+        age: userData.age || '',
+        phonenumber: userData.phonenumber || '',
+        profileImage: userData.profileImage || '',
+      };
+      if (imageData) {
+        // Upload the image and get the download URL
+        const reference = storage().ref(`/profile/${imageData.name}`);
+        await reference.putFile(imageData.uri);
+        const url = await reference.getDownloadURL();
 
-//         // Add the image download URL to the updateData
-//         updateData = {
-//           ...updateData,
-//           profileImage: url,
-//         };
-//       }
+        // Add the image download URL to the updateData
+        updateData = {
+          ...updateData,
+          profileImage: url,
+        };
+      }
 
-//       await firestore().collection('User').doc(user).update(updateData);
-//       Alert.alert('Profile Updated');
-//       navigation.goBack();
-//       console.log('Profile updated successfully!');
-//     } catch (error) {
-//       console.error('Error updating profile:', error.message);
-//     }
-//   };
+      await firestore().collection('Doctor').doc(user).update(updateData);
+      Alert.alert('Profile Updated');
+      navigation.goBack();
+      console.log('Profile updated successfully!');
+    } catch (error) {
+      console.error('Error updating profile:', error.message);
+    }
+  };
 
   useEffect(() => {
     getUser();
   }, []);
-  // useEffect(() => {
-  //   // This effect runs when imgDownloadUrl changes
-  //   if (imgDownloadUrl) {
-  //     // Update userData with the new image URL
-  //     setUserData((prevData) => ({
-  //       ...prevData,
-  //       profileImage: imgDownloadUrl,
-  //     }));
-  //   }
-  // }, [imgDownloadUrl]);
+  useEffect(() => {
+    // This effect runs when imgDownloadUrl changes
+    if (imgDownloadUrl) {
+      // Update userData with the new image URL
+      setUserData((prevData) => ({
+        ...prevData,
+        profileImage: imgDownloadUrl,
+      }));
+    }
+  }, [imgDownloadUrl]);
   const pickImage = async () => {
     try {
       const response = await DocumentPicker.pickSingle({
@@ -137,7 +137,7 @@ const DocEdit = () => {
           justifyContent: 'space-around',
         }}>
         <TouchableOpacity  onPress={pickImage}  style={{marginBottom:10 , width:25 }}><Ionicons size={25} name='add' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
-        <TouchableOpacity  onPress={uploadImage} style={{marginBottom:10 , width:25 }} ><MaterialIcons size={25} name='delete-outline' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
+        {/* <TouchableOpacity  onPress={uploadImage} style={{marginBottom:10 , width:25 }} ><MaterialIcons size={25} name='delete-outline' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity> */}
         <TouchableOpacity  onPress={uploadImage} style={{marginBottom:10 , width:25 }} ><Feather size={25} name='upload' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
       </View>
       <TextInput
@@ -173,8 +173,8 @@ const DocEdit = () => {
         keyboardType="numeric"
         onChangeText={(txt) => setUserData({ ...userData, phonenumber: txt })}
       />
-      {/* <TouchableOpacity style={styles.update} onPress={handleUpdateProfile} ><Text style={{color:"azure" ,   justifyContent: 'center',
-    alignItems: 'center',}}>Update</Text></TouchableOpacity> */}
+      <TouchableOpacity style={styles.update} onPress={handleUpdateProfile} ><Text style={{color:"azure" ,   justifyContent: 'center',
+    alignItems: 'center',}}>Update</Text></TouchableOpacity>
     </View>
   );
 };

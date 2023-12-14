@@ -135,7 +135,7 @@ const EditProfile = () => {
           justifyContent: 'space-around',
         }}>
         <TouchableOpacity  onPress={pickImage}  style={{marginBottom:10 , width:25 }}><Ionicons size={25} name='add' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
-        <TouchableOpacity  onPress={uploadImage} style={{marginBottom:10 , width:25 }} ><MaterialIcons size={25} name='delete-outline' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
+     
         <TouchableOpacity  onPress={uploadImage} style={{marginBottom:10 , width:25 }} ><Feather size={25} name='upload' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
       </View>
       <TextInput
