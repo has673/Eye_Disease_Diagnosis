@@ -26,6 +26,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Login from './Screen/User/Login';
 import Signup from './Screen/User/Signup';
 import Forgot from './Screen/User/Forgotpass';
+import MedicationScreen from './Screen/User/MedicationScreen';
 
 import Home from './Screen/User/Home';
 import auth from '@react-native-firebase/auth';
@@ -137,6 +138,7 @@ function DoctorDashboard(){
           ),
         }}
       />
+     
     </Tab.Navigator>
   )
 }
@@ -203,6 +205,33 @@ function Dashboard(){
           ),
         }}
       />
+         <Tab.Screen
+        name="Medicine"
+        component={MedicationScreen}
+        options={{
+          title: 'Medication',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'inter',
+            fontSize: 24,
+          
+          },
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Ionicons
+                name='medkit'
+                size={28}
+             
+              />
+            </View>
+          ),
+        }}
+      />
       <Tab.Screen
         name="Profile"
         component={Profile}
@@ -230,6 +259,8 @@ function Dashboard(){
           ),
         }}
       />
+       
+       
     </Tab.Navigator>
   )
 }

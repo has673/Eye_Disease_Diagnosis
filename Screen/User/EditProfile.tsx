@@ -47,7 +47,7 @@ const EditProfile = () => {
         city: userData.city || '',
         age: userData.age || '',
         phonenumber: userData.phonenumber || '',
-        // profileImage: userData.profileImage || '',
+        profileImage: userData.profileImage || '',
       };
       if (imageData) {
         // Upload the image and get the download URL
@@ -122,7 +122,7 @@ const EditProfile = () => {
      
       {imgDownloadUrl? (
         <Image
-          source={{ uri: imgDownloadUrl }}
+          source={{ uri: imgDownloadUrl}}
           style={{height: 200, width: 200, marginBottom: 20, alignSelf: 'center' ,  borderRadius:130 ,  borderWidth: 2 , borderColor:"black" }}
         />
       ) : (

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View ,TouchableOpacity,Image} from 'react-native'
+import { StyleSheet, Text, View ,TouchableOpacity,Image, ActivityIndicator} from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import storage from '@react-native-firebase/storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,7 +17,7 @@ const Profile = () => {
     phonenumber: '',
     profileImage: '',
   });
-  
+  const[loading ,setLoading]= useState(true)
   const navigation = useNavigation()
   const user = Auth().currentUser?.uid;
   const handlelogout = async()=>{
@@ -37,6 +37,9 @@ const Profile = () => {
         const fetchedData = documentSnapshot.data();
         console.log('User Data', fetchedData);
         setUserData(fetchedData || {});
+        console.log(userData.profileImage)
+        setLoading(false)
+        console.log('profile')
       }
     } catch (error) {
       console.error('Error fetching user data:', error.message);
@@ -44,6 +47,7 @@ const Profile = () => {
   };
   return (
     <View>
+     
       <View style={styles.containerLanguage}>
       <View style={styles.ProfileImage}>
           {userData.profileImage ? (
