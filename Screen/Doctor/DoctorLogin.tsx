@@ -34,15 +34,17 @@ export default function DoctorLogin() {
       console.log(isUserLogin);
       setEmail('')
       setPassword('')
-     if(isUserLogin.user.emailVerified){
-      
-      navigation.navigate('DoctorDashboard');
 
-     }
-     else{
-      Alert.alert("Check your Inbox for email Verification")
-      await auth().currentUser.sendEmailVerification()
-     }
+      //uncomment
+    //  if(isUserLogin.user.emailVerified){
+      
+    //   navigation.navigate('DoctorDashboard');
+
+    //  }
+    //  else{
+    //   Alert.alert("Check your Inbox for email Verification")
+    //   await auth().currentUser.sendEmailVerification()
+    //  }
       
      
     } 

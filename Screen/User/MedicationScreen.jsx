@@ -4,7 +4,8 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import PushNotification, { Importance } from 'react-native-push-notification';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/AntDesign';
+import MedicationItem from '../../components/MedicationItem';
 
 const MedicineScreen = () => {
   const [medicineName, setMedicineName] = useState('');
@@ -138,10 +139,11 @@ const MedicineScreen = () => {
       </View>
       <TouchableOpacity onPress={() => deleteMedication(item.id)}>
         {/* <Text style={{ color: 'red', marginLeft: 10 }}>Delete</Text> */}
-        <Icon name = 'eraser' size = {25} color = 'black'/>
+        <Icon name = 'delete' size = {25} color = 'black'/>
       </TouchableOpacity>
     </View>
   );
+ 
 
   return (
     <View style={styles.mainView}>
