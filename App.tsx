@@ -19,6 +19,7 @@ import {
 
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -41,6 +42,7 @@ import DoctorLogin from './Screen/Doctor/DoctorLogin';
 import DocProfile from './Screen/Doctor/DocProfile';
 import DocEdit from './Screen/Doctor/DocEdit';
 import Check from './Screen/User/Check';
+import AllDoctor from './Screen/User/Appointment/AllDoctor';
 
 
 
@@ -259,6 +261,33 @@ function Dashboard(){
           ),
         }}
       />
+         <Tab.Screen
+        name="Doctors"
+        component={AllDoctor}
+        options={{
+          title: 'Doctors',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'inter',
+            fontSize: 24,
+          
+          },
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Fontisto
+                name='doctor'
+                size={28}
+             
+              />
+            </View>
+          ),
+        }}
+      />
        
        
     </Tab.Navigator>
@@ -332,7 +361,7 @@ function App(){
           options={{headerShown: false}}
             
         />
-          {/* <Stack.Screen name='Detect' component={Detect}  options={({ navigation }) => ({
+           <Stack.Screen name='Detect' component={Detect}  options={({ navigation }) => ({
             title: 'Detect',
             headerStyle: {
               backgroundColor: '#629FFA',
@@ -351,7 +380,7 @@ function App(){
                 
               />
             ),
-          })}/>  */}
+          })}/>  
       <Stack.Screen name='EditProfile' component={EditProfile} options={({ navigation }) => ({
             title: 'Edit Profile',
             headerStyle: {
