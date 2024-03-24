@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import DoctorCard from '../../../components/DoctorCard'; // Import DoctorCard component
 import firestore from '@react-native-firebase/firestore';
 
 const AllDoctor = ({ navigation }) => {
   const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -12,16 +13,18 @@ const AllDoctor = ({ navigation }) => {
       .onSnapshot((snapshot) => {
         const doctorList = [];
         snapshot.forEach((doc) => {
-          const { Name, institute, profileImage } = doc.data();
+          const { Name, city,Clinic, profileImage } = doc.data();
           doctorList.push({
             id: doc.id,
             Name,
-            institute,
+            city,
+            Clinic,
             profileImage ,
           });
         });
         setDoctors(doctorList);
-        console.log(doctorList)
+        setLoading(false); // Set loading to false when data is fetched
+        console.log(doctorList);
       });
 
     return () => unsubscribe();
@@ -29,7 +32,7 @@ const AllDoctor = ({ navigation }) => {
 
   const handleDoctorPress = (doctorId) => {
     // navigation.navigate('SingleDoctorScreen', { doctorId });
-    console.log('new screen')
+    console.log('new screen');
   };
 
   const renderDoctorItem = ({ item }) => (
@@ -37,25 +40,31 @@ const AllDoctor = ({ navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={doctors}
-        renderItem={renderDoctorItem}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.list}
-      />
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <View style={styles.list}>
+          {doctors.map((doctor) => (
+            <DoctorCard key={doctor.id} doctor={doctor} onPress={() => handleDoctorPress(doctor.id)} />
+          ))}
+        </View>
+      )}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   list: {
     paddingVertical: 20,
     paddingHorizontal: 10,
+    marginBottom:140
   },
 });
 

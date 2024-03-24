@@ -47,8 +47,8 @@ const DocEdit = () => {
     try {
       let updateData = {
         Name: userData.Name || '',
-        Institute: userData.Institute || '',
-        Clinic: userData.Institute || '',
+       
+        Clinic: userData.Clinic|| '',
         city: userData.city || '',
         Address: userData.Address || '',
         phonenumber: userData.phonenumber || '',
