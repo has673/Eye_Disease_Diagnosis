@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View ,TouchableOpacity,Image} from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5  from 'react-native-vector-icons/FontAwesome5'
 import storage from '@react-native-firebase/storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
@@ -75,7 +76,7 @@ const DocProfile = () => {
       <View style={styles.myView}>
   <TouchableOpacity onPress={() => navigation.navigate('Education')} style={{ flexDirection: 'row', alignItems: 'center' }}>
     <View>
-      <MaterialCommunityIcons name='account-edit-outline' size={29} />
+      <FontAwesome5 name='user-graduate' size={29} />
     </View>
 
     <Text style={{ fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20, marginTop: 5 }}>
