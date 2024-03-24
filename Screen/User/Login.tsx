@@ -116,11 +116,11 @@ return (
         <Text style={styles.endtext}>Sign up</Text>
       </TouchableOpacity>
     </View>
-    <TouchableOpacity
+    {/* <TouchableOpacity
       onPress={() => navigation.navigate('Registor')}
     >
       <Text style={styles.doc} >Registor as Doctor</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity onPress={() => navigation.navigate('DoctorLogin')}>
         <Text style={styles.doc}>Doctor Login</Text>
       </TouchableOpacity>

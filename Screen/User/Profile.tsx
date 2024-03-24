@@ -10,8 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Profile = () => {
   const [userData, setUserData] = useState({
-    fname: '',
-    lname: '',
+    Name: '',
     city: '',
     age: '',
     phonenumber: '',
@@ -59,7 +58,7 @@ const Profile = () => {
         <Text  style={{ marginBottom: 20, alignSelf: 'center' }}>No Image Found</Text>
       )}
       </View>
-      <Text style={{textAlign:"center" , fontWeight:"bold" , color:"black" , fontSize:20}}>{`${userData.fname} ${userData.lname}`}</Text>
+      <Text style={{textAlign:"center" , fontWeight:"bold" , color:"black" , fontSize:20}}>{`${userData.Name}`}</Text>
       <View style={styles.container}>
       <View style={styles.myView}>
   <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={{ flexDirection: 'row', alignItems: 'center' }}>

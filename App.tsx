@@ -43,6 +43,7 @@ import DocProfile from './Screen/Doctor/DocProfile';
 import DocEdit from './Screen/Doctor/DocEdit';
 import Check from './Screen/User/Check';
 import AllDoctor from './Screen/User/Appointment/AllDoctor';
+import Appointments from './Screen/Doctor/Appointments';
 
 
 
@@ -456,6 +457,26 @@ function App(){
           })}/>
            <Stack.Screen name='Check' component={Check} options={({ navigation }) => ({
             title: 'Diagnose',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}/>
+          <Stack.Screen name='Appoinments' component={Appointments} options={({ navigation }) => ({
+            title: 'Your Appointments',
             headerStyle: {
               backgroundColor: '#629FFA',
             },

@@ -35,16 +35,16 @@ export default function DoctorLogin() {
       setEmail('')
       setPassword('')
 
-      //uncomment
-    //  if(isUserLogin.user.emailVerified){
+    
+     if(isUserLogin.user.emailVerified){
       
-    //   navigation.navigate('DoctorDashboard');
+      navigation.navigate('DoctorDashboard');
 
-    //  }
-    //  else{
-    //   Alert.alert("Check your Inbox for email Verification")
-    //   await auth().currentUser.sendEmailVerification()
-    //  }
+     }
+     else{
+      Alert.alert("Check your Inbox for email Verification")
+      await auth().currentUser.sendEmailVerification()
+     }
       
      
     } 

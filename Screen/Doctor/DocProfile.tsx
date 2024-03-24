@@ -42,6 +42,7 @@ const DocProfile = () => {
       console.error('Error fetching user data:', error.message);
     }
   };
+
   return (
     <View>
       <View style={styles.containerLanguage}>
@@ -49,7 +50,7 @@ const DocProfile = () => {
           {userData.profileImage ? (
         <Image
           source={{ uri: userData.profileImage }}
-          style={{ height: 200, width: 200, marginBottom: 20, alignSelf: 'center' ,  borderRadius:130 ,  borderWidth: 2 , borderColor:"azure"}}
+          style={{ height: 200, width: 200, marginTop:10 ,  marginBottom: 20, alignSelf: 'center' ,  borderRadius:130 ,  borderWidth: 2 , borderColor:"azure"}}
         />
       ) : (
         <Text  style={{ marginBottom: 20, alignSelf: 'center' }}>No Image Found</Text>
@@ -100,7 +101,7 @@ const DocProfile = () => {
           <Ionicons  name='calendar' size={25}/>
         </View>
 
-        <Text style={{fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20}}>
+        <Text onPress={() => navigation.navigate('Appointments')} style={{fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20}}>
           Appointments
         </Text>
 

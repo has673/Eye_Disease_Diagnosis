@@ -6,8 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import storage from '@react-native-firebase/storage';
 import DocumentPicker from 'react-native-document-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const DocEdit = () => {
   const navigation = useNavigation();
@@ -15,14 +15,14 @@ const DocEdit = () => {
   const [imageData, setImageData] = useState(null);
   const [fullImgRefPath, setFullImgRefPath] = useState('');
   const [imgDownloadUrl, setImgDownloadUrl] = useState('');
+  const [profileImageUrl, setProfileImageUrl] = useState('');
 
   const [userData, setUserData] = useState({
     Name: '',
-    email:'',
     Institute:'',
-    Hospital:'',
+    Clinic:'',
     city: '',
-    age: '',
+    Address: '',
     phonenumber: '',
     // profileImage: imgDownloadUrl || ''   
   });
@@ -35,6 +35,8 @@ const DocEdit = () => {
         const fetchedData = documentSnapshot.data();
         console.log('User Data', fetchedData);
         setUserData(fetchedData || {});
+      
+        setProfileImageUrl(fetchedData.profileImage || '');
       }
     } catch (error) {
       console.error('Error fetching user data:', error.message);
@@ -44,12 +46,13 @@ const DocEdit = () => {
   const handleUpdateProfile = async () => {
     try {
       let updateData = {
-        fname: userData.fname || '',
-        lname: userData.lname || '',
+        Name: userData.Name || '',
+        Institute: userData.Institute || '',
+        Clinic: userData.Institute || '',
         city: userData.city || '',
-        age: userData.age || '',
+        Address: userData.Address || '',
         phonenumber: userData.phonenumber || '',
-        profileImage: userData.profileImage || '',
+        profileImage: profileImageUrl || '',
       };
       if (imageData) {
         // Upload the image and get the download URL
@@ -66,26 +69,16 @@ const DocEdit = () => {
 
       await firestore().collection('Doctor').doc(user).update(updateData);
       Alert.alert('Profile Updated');
-      navigation.goBack();
+      // navigation.na();
       console.log('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error.message);
     }
   };
+useEffect(() => {
+  getUser();
+}, []);
 
-  useEffect(() => {
-    getUser();
-  }, []);
-  useEffect(() => {
-    // This effect runs when imgDownloadUrl changes
-    if (imgDownloadUrl) {
-      // Update userData with the new image URL
-      setUserData((prevData) => ({
-        ...prevData,
-        profileImage: imgDownloadUrl,
-      }));
-    }
-  }, [imgDownloadUrl]);
   const pickImage = async () => {
     try {
       const response = await DocumentPicker.pickSingle({
@@ -93,9 +86,14 @@ const DocEdit = () => {
       });
       console.log(response);
       setImageData(response);
+      setProfileImageUrl(response.uri);
     } catch (err) {
       console.log(err);
     }
+  };
+  const removeImage = () => {
+    setProfileImageUrl(''); // Clear the profile image URL
+    setImageData(null); // Clear the image data
   };
 
   const uploadImage = async () => {
@@ -120,62 +118,116 @@ const DocEdit = () => {
   };
   console.log('imgDownloadUrl:', imgDownloadUrl);
   return (
+    // <View style={styles.container}>
+     
+    //  {profileImageUrl ? (
+    //     <View style={{ alignItems: 'center' }}>
+    //       <Image
+    //         source={{ uri: profileImageUrl }}
+    //         style={{ height: 180, width: 200, marginBottom: 20, alignSelf: 'center', borderRadius: 130, borderWidth: 2, borderColor: "black" }}
+    //       />
+    //       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+    //         <TouchableOpacity onPress={removeImage} style={{ backgroundColor: '#629FFA', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 8, marginRight: 10 }}>
+    //           <AntDesign size={25} name='delete' color={"white"} />
+    //         </TouchableOpacity>
+    //         <TouchableOpacity onPress={pickImage} style={{ backgroundColor: "#629FFA", paddingHorizontal: 10, paddingVertical: 5, borderRadius: 8 }}>
+    //           <Ionicons size={25} name='add' color={"white"} />
+    //         </TouchableOpacity>
+    //       </View>
+    //     </View>
+    //   ) : (
+    //     <Text style={{ alignSelf: 'center', marginBottom: 20 }}>No Image Found</Text>
+    //   )}
+       
+    //   <TextInput
+    //     style={styles.input}
+    //     placeholder= "Name"
+    //     value={userData.Name}
+    //     onChangeText={(txt) => setUserData({ ...userData, Name: txt })}
+    //   />
+    //     <TextInput
+    //     style={styles.input}
+    //     placeholder="Clinic"
+    //     value={userData.Clinic}
+    //     onChangeText={(txt) => setUserData({ ...userData, Clinic: txt })}
+    //   />
+     
+    //   <TextInput
+    //     style={styles.input}
+    //     placeholder="City"
+    //     value={userData.city}
+    //     onChangeText={(txt) => setUserData({ ...userData, city: txt })}
+    //   />
+    //   <TextInput
+    //     style={styles.input}
+    //     placeholder="Address"
+      
+    //     onChangeText={(txt) => setUserData({ ...userData, Address: txt })}
+    //   />
+    //   <TextInput
+    //     style={styles.input}
+    //     placeholder="Phone Number"
+    //     value={userData.phonenumber}
+    //     keyboardType="numeric"
+    //     onChangeText={(txt) => setUserData({ ...userData, phonenumber: txt })}
+    //   />
+    //   <TouchableOpacity style={styles.update} onPress={handleUpdateProfile} ><Text style={{color:"azure" ,   justifyContent: 'center',
+    // alignItems: 'center',}}>Update</Text></TouchableOpacity>
+    // </View>
     <View style={styles.container}>
-     
-      {imgDownloadUrl? (
-        <Image
-          source={{ uri: imgDownloadUrl }}
-          style={{height: 200, width: 200, marginBottom: 20, alignSelf: 'center' ,  borderRadius:130 ,  borderWidth: 2 , borderColor:"black" }}
-        />
-      ) : (
-        <Text style={{ alignSelf: 'center' , marginBottom: 20,}}>No Image Found</Text>
-      )} 
-       <View
-        style={{
-          width: '100%',
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-        }}>
-        <TouchableOpacity  onPress={pickImage}  style={{marginBottom:10 , width:25 }}><Ionicons size={25} name='add' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
-        {/* <TouchableOpacity  onPress={uploadImage} style={{marginBottom:10 , width:25 }} ><MaterialIcons size={25} name='delete-outline' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity> */}
-        <TouchableOpacity  onPress={uploadImage} style={{marginBottom:10 , width:25 }} ><Feather size={25} name='upload' color={"white"}  style={{backgroundColor:"#629FFA"}}/></TouchableOpacity>
-      </View>
-      <TextInput
-        style={styles.input}
-        placeholder= "Name"
-        value={userData.Name}
-        onChangeText={(txt) => setUserData({ ...userData, Name: txt })}
+  {profileImageUrl ? (
+    <View style={{ alignItems: 'center' }}>
+      <Image
+        source={{ uri: profileImageUrl }}
+        style={{ height: 190, width: 200, marginTop:-10, marginBottom: 20, alignSelf: 'center', borderRadius: 130, borderWidth: 2, borderColor: "black" }}
       />
-        <TextInput
-        style={styles.input}
-        placeholder="email"
-        value={userData.email}
-        onChangeText={(txt) => setUserData({ ...userData, email: txt })}
-      />
-     
-      <TextInput
-        style={styles.input}
-        placeholder="City"
-        value={userData.city}
-        onChangeText={(txt) => setUserData({ ...userData, city: txt })}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Age"
-        value={userData.age}
-        keyboardType="numeric"
-        onChangeText={(txt) => setUserData({ ...userData, age: txt })}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        value={userData.phonenumber}
-        keyboardType="numeric"
-        onChangeText={(txt) => setUserData({ ...userData, phonenumber: txt })}
-      />
-      <TouchableOpacity style={styles.update} onPress={handleUpdateProfile} ><Text style={{color:"azure" ,   justifyContent: 'center',
-    alignItems: 'center',}}>Update</Text></TouchableOpacity>
     </View>
+  ) : (
+    <Text style={{ alignSelf: 'center', marginBottom: 20 }}>No Image Found</Text>
+  )}
+  
+  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 , justifyContent:"center" }}>
+    <TouchableOpacity onPress={removeImage} style={{ backgroundColor: '#629FFA', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 8, marginRight: 10 }}>
+      <AntDesign size={25} name='delete' color={"white"} />
+    </TouchableOpacity>
+    <TouchableOpacity onPress={pickImage} style={{ backgroundColor: "#629FFA", paddingHorizontal: 10, paddingVertical: 5, borderRadius: 8 }}>
+      <Ionicons size={25} name='add' color={"white"} />
+    </TouchableOpacity>
+  </View>
+  
+  <TextInput
+    style={styles.input}
+    placeholder= "Name"
+    value={userData.Name}
+    onChangeText={(txt) => setUserData({ ...userData, Name: txt })}
+  />
+  <TextInput
+    style={styles.input}
+    placeholder="Clinic"
+    value={userData.Clinic}
+    onChangeText={(txt) => setUserData({ ...userData, Clinic: txt })}
+  />
+  <TextInput
+    style={styles.input}
+    placeholder="City"
+    value={userData.city}
+    onChangeText={(txt) => setUserData({ ...userData, city: txt })}
+  />
+  <TextInput
+    style={styles.input}
+    placeholder="Address"
+    onChangeText={(txt) => setUserData({ ...userData, Address: txt })}
+  />
+  <TextInput
+    style={styles.input}
+    placeholder="Phone Number"
+    value={userData.phonenumber}
+    keyboardType="numeric"
+    onChangeText={(txt) => setUserData({ ...userData, phonenumber: txt })}
+  />
+  <TouchableOpacity style={styles.update} onPress={handleUpdateProfile} ><Text style={{color:"azure" ,   justifyContent: 'center', alignItems: 'center',}}>Update</Text></TouchableOpacity>
+</View>
+
   );
 };
 
