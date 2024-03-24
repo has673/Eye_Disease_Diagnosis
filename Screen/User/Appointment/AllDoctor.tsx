@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import DoctorCard from '../../../components/DoctorCard'; // Import DoctorCard component
 import firestore from '@react-native-firebase/firestore';
+import { StackActions } from '@react-navigation/native';
+
 
 const AllDoctor = ({ navigation }) => {
   const [doctors, setDoctors] = useState([]);
@@ -32,12 +34,13 @@ const AllDoctor = ({ navigation }) => {
 
   const handleDoctorPress = (doctorId) => {
     // navigation.navigate('SingleDoctorScreen', { doctorId });
-    console.log('new screen');
+    navigation.dispatch(StackActions.push('Doctor', { doctorId }));
+    console.log('single doctor');
   };
 
-  const renderDoctorItem = ({ item }) => (
-    <DoctorCard doctor={item} onPress={() => handleDoctorPress(item.id)} />
-  );
+  // const renderDoctorItem = ({ item }) => (
+  //   <DoctorCard doctor={item} onPress={() => handleDoctorPress(item.id)} />
+  // );
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

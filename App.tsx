@@ -44,6 +44,8 @@ import DocEdit from './Screen/Doctor/DocEdit';
 import Check from './Screen/User/Check';
 import AllDoctor from './Screen/User/Appointment/AllDoctor';
 import Appointments from './Screen/Doctor/Appointments';
+import SingleDoctor from './Screen/User/Appointment/SingleDoctor';
+import EditEdu from './Screen/Doctor/EditEdu';
 
 
 
@@ -477,6 +479,46 @@ function App(){
           })}/>
           <Stack.Screen name='Appoinments' component={Appointments} options={({ navigation }) => ({
             title: 'Your Appointments',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}/>
+           <Stack.Screen name='Doctor' component={SingleDoctor} options={({ navigation }) => ({
+            title: 'Doctor Profile',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}/>
+              <Stack.Screen name='Education' component={EditEdu} options={({ navigation }) => ({
+            title: 'Education Details',
             headerStyle: {
               backgroundColor: '#629FFA',
             },

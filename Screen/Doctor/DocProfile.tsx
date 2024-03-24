@@ -72,8 +72,19 @@ const DocProfile = () => {
       <View style={{paddingTop: 10, paddingLeft: 17}}>
         <Image source={require('../../assets/Line.png')} />
       </View>
-
       <View style={styles.myView}>
+  <TouchableOpacity onPress={() => navigation.navigate('Education')} style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <View>
+      <MaterialCommunityIcons name='account-edit-outline' size={29} />
+    </View>
+
+    <Text style={{ fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20, marginTop: 5 }}>
+      Edit Education Details
+    </Text>
+  </TouchableOpacity>
+</View>
+
+      {/* <View style={styles.myView}>
         <View>
           <Ionicons name='notifications-outline' size={25}/>
         </View>
@@ -83,15 +94,15 @@ const DocProfile = () => {
           </Text>
         </TouchableOpacity>
         
-      </View>
-      <View style={{paddingTop: 10, paddingLeft: 17}}>
+      </View> */}
+      {/* <View style={{paddingTop: 10, paddingLeft: 17}}>
         <Image source={require('../../assets/Line.png')} />
-      </View>
+      </View> */}
 
    
-      <View style={{paddingTop: 10, paddingLeft: 17}}>
+      {/* <View style={{paddingTop: 10, paddingLeft: 17}}>
         <Image source={require('../../assets/Line.png')} />
-      </View>
+      </View> */}
      
     
 
