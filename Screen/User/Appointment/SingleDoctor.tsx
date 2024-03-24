@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, ActivityIndicator, Text, Image } from 'react-native';
+import { View, ScrollView, StyleSheet, ActivityIndicator, Text, Image , TouchableOpacity , Alert} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import auth from '@react-native-firebase/auth'; // Import Firebase Auth
@@ -13,6 +13,7 @@ const SingleDoctorScreen = ({ route }) => {
 
   const showDatePicker = () => {
     setDatePickerVisible(true);
+    
   };
 
   const hideDatePicker = () => {
@@ -22,6 +23,7 @@ const SingleDoctorScreen = ({ route }) => {
   const handleDateConfirm = (date) => {
     hideDatePicker();
     setSelectedDate(date);
+    bookAppointment()
   };
 
 
@@ -37,6 +39,7 @@ const SingleDoctorScreen = ({ route }) => {
 
     return () => unsubscribe();
   }, [doctorId]);
+
   const bookAppointment = async () => {
     try {
       const currentUser = auth().currentUser; // Get the current user
@@ -45,11 +48,13 @@ const SingleDoctorScreen = ({ route }) => {
       }
   
       // Assuming you have a collection named 'Appointments' in Firestore
+      const doctorName = doctorData && doctorData.Name ? doctorData.Name : 'Unknown Doctor';
       await firestore().collection('Appointments').add({
         doctorId: doctorId,
+        DoctorName: doctorName,
         appointmentDate: selectedDate.toISOString(), // Convert date to ISO string for storage
         userId: currentUser.uid, // Add the user ID
-        userName: currentUser.displayName, // Add the username
+        // userName: currentUser.displayName, // Add the username
       });
       Alert.alert('Appointment Booked Successfully');
     } catch (error) {
@@ -88,6 +93,9 @@ const SingleDoctorScreen = ({ route }) => {
 
             {/* You can add more details as needed */}
 
+            <TouchableOpacity style={styles.button} onPress={showDatePicker}>
+              <Text style={styles.buttonText}>Book Appointment</Text>
+            </TouchableOpacity>
             <DateTimePickerModal
             isVisible={isDatePickerVisible}
             mode="datetime"
@@ -133,6 +141,17 @@ const styles = StyleSheet.create({
   },
   value: {
     marginBottom: 10,
+  },
+  button: {
+    backgroundColor: '#629FFA',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
   },
 });
 

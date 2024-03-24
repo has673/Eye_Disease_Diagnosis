@@ -23,7 +23,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Login from './Screen/User/Login';
 import Signup from './Screen/User/Signup';
 import Forgot from './Screen/User/Forgotpass';
@@ -53,6 +53,7 @@ import EditEdu from './Screen/Doctor/EditEdu';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+// const navigation = useNavigation()
 function DoctorDashboard(){
   return(
     <Tab.Navigator  screenOptions={{
@@ -157,32 +158,42 @@ function Dashboard(){
         height: 58,
       },
     }}>
-       <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          // title: 'Chat',
-          headerStyle: {
-            backgroundColor: '#629FFA',
-          },
+      <Tab.Screen
+  name="Home"
+  component={Home}
+  options={({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: '#629FFA',
+    },
+    headerTintColor: 'white',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontFamily: 'inter',
+      fontSize: 28,
+    },
+    headerRight: () => (
+      <View style={{ marginRight: 10 }}>
+        <Ionicons
+          name='person-circle-outline'
+          size={30}
+          color='white'
+          onPress={() => {
+            navigation.navigate('Profile');
+          }}
+        />
+      </View>
+    ),
+    tabBarIcon: ({ focused }) => (
+      <View>
+        <Ionicons
+          name='home-outline'
+          size={28}
+        />
+      </View>
+    ),
+  })}
+/>
 
-          headerTintColor: 'white',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontFamily: 'inter',
-            fontSize: 28,
-          },
-          tabBarIcon: ({focused}) => (
-            <View>
-              <Ionicons
-                name='home-outline'
-                size={28}
-             
-              />
-            </View>
-          ),
-        }}
-      />
       
         <Tab.Screen
         name="messeging"
@@ -237,7 +248,7 @@ function Dashboard(){
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
@@ -263,7 +274,7 @@ function Dashboard(){
             </View>
           ),
         }}
-      />
+      /> */}
          <Tab.Screen
         name="Doctors"
         component={AllDoctor}

@@ -22,7 +22,7 @@ const AllDoctor = ({ navigation }) => {
             city,
             Clinic,
             profileImage ,
-            Address,
+            
           });
         });
         setDoctors(doctorList);
