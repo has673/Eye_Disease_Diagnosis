@@ -395,6 +395,27 @@ function App(){
               />
             ),
           })}/>  
+           <Stack.Screen name='Profile' component={Profile} options={({ navigation }) => ({
+            title: 'Your Profile',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}
+      />
       <Stack.Screen name='EditProfile' component={EditProfile} options={({ navigation }) => ({
             title: 'Edit Profile',
             headerStyle: {
@@ -488,7 +509,7 @@ function App(){
               />
             ),
           })}/>
-          <Stack.Screen name='Appoinments' component={Appointments} options={({ navigation }) => ({
+          <Stack.Screen name='Appointments' component={Appointments} options={({ navigation }) => ({
             title: 'Your Appointments',
             headerStyle: {
               backgroundColor: '#629FFA',
