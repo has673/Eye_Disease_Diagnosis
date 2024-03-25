@@ -59,6 +59,9 @@ const DoctorAppointment = () => {
       Alert.alert('Error', 'Failed to cancel appointment. Please try again.');
     }
   };
+  const accept=()=>{
+    Alert.alert("Appointment Confirmed.")
+  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
   {loading ? (
@@ -68,7 +71,7 @@ const DoctorAppointment = () => {
       {appointments.length > 0 ? (
         <View>
           {appointments.map((appointment) => (
-            <DocAppointmentCard key={appointment.id} appointment={appointment} onCancel={cancelAppointment} />   
+            <DocAppointmentCard key={appointment.id} appointment={appointment} onCancel={cancelAppointment}/>   
           ))}
         </View>
       ) : (

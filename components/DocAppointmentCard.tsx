@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 // import { format } from 'date-fns';
 
-const DocAppointmentCard = ({ appointment, onCancel }) => {
+const DocAppointmentCard = ({ appointment, onCancel  }) => {
     // const formattedDate = format(new Date(appointment.appointmentDate), 'EEEE, MMMM d, yyyy');
     // const formattedTime = format(new Date(appointment.appointmentDate), 'h:mm a');
   return (
@@ -16,6 +16,7 @@ const DocAppointmentCard = ({ appointment, onCancel }) => {
         <TouchableOpacity style={styles.cancelButton} onPress={() => onCancel(appointment.id)}>
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
+       
       </View>
     </View>
   );
@@ -28,9 +29,10 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#629FFA',
-    borderRadius: 10,
+    borderRadius: 20,
     padding: 20,
     width: 300,
+    height:130,
   },
   text: {
     color: '#FFFFFF',
@@ -42,7 +44,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     alignItems: 'center',
+    width:100,
+    justifyContent:'center',
   },
+  
   cancelButtonText: {
     color: '#FFFFFF',
     fontWeight: 'bold',

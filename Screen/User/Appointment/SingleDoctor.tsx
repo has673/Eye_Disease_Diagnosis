@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     marginTop: 10,
+    width:100
   },
   buttonText: {
     color: '#FFFFFF',
