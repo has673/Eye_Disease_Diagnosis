@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  Text, StyleSheet, ActivityIndicator,  ScrollView } from 'react-native';
+import {  Text, StyleSheet, ActivityIndicator,  ScrollView , Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import AppointmentCard from '../../../components/AppointmentCard';
@@ -37,16 +37,42 @@ const  PatientAppointments = () => {
     return () => setUserAppointments([]);
   }, []);
 
+  // const handleCancelAppointment = async (appointmentId) => {
+  //   try {
+  //     await firestore().collection('Appointments').doc(appointmentId).delete();
+  
+  //     // Optionally show a success message or perform other actions
+  //   } catch (error) {
+  //     console.error('Error canceling appointment:', error.message);
+  //     // Optionally show an error message
+  //   }
+  // };
   const handleCancelAppointment = async (appointmentId) => {
     try {
-      await firestore().collection('Appointments').doc(appointmentId).delete();
-      setUserAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentId));
-      // Optionally show a success message or perform other actions
+      Alert.alert(
+        'Confirm Delete',
+        'Are you sure you want to cancel this appointment?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Delete',
+            onPress: async () => {
+              await firestore().collection('Appointments').doc(appointmentId).delete();
+              setUserAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentId));
+              Alert.alert('Success', 'Appointment canceled successfully.');
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     } catch (error) {
-      console.error('Error canceling appointment:', error.message);
-      // Optionally show an error message
+      console.error('Error canceling appointment:', error);
+      Alert.alert('Error', 'Failed to cancel appointment. Please try again.');
     }
-  };
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

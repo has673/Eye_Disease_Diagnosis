@@ -33,16 +33,32 @@ const DoctorAppointment = () => {
     return () => unsubscribe();
   }, [currentUser]); // Trigger effect whenever currentUser changes
 
+
   const cancelAppointment = async (appointmentId) => {
     try {
-      await firestore().collection('Appointments').doc(appointmentId).delete();
-      Alert.alert('Success', 'Appointment canceled successfully.');
+      Alert.alert(
+        'Confirm Delete',
+        'Are you sure you want to cancel this appointment?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Delete',
+            onPress: async () => {
+              await firestore().collection('Appointments').doc(appointmentId).delete();
+              Alert.alert('Success', 'Appointment canceled successfully.');
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     } catch (error) {
       console.error('Error canceling appointment:', error);
       Alert.alert('Error', 'Failed to cancel appointment. Please try again.');
     }
   };
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
   {loading ? (
