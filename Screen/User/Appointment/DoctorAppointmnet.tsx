@@ -2,17 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import AppointmentCard from '../../../components/AppointmentCard';
+import auth from '@react-native-firebase/auth'; 
+import DocAppointmentCard from '../../../components/DocAppointmentCard';
 
 
-const DoctorAppointment = ({ route }) => {
-  const { doctorId } = route.params;
+const DoctorAppointment = () => {
+  // const { doctorId } = route.params;
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const currentUser = auth().currentUser?.uid;
+  console.log(currentUser)
+
+  
 
   useEffect(() => {
     const unsubscribe = firestore()
       .collection('Appointments')
-      .where('doctorId', '==', doctorId)
+      .where('doctorId', '==', currentUser) // Filter appointments where doctorId is equal to currentUser (doctor's UID)
       .onSnapshot((snapshot) => {
         const appointmentsList = [];
         snapshot.forEach((doc) => {
@@ -24,7 +31,7 @@ const DoctorAppointment = ({ route }) => {
       });
 
     return () => unsubscribe();
-  }, [doctorId]);
+  }, [currentUser]); // Trigger effect whenever currentUser changes
 
   const cancelAppointment = async (appointmentId) => {
     try {
@@ -38,27 +45,23 @@ const DoctorAppointment = ({ route }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {loading ? (
-        <ActivityIndicator size="large" color="#629FFA" />
-      ) : (
+  {loading ? (
+    <ActivityIndicator size="large" color="#629FFA" />
+  ) : (
+    <View>
+      {appointments.length > 0 ? (
         <View>
           {appointments.map((appointment) => (
-            // <Card key={appointment.id}>
-            //   <Card.Title>{appointment.PatientName}</Card.Title>
-            //   <Card.Divider />
-            //   <Text>Appointment Date: {appointment.appointmentDate}</Text>
-            //   {/* <Text>Additional Details: {appointment.additionalDetails}</Text> */}
-            //   <Button
-            //     title="Cancel Appointment"
-            //     onPress={() => cancelAppointment(appointment.id)}
-            //     buttonStyle={styles.cancelButton}
-            //   />
-            // </Card>
-            <AppointmentCard key={appointment.id} appointment={appointment} onCancel={cancelAppointment} />   
+            <DocAppointmentCard key={appointment.id} appointment={appointment} onCancel={cancelAppointment} />   
           ))}
         </View>
+      ) : (
+        <Text style={styles.text}>No appointments scheduled.</Text>
       )}
-    </ScrollView>
+    </View>
+  )}
+</ScrollView>
+
   );
 };
 
@@ -72,6 +75,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: 'red',
   },
+  text:{
+    textAlign:'center'
+  }
 });
 
 export default DoctorAppointment;

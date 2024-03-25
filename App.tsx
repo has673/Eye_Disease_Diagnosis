@@ -8,15 +8,7 @@
 import React , {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  
-
+  View 
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -146,6 +138,31 @@ function DoctorDashboard(){
           ),
         }}
       />
+      
+   <Tab.Screen
+        name="DoctorAppointmenst"
+        component={DoctorAppointment}
+        options={{
+          title: 'Your Appointments',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'inter',
+            fontSize: 24,
+          
+          },
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Ionicons name='calendar' size={25} />
+            </View>
+          ),
+        }}
+      />
+
      
     </Tab.Navigator>
   )
@@ -250,33 +267,7 @@ function Dashboard(){
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          title: 'Your Profile',
-          headerStyle: {
-            backgroundColor: '#629FFA',
-          },
-
-          headerTintColor: 'white',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontFamily: 'inter',
-            fontSize: 24,
-          
-          },
-          tabBarIcon: ({focused}) => (
-            <View>
-              <Ionicons
-                name='person-circle'
-                size={28}
-             
-              />
-            </View>
-          ),
-        }}
-      /> */}
+     
          <Tab.Screen
         name="Doctors"
         component={AllDoctor}

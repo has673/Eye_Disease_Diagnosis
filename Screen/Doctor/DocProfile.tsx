@@ -113,7 +113,7 @@ const DocProfile = () => {
           <Ionicons  name='calendar' size={25}/>
         </View>
 
-        <Text onPress={() => navigation.navigate('Appointments')} style={{fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20}}>
+        <Text onPress={() => navigation.navigate('DoctorAppointment')} style={{fontSize: 20, fontWeight: 'bold', color:"black", marginLeft: 20}}>
           Appointments
         </Text>
 
