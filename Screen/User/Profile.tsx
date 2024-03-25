@@ -120,7 +120,7 @@ const Profile = () => {
 
           </View> */}
           <View style={styles.myView}>
-            <TouchableOpacity onPress={() => navigation.navigate('Appointments')} style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => navigation.navigate('UserAppointment')} style={{ flexDirection: 'row', alignItems: 'center' }}>
               <View>
                 <Ionicons name='calendar' size={25} />
               </View>

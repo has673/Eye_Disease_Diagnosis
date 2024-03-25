@@ -46,6 +46,8 @@ import AllDoctor from './Screen/User/Appointment/AllDoctor';
 import Appointments from './Screen/Doctor/Appointments';
 import SingleDoctor from './Screen/User/Appointment/SingleDoctor';
 import EditEdu from './Screen/Doctor/EditEdu';
+import DoctorAppointment from './Screen/User/Appointment/DoctorAppointmnet';
+import PatientAppointments from './Screen/User/Appointment/PatientAppointments';
 
 
 
@@ -551,6 +553,46 @@ function App(){
           })}/>
               <Stack.Screen name='Education' component={EditEdu} options={({ navigation }) => ({
             title: 'Education Details',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}/>
+            <Stack.Screen name='DoctorAppointment' component={DoctorAppointment} options={({ navigation }) => ({
+            title: 'Your Appoinemnts',
+            headerStyle: {
+              backgroundColor: '#629FFA',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={25}
+                color="white"
+                
+              />
+            ),
+          })}/>
+                 <Stack.Screen name='UserAppointment' component={PatientAppointments} options={({ navigation }) => ({
+            title: 'Your Appoinemnts',
             headerStyle: {
               backgroundColor: '#629FFA',
             },

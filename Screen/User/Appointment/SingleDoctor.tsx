@@ -3,13 +3,16 @@ import { View, ScrollView, StyleSheet, ActivityIndicator, Text, Image , Touchabl
 import firestore from '@react-native-firebase/firestore';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import auth from '@react-native-firebase/auth'; // Import Firebase Auth
+// import { DateTime } from 'date.js';
 
 const SingleDoctorScreen = ({ route }) => {
   const { doctorId } = route.params;
   const [doctorData, setDoctorData] = useState(null);
+  const[userData , setUserData] = useState({})
   const [loading, setLoading] = useState(true);
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [selectedDate, setSelectedDate] = useState(DateTime.now()); 
 
   const showDatePicker = () => {
     setDatePickerVisible(true);
@@ -25,7 +28,26 @@ const SingleDoctorScreen = ({ route }) => {
     setSelectedDate(date);
     bookAppointment()
   };
-
+ 
+  const getUser = async () => {
+    try {
+      const currentUser = auth().currentUser;
+      if (currentUser) {
+        const documentSnapshot = await firestore().collection('User').doc(currentUser.uid).get();
+  
+        if (documentSnapshot.exists) {
+          const fetchedData = documentSnapshot.data();
+          console.log('User Data', fetchedData);
+          setUserData(fetchedData || {});
+          setLoading(false);
+          console.log('profile');
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error.message);
+    }
+  };
+  
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -36,6 +58,8 @@ const SingleDoctorScreen = ({ route }) => {
         setDoctorData(doctor);
         setLoading(false); // Set loading to false when data is fetched
       });
+
+      getUser()
 
     return () => unsubscribe();
   }, [doctorId]);
@@ -54,7 +78,10 @@ const SingleDoctorScreen = ({ route }) => {
         DoctorName: doctorName,
         appointmentDate: selectedDate.toISOString(), // Convert date to ISO string for storage
         userId: currentUser.uid, // Add the user ID
-        // userName: currentUser.displayName, // Add the username
+        PatientName: userData.Name, // Add the username
+        Clinic:doctorData?.Clinic,
+        Address: doctorData?.Address,
+        
       });
       Alert.alert('Appointment Booked Successfully');
     } catch (error) {
