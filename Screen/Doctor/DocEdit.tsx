@@ -216,6 +216,7 @@ useEffect(() => {
   <TextInput
     style={styles.input}
     placeholder="Address"
+    value={userData.Address}
     onChangeText={(txt) => setUserData({ ...userData, Address: txt })}
   />
   <TextInput
@@ -236,7 +237,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     justifyContent: 'center',
-  },
+    marginBottom:100
+    },
   header: {
     fontSize: 24,
     marginBottom: 16,

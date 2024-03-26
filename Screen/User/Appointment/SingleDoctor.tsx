@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, ActivityIndicator, Text, Image , TouchableOpacity , Alert} from 'react-native';
+import { View, ScrollView, StyleSheet, ActivityIndicator, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import auth from '@react-native-firebase/auth'; // Import Firebase Auth
@@ -8,7 +8,7 @@ import auth from '@react-native-firebase/auth'; // Import Firebase Auth
 const SingleDoctorScreen = ({ route }) => {
   const { doctorId } = route.params;
   const [doctorData, setDoctorData] = useState(null);
-  const[userData , setUserData] = useState({})
+  const [userData, setUserData] = useState({})
   const [loading, setLoading] = useState(true);
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -16,7 +16,7 @@ const SingleDoctorScreen = ({ route }) => {
 
   const showDatePicker = () => {
     setDatePickerVisible(true);
-    
+
   };
 
   const hideDatePicker = () => {
@@ -28,13 +28,13 @@ const SingleDoctorScreen = ({ route }) => {
     setSelectedDate(date);
     bookAppointment()
   };
- 
+
   const getUser = async () => {
     try {
       const currentUser = auth().currentUser;
       if (currentUser) {
         const documentSnapshot = await firestore().collection('User').doc(currentUser.uid).get();
-  
+
         if (documentSnapshot.exists) {
           const fetchedData = documentSnapshot.data();
           console.log('User Data', fetchedData);
@@ -47,7 +47,7 @@ const SingleDoctorScreen = ({ route }) => {
       console.error('Error fetching user data:', error.message);
     }
   };
-  
+
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -59,7 +59,7 @@ const SingleDoctorScreen = ({ route }) => {
         setLoading(false); // Set loading to false when data is fetched
       });
 
-      getUser()
+    getUser()
 
     return () => unsubscribe();
   }, [doctorId]);
@@ -70,7 +70,7 @@ const SingleDoctorScreen = ({ route }) => {
       if (!currentUser) {
         throw new Error('User not authenticated');
       }
-  
+
       // Assuming you have a collection named 'Appointments' in Firestore
       const doctorName = doctorData && doctorData.Name ? doctorData.Name : 'Unknown Doctor';
       await firestore().collection('Appointments').add({
@@ -79,11 +79,11 @@ const SingleDoctorScreen = ({ route }) => {
         appointmentDate: selectedDate.toISOString(), // Convert date to ISO string for storage
         userId: currentUser.uid, // Add the user ID
         PatientName: userData.Name, // Add the username
-        Clinic:doctorData?.Clinic,
+        Clinic: doctorData?.Clinic,
         Address: doctorData?.Address,
         Status: "unconfirmed",
-        Done:false
-        
+        Done: false
+
       });
       Alert.alert('Appointment Booked Successfully');
     } catch (error) {
@@ -120,16 +120,27 @@ const SingleDoctorScreen = ({ route }) => {
             <Text style={styles.label}>Address:</Text>
             <Text style={styles.value}>{doctorData.Address}</Text>
 
-            {/* You can add more details as needed */}
+            <Text style={styles.label}>MBBS:</Text>
+            <Text style={styles.value}>{doctorData.MBBS}</Text>
+
+            <Text style={styles.label}>Date of Graduation:</Text>
+            <Text style={styles.value}>{doctorData.dateOfGraduation}</Text>
+
+            <Text style={styles.label}>Date of Specialization:</Text>
+            <Text style={styles.value}>{doctorData.dateOfSpecialization}</Text>
+
+
+
 
             <TouchableOpacity style={styles.button} onPress={showDatePicker}>
               <Text style={styles.buttonText}>Book Appointment</Text>
             </TouchableOpacity>
             <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="datetime"
-            onConfirm={handleDateConfirm}
-            onCancel={hideDatePicker}
+              isVisible={isDatePickerVisible}
+              mode="datetime"
+              onConfirm={handleDateConfirm}
+              onCancel={hideDatePicker}
+
             />
           </View>
         ) : (
@@ -175,9 +186,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#629FFA',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 5,
+    borderRadius: 25,
     marginTop: 10,
-    width:100
+    width: 170,
+    alignSelf: 'center'
   },
   buttonText: {
     color: '#FFFFFF',
