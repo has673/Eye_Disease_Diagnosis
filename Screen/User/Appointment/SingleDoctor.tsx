@@ -81,6 +81,8 @@ const SingleDoctorScreen = ({ route }) => {
         PatientName: userData.Name, // Add the username
         Clinic:doctorData?.Clinic,
         Address: doctorData?.Address,
+        Status: "unconfirmed",
+        Done:false
         
       });
       Alert.alert('Appointment Booked Successfully');

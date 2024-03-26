@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 // import { format } from 'date-fns';
 
-const DocAppointmentCard = ({ appointment, onCancel  }) => {
+const DocAppointmentCard = ({ appointment, onCancel , onAccept }) => {
     // const formattedDate = format(new Date(appointment.appointmentDate), 'EEEE, MMMM d, yyyy');
     // const formattedTime = format(new Date(appointment.appointmentDate), 'h:mm a');
   return (
@@ -13,9 +13,14 @@ const DocAppointmentCard = ({ appointment, onCancel  }) => {
         {/* <Text style={styles.text}>{`Appointment Time: ${formattedTime}`}</Text> */}
         {/* <Text style={styles.text}>{`Address: ${appointment.Clinic}`}</Text>
         <Text style={styles.text}>{`Address: ${appointment.Address}`}</Text> */}
+        <View style={styles.row}>
         <TouchableOpacity style={styles.cancelButton} onPress={() => onCancel(appointment.id)}>
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => onAccept(appointment.id)}>
+          <Text style={styles.cancelButtonText}>Accept</Text>
+        </TouchableOpacity>
+        </View>
        
       </View>
     </View>
@@ -30,7 +35,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#629FFA',
     borderRadius: 20,
-    padding: 20,
+    padding: 10,
     width: 300,
     height:130,
   },
@@ -38,19 +43,26 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 10,
   },
+  row:{
+    flexDirection:'row'
+  },
   cancelButton: {
     backgroundColor: '#FF6347',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 5,
+    borderRadius: 15,
     alignItems: 'center',
     width:100,
     justifyContent:'center',
+    marginRight:10
+    
+
   },
   
   cancelButtonText: {
     color: '#FFFFFF',
     fontWeight: 'bold',
+    
   },
 });
 

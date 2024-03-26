@@ -38,7 +38,7 @@ import AllDoctor from './Screen/User/Appointment/AllDoctor';
 import Appointments from './Screen/Doctor/Appointments';
 import SingleDoctor from './Screen/User/Appointment/SingleDoctor';
 import EditEdu from './Screen/Doctor/EditEdu';
-import DoctorAppointment from './Screen/User/Appointment/DoctorAppointmnet';
+import DoctorAppointment from './Screen/User/Appointment/DoctorAppointment';
 import PatientAppointments from './Screen/User/Appointment/PatientAppointments';
 
 
@@ -143,7 +143,7 @@ function DoctorDashboard(){
         name="DoctorAppointmenst"
         component={DoctorAppointment}
         options={{
-          title: 'Your Appointments',
+          title: 'Appointment Request',
           headerStyle: {
             backgroundColor: '#629FFA',
           },

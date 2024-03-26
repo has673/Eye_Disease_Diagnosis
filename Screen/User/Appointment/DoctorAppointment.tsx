@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, ScrollView, StyleSheet, ActivityIndicator, Text,  Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import AppointmentCard from '../../../components/AppointmentCard';
+
 import auth from '@react-native-firebase/auth'; 
 import DocAppointmentCard from '../../../components/DocAppointmentCard';
+import { useState , useEffect } from 'react';
 
 
 const DoctorAppointment = () => {
-  // const { doctorId } = route.params;
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -19,7 +18,8 @@ const DoctorAppointment = () => {
   useEffect(() => {
     const unsubscribe = firestore()
       .collection('Appointments')
-      .where('doctorId', '==', currentUser) // Filter appointments where doctorId is equal to currentUser (doctor's UID)
+      .where('doctorId', '==', currentUser) 
+      .where('Status', '==', 'unconfirmed')
       .onSnapshot((snapshot) => {
         const appointmentsList = [];
         snapshot.forEach((doc) => {
@@ -59,9 +59,27 @@ const DoctorAppointment = () => {
       Alert.alert('Error', 'Failed to cancel appointment. Please try again.');
     }
   };
-  const accept=()=>{
-    Alert.alert("Appointment Confirmed.")
-  }
+  const confirmAppointment = async (appointmentId) => {
+    try {
+      const appointmentRef = firestore().collection('Appointments').doc(appointmentId);
+      const appointmentSnapshot = await appointmentRef.get();
+  
+      if (!appointmentSnapshot.exists) {
+        throw new Error('Appointment not found');
+      }
+  
+      const appointmentData = appointmentSnapshot.data();
+      if (appointmentData && appointmentData.Status === 'unconfirmed') {
+        await appointmentRef.update({ Status: 'confirmed' });
+        Alert.alert('Success', 'Appointment confirmed successfully.');
+      } else {
+        Alert.alert('Error', 'Appointment cannot be confirmed as it is not unconfirmed.');
+      }
+    } catch (error) {
+      console.error('Error confirming appointment:', error);
+      Alert.alert('Error', 'Failed to confirm appointment. Please try again.');
+    }
+  };
   return (
     <ScrollView contentContainerStyle={styles.container}>
   {loading ? (
@@ -71,11 +89,11 @@ const DoctorAppointment = () => {
       {appointments.length > 0 ? (
         <View>
           {appointments.map((appointment) => (
-            <DocAppointmentCard key={appointment.id} appointment={appointment} onCancel={cancelAppointment}/>   
+            <DocAppointmentCard key={appointment.id} appointment={appointment} onCancel={cancelAppointment} onAccept={confirmAppointment}/>   
           ))}
         </View>
       ) : (
-        <Text style={styles.text}>No appointments scheduled.</Text>
+        <Text style={styles.text}>No Appointment Requests.</Text>
       )}
     </View>
   )}
