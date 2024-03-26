@@ -58,7 +58,7 @@ function DoctorDashboard(){
         height: 58,
       },
     }}>
-       <Tab.Screen
+       {/* <Tab.Screen
         name="Home"
         component={Home}
         options={{
@@ -83,7 +83,42 @@ function DoctorDashboard(){
             </View>
           ),
         }}
-      />
+      /> */}
+         <Tab.Screen
+  name="Home"
+  component={Home}
+  options={({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: '#629FFA',
+    },
+    headerTintColor: 'white',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontFamily: 'inter',
+      fontSize: 28,
+    },
+    headerRight: () => (
+      <View style={{ marginRight: 10 }}>
+        <Ionicons
+          name='person-circle-outline'
+          size={30}
+          color='white'
+          onPress={() => {
+            navigation.navigate('DocProfile');
+          }}
+        />
+      </View>
+    ),
+    tabBarIcon: ({ focused }) => (
+      <View>
+        <Ionicons
+          name='home-outline'
+          size={28}
+        />
+      </View>
+    ),
+  })}
+/>
       
         <Tab.Screen
         name="messeging"
@@ -112,10 +147,10 @@ function DoctorDashboard(){
         }}
       />
       <Tab.Screen
-        name="DocProfile"
-        component={DocProfile}
+        name="Appointments"
+        component={Appointments}
         options={{
-          title: 'Your Profile',
+          title: ' Appointments',
           headerStyle: {
             backgroundColor: '#629FFA',
           },
@@ -143,7 +178,7 @@ function DoctorDashboard(){
         name="DoctorAppointmenst"
         component={DoctorAppointment}
         options={{
-          title: 'Appointment Request',
+          title: ' Requests',
           headerStyle: {
             backgroundColor: '#629FFA',
           },
@@ -583,7 +618,7 @@ function App(){
             ),
           })}/>
                  <Stack.Screen name='UserAppointment' component={PatientAppointments} options={({ navigation }) => ({
-            title: 'Your Appoinemnts',
+            title: 'Scheduled  Appoinemnts',
             headerStyle: {
               backgroundColor: '#629FFA',
             },

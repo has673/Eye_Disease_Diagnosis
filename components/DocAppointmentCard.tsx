@@ -8,8 +8,10 @@ const DocAppointmentCard = ({ appointment, onCancel , onAccept }) => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.card}>
+        <View  style={styles.inner}>
         <Text style={styles.text}>{`Patient Name: ${appointment.PatientName}`}</Text>
-        <Text style={styles.text}>{`Appointment Date: ${appointment.appointmentDate}`}</Text>
+        <Text style={styles.textdate}>{`Appointment Date: ${appointment.appointmentDate}`}</Text>
+        </View>
         {/* <Text style={styles.text}>{`Appointment Time: ${formattedTime}`}</Text> */}
         {/* <Text style={styles.text}>{`Address: ${appointment.Clinic}`}</Text>
         <Text style={styles.text}>{`Address: ${appointment.Address}`}</Text> */}
@@ -42,9 +44,16 @@ const styles = StyleSheet.create({
   text: {
     color: '#FFFFFF',
     marginBottom: 10,
+    
+  },
+  textdate: {
+    color: '#FFFFFF',
+    marginBottom: 10,
+    marginRight:15,
   },
   row:{
-    flexDirection:'row'
+    flexDirection:'row',
+    justifyContent:'center'
   },
   cancelButton: {
     backgroundColor: '#FF6347',
@@ -64,6 +73,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     
   },
+  inner:{
+    alignItems:"center"
+  }
 });
 
 export default DocAppointmentCard;

@@ -20,6 +20,7 @@ const  PatientAppointments = () => {
         const snapshot = await firestore()
           .collection('Appointments')
           .where('userId', '==', currentUser.uid)
+          .where('Status', '==', 'confirmed')
           .get();
 
         const appointments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -79,7 +80,7 @@ const  PatientAppointments = () => {
       {loading ? (
         <ActivityIndicator style={styles.loadingIndicator} size="large" color="#629FFA" />
       ) : userAppointments.length === 0 ? (
-        <Text>No appointments found.</Text>
+        <Text>No Scheduled appointments found.</Text>
       ) : (
         userAppointments.map(appointment => (
           <AppointmentCard key={appointment.id} appointment={appointment} onCancel={handleCancelAppointment} />       
@@ -93,7 +94,6 @@ const  PatientAppointments = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
   },
   loadingIndicator: {
