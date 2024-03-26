@@ -50,6 +50,31 @@ const Appointments = () => {
       Alert.alert('Error', 'Failed to complete appointment. Please try again.');
     }
   };
+  const cancelAppointment = async (appointmentId) => {
+    try {
+      Alert.alert(
+        'Confirm Delete',
+        'Are you sure you want to cancel this appointment?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Delete',
+            onPress: async () => {
+              await firestore().collection('Appointments').doc(appointmentId).delete();
+              Alert.alert('Success', 'Appointment canceled successfully.');
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } catch (error) {
+      console.error('Error canceling appointment:', error);
+      Alert.alert('Error', 'Failed to cancel appointment. Please try again.');
+    }
+  };
   return (
     <ScrollView contentContainerStyle={styles.container}>
   {loading ? (
@@ -59,7 +84,7 @@ const Appointments = () => {
       {appointments.length > 0 ? (
         <View>
           {appointments.map((appointment) => (
-            <DoneAppointmentCard key={appointment.id} appointment={appointment} onDone={doneAppointment} />   
+            <DoneAppointmentCard key={appointment.id} appointment={appointment} onCancel={cancelAppointment} onDone={doneAppointment} />   
           ))}
         </View>
       ) : (

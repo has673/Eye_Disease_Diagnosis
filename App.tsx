@@ -5,16 +5,17 @@
  * @format
  */
 
-import React , {useState} from 'react';
-import type {PropsWithChildren} from 'react';
+import React, { useState } from 'react';
+import type { PropsWithChildren } from 'react';
 import {
-  View 
+  View
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Login from './Screen/User/Login';
 import Signup from './Screen/User/Signup';
@@ -22,7 +23,7 @@ import Forgot from './Screen/User/Forgotpass';
 import MedicationScreen from './Screen/User/MedicationScreen';
 
 import Home from './Screen/User/Home';
-import auth from '@react-native-firebase/auth';
+
 import First from './Screen/First';
 import EditProfile from './Screen/User/EditProfile';
 import Message from './Screen/User/Message';
@@ -48,9 +49,9 @@ import PatientAppointments from './Screen/User/Appointment/PatientAppointments';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 // const navigation = useNavigation()
-function DoctorDashboard(){
-  return(
-    <Tab.Navigator  screenOptions={{
+function DoctorDashboard() {
+  return (
+    <Tab.Navigator screenOptions={{
       tabBarInactiveTintColor: 'black',
       tabBarActiveTintColor: 'white',
       tabBarStyle: {
@@ -58,69 +59,44 @@ function DoctorDashboard(){
         height: 58,
       },
     }}>
-       {/* <Tab.Screen
+    
+      <Tab.Screen
         name="Home"
         component={Home}
-        options={{
-          // title: 'Chat',
+        options={({ navigation }) => ({
           headerStyle: {
             backgroundColor: '#629FFA',
           },
-
           headerTintColor: 'white',
           headerTitleStyle: {
             fontWeight: 'bold',
             fontFamily: 'inter',
             fontSize: 28,
           },
-          tabBarIcon: ({focused}) => (
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name='person-circle-outline'
+                size={30}
+                color='white'
+                onPress={() => {
+                  navigation.navigate('DocProfile');
+                }}
+              />
+            </View>
+          ),
+          tabBarIcon: ({ focused }) => (
             <View>
               <Ionicons
                 name='home-outline'
                 size={28}
-             
               />
             </View>
           ),
-        }}
-      /> */}
-         <Tab.Screen
-  name="Home"
-  component={Home}
-  options={({ navigation }) => ({
-    headerStyle: {
-      backgroundColor: '#629FFA',
-    },
-    headerTintColor: 'white',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      fontFamily: 'inter',
-      fontSize: 28,
-    },
-    headerRight: () => (
-      <View style={{ marginRight: 10 }}>
-        <Ionicons
-          name='person-circle-outline'
-          size={30}
-          color='white'
-          onPress={() => {
-            navigation.navigate('DocProfile');
-          }}
-        />
-      </View>
-    ),
-    tabBarIcon: ({ focused }) => (
-      <View>
-        <Ionicons
-          name='home-outline'
-          size={28}
-        />
-      </View>
-    ),
-  })}
-/>
-      
-        <Tab.Screen
+        })}
+      />
+
+      <Tab.Screen
         name="messeging"
         component={Message}
         options={{
@@ -135,12 +111,12 @@ function DoctorDashboard(){
             fontFamily: 'inter',
             fontSize: 24,
           },
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View>
               <Ionicons
                 name='chatbox-outline'
                 size={25}
-             
+
               />
             </View>
           ),
@@ -160,21 +136,21 @@ function DoctorDashboard(){
             fontWeight: 'bold',
             fontFamily: 'inter',
             fontSize: 24,
-          
+
           },
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View>
-              <Ionicons
-                name='person-circle'
+              <MaterialCommunityIcons
+                name='calendar-month'
                 size={28}
-             
+
               />
             </View>
           ),
         }}
       />
-      
-   <Tab.Screen
+
+      <Tab.Screen
         name="DoctorAppointmenst"
         component={DoctorAppointment}
         options={{
@@ -188,23 +164,23 @@ function DoctorDashboard(){
             fontWeight: 'bold',
             fontFamily: 'inter',
             fontSize: 24,
-          
+
           },
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View>
-              <Ionicons name='calendar' size={25} />
+              <MaterialCommunityIcons name='calendar-question' size={25} />
             </View>
           ),
         }}
       />
 
-     
+
     </Tab.Navigator>
   )
 }
-function Dashboard(){
-  return(
-    <Tab.Navigator  screenOptions={{
+function Dashboard() {
+  return (
+    <Tab.Navigator screenOptions={{
       tabBarInactiveTintColor: 'black',
       tabBarActiveTintColor: 'white',
       tabBarStyle: {
@@ -213,43 +189,43 @@ function Dashboard(){
       },
     }}>
       <Tab.Screen
-  name="Home"
-  component={Home}
-  options={({ navigation }) => ({
-    headerStyle: {
-      backgroundColor: '#629FFA',
-    },
-    headerTintColor: 'white',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      fontFamily: 'inter',
-      fontSize: 28,
-    },
-    headerRight: () => (
-      <View style={{ marginRight: 10 }}>
-        <Ionicons
-          name='person-circle-outline'
-          size={30}
-          color='white'
-          onPress={() => {
-            navigation.navigate('Profile');
-          }}
-        />
-      </View>
-    ),
-    tabBarIcon: ({ focused }) => (
-      <View>
-        <Ionicons
-          name='home-outline'
-          size={28}
-        />
-      </View>
-    ),
-  })}
-/>
+        name="Home"
+        component={Home}
+        options={({ navigation }) => ({
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'inter',
+            fontSize: 28,
+          },
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name='person-circle-outline'
+                size={30}
+                color='white'
+                onPress={() => {
+                  navigation.navigate('Profile');
+                }}
+              />
+            </View>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <View>
+              <Ionicons
+                name='home-outline'
+                size={28}
+              />
+            </View>
+          ),
+        })}
+      />
 
-      
-        <Tab.Screen
+
+      <Tab.Screen
         name="messeging"
         component={Message}
         options={{
@@ -264,18 +240,18 @@ function Dashboard(){
             fontFamily: 'inter',
             fontSize: 24,
           },
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View>
               <Ionicons
                 name='chatbox-outline'
                 size={25}
-             
+
               />
             </View>
           ),
         }}
       />
-         <Tab.Screen
+      <Tab.Screen
         name="Medicine"
         component={MedicationScreen}
         options={{
@@ -289,21 +265,21 @@ function Dashboard(){
             fontWeight: 'bold',
             fontFamily: 'inter',
             fontSize: 24,
-          
+
           },
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View>
               <Ionicons
                 name='medkit'
                 size={28}
-             
+
               />
             </View>
           ),
         }}
       />
-     
-         <Tab.Screen
+
+      <Tab.Screen
         name="Doctors"
         component={AllDoctor}
         options={{
@@ -317,329 +293,349 @@ function Dashboard(){
             fontWeight: 'bold',
             fontFamily: 'inter',
             fontSize: 24,
-          
+
           },
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View>
               <Fontisto
                 name='doctor'
                 size={28}
-             
+
               />
             </View>
           ),
         }}
       />
-       
-       
+
+
     </Tab.Navigator>
   )
 }
 
 
-function App(){
- 
- 
-  
+function App() {
+
+
+
   return (
-  <NavigationContainer>
-    <Stack.Navigator>
-    <Stack.Screen name='Splash' component={First} options={({navigation})=>({
-        headerShown:false
-      })}/>
-      
-        <Stack.Screen name='Login' component={Login} options={({navigation})=>({
-     
-      headerShown:false
-      })}/>
-     
-     
-      <Stack.Screen name='Signup' component={Signup} options={({ navigation }) => ({
-            title: 'Signup',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              
-              <Ionicons
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='Splash' component={First} options={({ navigation }) => ({
+          headerShown: false
+        })} />
+
+        <Stack.Screen name='Login' component={Login} options={({ navigation }) => ({
+
+          headerShown: false
+        })} />
+
+
+        <Stack.Screen name='Signup' component={Signup} options={({ navigation }) => ({
+          title: 'Signup',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+
+            <Ionicons
               onPress={() => navigation.goBack()}
               name="arrow-back"
               size={25}
               color="white"
-              
+
             />
-            ),
-          })}
-      />
-      <Stack.Screen name='Forgot' component={Forgot} options={({ navigation }) => ({
-            title: 'Forgot Password',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}
-      />
-       <Stack.Screen
+          ),
+        })}
+        />
+        <Stack.Screen name='Forgot' component={Forgot} options={({ navigation }) => ({
+          title: 'Forgot Password',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })}
+        />
+        <Stack.Screen
           name="Dashboard"
           component={Dashboard}
-          options={{headerShown: false}}
-            
+          options={{ headerShown: false }}
+
         />
-           <Stack.Screen name='Detect' component={Detect}  options={({ navigation }) => ({
-            title: 'Detect',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>  
-           <Stack.Screen name='Profile' component={Profile} options={({ navigation }) => ({
-            title: 'Your Profile',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}
-      />
-      <Stack.Screen name='EditProfile' component={EditProfile} options={({ navigation }) => ({
-            title: 'Edit Profile',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>
-         
-                <Stack.Screen name='Registor' component={Registor} options={({ navigation }) => ({
-            title: 'Registor as Doctor',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>
-           <Stack.Screen
+        <Stack.Screen name='Detect' component={Detect} options={({ navigation }) => ({
+          title: 'Detect',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+        <Stack.Screen name='Profile' component={Profile} options={({ navigation }) => ({
+          title: 'Your Profile',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })}
+        />
+        <Stack.Screen name='EditProfile' component={EditProfile} options={({ navigation }) => ({
+          title: 'Edit Profile',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+
+        <Stack.Screen name='Registor' component={Registor} options={({ navigation }) => ({
+          title: 'Registor as Doctor',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+        <Stack.Screen
           name="DoctorLogin"
           component={DoctorLogin}
-          options={{headerShown: false}}
-            
+          options={{ headerShown: false }}
+
         />
-          <Stack.Screen
+        <Stack.Screen
           name="DoctorDashboard"
           component={DoctorDashboard}
-          options={{headerShown: false}}
-            
+          options={{ headerShown: false }}
+
         />
-         <Stack.Screen name='DocEdit' component={DocEdit} options={({ navigation }) => ({
-            title: 'Edit Profile',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>
-           <Stack.Screen name='Check' component={Check} options={({ navigation }) => ({
-            title: 'Diagnose',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>
-          <Stack.Screen name='Appointments' component={Appointments} options={({ navigation }) => ({
-            title: 'Your Appointments',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>
-           <Stack.Screen name='Doctor' component={SingleDoctor} options={({ navigation }) => ({
-            title: 'Doctor Profile',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>
-              <Stack.Screen name='Education' component={EditEdu} options={({ navigation }) => ({
-            title: 'Education Details',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>
-            <Stack.Screen name='DoctorAppointment' component={DoctorAppointment} options={({ navigation }) => ({
-            title: 'Your Appoinemnts',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>
-                 <Stack.Screen name='UserAppointment' component={PatientAppointments} options={({ navigation }) => ({
-            title: 'Scheduled  Appoinemnts',
-            headerStyle: {
-              backgroundColor: '#629FFA',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                onPress={() => navigation.goBack()}
-                name="arrow-back"
-                size={25}
-                color="white"
-                
-              />
-            ),
-          })}/>
-          
-    </Stack.Navigator>
-  </NavigationContainer>
+        <Stack.Screen name='DocEdit' component={DocEdit} options={({ navigation }) => ({
+          title: 'Edit Profile',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+        <Stack.Screen name='Check' component={Check} options={({ navigation }) => ({
+          title: 'Diagnose',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+        <Stack.Screen name='Appointments' component={Appointments} options={({ navigation }) => ({
+          title: 'Your Appointments',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+        <Stack.Screen name='Doctor' component={SingleDoctor} options={({ navigation }) => ({
+          title: 'Doctor Profile',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+        <Stack.Screen name='Education' component={EditEdu} options={({ navigation }) => ({
+          title: 'Education Details',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+        <Stack.Screen name='DoctorAppointment' component={DoctorAppointment} options={({ navigation }) => ({
+          title: 'Your Appoinemnts',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+        <Stack.Screen name='UserAppointment' component={PatientAppointments} options={({ navigation }) => ({
+          title: 'Scheduled  Appoinemnts',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+           <Stack.Screen name='DocProfile' component={DocProfile} options={({ navigation }) => ({
+          title: 'Doctor',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

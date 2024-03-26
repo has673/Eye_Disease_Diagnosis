@@ -2,24 +2,24 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 // import { format } from 'date-fns';
 
-const DoneAppointmentCard = ({ appointment, onDone}) => {
+const DoneAppointmentCard = ({ appointment, onDone, onCancel}) => {
     // const formattedDate = format(new Date(appointment.appointmentDate), 'EEEE, MMMM d, yyyy');
     // const formattedTime = format(new Date(appointment.appointmentDate), 'h:mm a');
   return (
     <View style={styles.cardContainer}>
       <View style={styles.card}>
+        
         <Text style={styles.text}>{`Patient Name: ${appointment.PatientName}`}</Text>
         <Text style={styles.text}>{`Appointment Date: ${appointment.appointmentDate}`}</Text>
-        {/* <Text style={styles.text}>{`Appointment Time: ${formattedTime}`}</Text> */}
-        {/* <Text style={styles.text}>{`Address: ${appointment.Clinic}`}</Text>
-        <Text style={styles.text}>{`Address: ${appointment.Address}`}</Text> */}
-
+    
+        <View style={styles.row}>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => onCancel(appointment.id)}>
+          <Text style={styles.cancelButtonText}>Cancel</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.cancelButton} onPress={() => onDone(appointment.id)}>
           <Text style={styles.cancelButtonText}>Done</Text>
         </TouchableOpacity>
-        
-      
-       
+        </View> 
       </View>
     </View>
   );
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection:'row'
   },
   cancelButton: {
-    backgroundColor: 'white',
+    backgroundColor: 'red',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 15,
@@ -56,12 +56,20 @@ const styles = StyleSheet.create({
     
 
   },
+
+  row:{
+    flexDirection:'row',
+    justifyContent:'center'
+  },
   
   cancelButtonText: {
-    color: 'black',
+    color: '#FFFFFF',
     fontWeight: 'bold',
     
   },
+  inner:{
+    alignItems:"center"
+  }
 });
 
 export default DoneAppointmentCard;
