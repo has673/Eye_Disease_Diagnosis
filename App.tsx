@@ -41,6 +41,7 @@ import SingleDoctor from './Screen/User/Appointment/SingleDoctor';
 import EditEdu from './Screen/Doctor/EditEdu';
 import DoctorAppointment from './Screen/User/Appointment/DoctorAppointment';
 import PatientAppointments from './Screen/User/Appointment/PatientAppointments';
+import PatientRequest from './Screen/User/Appointment/PatientRequest';
 
 
 
@@ -251,34 +252,6 @@ function Dashboard() {
           ),
         }}
       />
-      <Tab.Screen
-        name="Medicine"
-        component={MedicationScreen}
-        options={{
-          title: 'Medication',
-          headerStyle: {
-            backgroundColor: '#629FFA',
-          },
-
-          headerTintColor: 'white',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontFamily: 'inter',
-            fontSize: 24,
-
-          },
-          tabBarIcon: ({ focused }) => (
-            <View>
-              <Ionicons
-                name='medkit'
-                size={28}
-
-              />
-            </View>
-          ),
-        }}
-      />
-
       <Tab.Screen
         name="Doctors"
         component={AllDoctor}
@@ -615,6 +588,26 @@ function App() {
         })} />
            <Stack.Screen name='DocProfile' component={DocProfile} options={({ navigation }) => ({
           title: 'Doctor',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+        <Stack.Screen name='Appointment Requests' component={PatientRequest} options={({ navigation }) => ({
+          title: 'Appointment Requests',
           headerStyle: {
             backgroundColor: '#629FFA',
           },

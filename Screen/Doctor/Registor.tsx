@@ -66,15 +66,7 @@ const Registor = () => {
       <Image style={styles.stretch} source={require('../../assets/logo.png')} />
     </View> */}
      <View style={styles.form}>
-        <View style={styles.box1}>
-      <TextInput
-        style={styles.input2}
-        placeholder="Name"
       
-        value={name}
-        onChangeText={text => { setName(text) }}
-      ></TextInput>
-    </View>
       
       <View style={styles.box1}>
       <TextInput style={styles.input1} placeholder="PMDC" value={pmdc} onChangeText={text =>  setPmdc(text) }></TextInput>

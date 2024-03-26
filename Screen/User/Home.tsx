@@ -38,48 +38,9 @@ const Home = () => {
 
 
       <View style={styles.medicalcheck}>
-        <Text
-          style={{
-            fontWeight: 'bold',
-            fontSize: 24,
-            color: 'white',
-            marginLeft: 10,
-            marginTop: 10,
-          }}>
-          {' '}
-          Medical Checks !
-        </Text>
+     
 
-        <Text style={{color: 'white', marginTop: 10  , marginLeft:18}}>
-         Check your eye regularly 
-        </Text>
-        <Text style={{color: 'white',    marginLeft:18}}> to avoid any mishap</Text>
-
-        <View style={styles.imageandbutton}>
-          <View style={styles.BookAppointmentViewbtn}>
-          
-            <TouchableOpacity onPress={()=>navigation.navigate('Check')}>
-              <Text
-                style={{
-                  color: 'white',
-                  marginLeft:21,
-                  fontWeight: 'bold',
-                  fontSize: 16,
-                  marginTop:15
-                  
-                }} >
-                Check Now
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View>
-            <Image
-              style={styles.stretch}
-              source={require('../../assets/image1.png')}
-            />
-          </View>
-        </View>
+      
       </View>
 
       <View style={styles.history}></View>
