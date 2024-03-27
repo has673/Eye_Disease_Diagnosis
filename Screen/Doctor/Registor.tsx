@@ -10,23 +10,34 @@ const Registor = () => {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const navigation = useNavigation()
-  const Handleregistor= async ()=>{
+  const isValidEmail = (email) => {
+    // Regular expression for basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  
+  const Handleregistor = async () => {
     try {
       console.log("signup function");
       if (email.length > 0 && password.length > 0) {
+        // Check if the email is valid
+        if (!isValidEmail(email)) {
+          Alert.alert('Error', 'Please enter a valid email address');
+          return;
+        }
+  
         const isusercreated = await auth().createUserWithEmailAndPassword(email, password);
-
+  
         if (isusercreated.user) {
           console.log('User created successfully!', isusercreated.user.uid);
          
           await auth().currentUser.sendEmailVerification()
-
+  
           const Userdata = {
-            id : isusercreated.user.uid,
-            email:email,
-            Name : name,
-            Regno : pmdc,
-
+            id: isusercreated.user.uid,
+            email: email,
+            Name: name,
+            Regno: pmdc,
           }
           await firestore().collection('Doctor').doc(isusercreated.user.uid).set(Userdata)
           
@@ -53,13 +64,18 @@ const Registor = () => {
       } else if (err.code === 'auth/invalid-email') {
         console.log('That email address is invalid!');
         setError('That email address is invalid!');
-      } else {
+      } 
+      else if (err.code === 'auth/weak-password') {
+        console.log('Password should be atleast 6 characters!');
+        setError('Password should be atleast 6 characters!');
+      }
+      else {
         console.error(err);
         setError('Signup failed. Please try again later.');
       }
     }
-
-  }
+  };
+  
   return (
     <View style={styles.container}>
        {/* <View>
