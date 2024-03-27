@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  Text, StyleSheet, ActivityIndicator,  ScrollView , Alert } from 'react-native';
+import {  View, Text, StyleSheet, ActivityIndicator,  ScrollView , Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import AppointmentCard from '../../../components/AppointmentCard';
@@ -68,48 +68,39 @@ const  PatientAppointments = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {loading ? (
-        <ActivityIndicator style={styles.loadingIndicator} size="large" color="#629FFA" />
-      ) : userAppointments.length === 0 ? (
-        <Text>No Scheduled appointments found.</Text>
-      ) : (
-        userAppointments.map(appointment => (
-          <AppointmentCard key={appointment.id} appointment={appointment} onCancel={handleCancelAppointment} />       
-        ))
-      )}
-    </ScrollView>
+    {loading ? (
+      <ActivityIndicator size="large" color="#629FFA" />
+    ) : (
+      <View>
+        {userAppointments.length > 0 ? (
+          <View>
+            {userAppointments.map((appointment) => (
+              <AppointmentCard key={appointment.id} appointment={appointment} onCancel={handleCancelAppointment} />   
+            ))}
+          </View>
+        ) : (
+          <Text style={styles.text}>No appointment requests!.</Text>
+        )}
+      </View>
+    )}
+  </ScrollView>
 
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    
-    alignItems: 'center',
-  },
-  loadingIndicator: {
-    marginBottom: 20,
-  },
-  appointmentCard: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 10,
-    width: '80%',
+    flexGrow: 1,
+    backgroundColor: '#FFFFFF',
+    padding: 20,
   },
   cancelButton: {
-    backgroundColor: '#FF5733',
-    marginTop: 5,
-    padding: 5,
-    borderRadius: 5,
-    alignItems: 'center',
+    marginTop: 10,
+    backgroundColor: 'red',
   },
-  cancelButtonText: {
-    color: '#FFF',
-    fontWeight: 'bold',
-  },
+  text:{
+    textAlign:'center'
+  }
 });
 
 export default PatientAppointments;

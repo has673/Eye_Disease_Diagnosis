@@ -6,6 +6,7 @@ import auth from '@react-native-firebase/auth';
 import AppointmentCard from '../../../components/AppointmentCard';
 
 const PatientRequest = () => {
+  console.log("user appointment request")
     const [userAppointments, setUserAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
   

@@ -517,7 +517,7 @@ function App() {
           ),
         })} />
         <Stack.Screen name='UserAppointment' component={PatientAppointments} options={({ navigation }) => ({
-          title: 'Scheduled  Appoinemnts',
+          title: 'Scheduled  Appointments',
           headerStyle: {
             backgroundColor: '#629FFA',
           },
