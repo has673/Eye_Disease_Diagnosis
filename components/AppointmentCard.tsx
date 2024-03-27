@@ -10,10 +10,11 @@ const AppointmentCard = ({ appointment, onCancel }) => {
       <View style={styles.card}>
         <View style={styles.inner}>
           <Text style={styles.text}>{`Doctor Name: ${appointment.DoctorName}`}</Text>
-          <Text style={styles.text}>{`Appointment Date: ${appointment.appointmentDate}`}</Text>
+          {/* <Text style={styles.text}>{`Appointment Date: ${appointment.appointmentDate}`}</Text> */}
           {/* <Text style={styles.text}>{`Appointment Time: ${formattedTime}`}</Text> */}
-          <Text style={styles.textclinic}>{`Clinic: ${appointment.Clinic}`}</Text>
-          <Text style={styles.text}>{`Address: ${appointment.Address}`}</Text>
+         
+          <Text style={styles.textname}>{appointment.Clinic}</Text>
+          
         </View>
         <TouchableOpacity style={styles.cancelButton} onPress={() => onCancel(appointment.id)}>
           <Text style={styles.cancelButtonText}>Cancel</Text>
@@ -28,25 +29,34 @@ const AppointmentCard = ({ appointment, onCancel }) => {
 const styles = StyleSheet.create({
   cardContainer: {
     alignItems: 'center',
-    marginBottom: 450,
+    marginBottom:25
+ 
   },
   card: {
     backgroundColor: '#629FFA',
     borderRadius: 18,
     padding: 10,
     width: 250,
-    height: 200,
+    height: 120,
 
   },
   text: {
     color: '#FFFFFF',
     marginBottom: 10,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    
+    
   },
-  textclinic: {
+  // textclinic: {
+  //   color: '#FFFFFF',
+  //   marginBottom: 7,
+  //   marginRight: 110,
+  //   fontWeight: "bold",
+  // },
+  textname: {
     color: '#FFFFFF',
-    marginBottom: 10,
-    marginRight: 75,
+    marginBottom: 7,
+    textAlign:'left',
     fontWeight: "bold",
   },
   cancelButton: {

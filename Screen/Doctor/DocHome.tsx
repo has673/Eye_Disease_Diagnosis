@@ -7,23 +7,18 @@ import Auth from '@react-native-firebase/auth';
 
 import { useNavigation } from '@react-navigation/native';
 import Card from '../../components/Card';
-import DiseaseCard from '../../components/DiseaseCard';
 
  
-const Home = () => {
+const DocHome = () => {
   const navigation = useNavigation()
   const Press1=()=>{
-    navigation.navigate('UserAppointment')
+    navigation.navigate('Appointments')
   }
   const Press2=()=>{
-    navigation.navigate('Appointment Requests')
+    navigation.navigate(' Doctor Appointment Requests')
   }
   const Press3=()=>{
-    navigation.navigate('Complete Appointments')
-  }
-
-  const Press4=()=>{
-    navigation.navigate('Check')
+    navigation.navigate('Doctor Completed Appointments')
   }
     useEffect(() => {
       const unsubscribe = Auth().onAuthStateChanged((user) => {
@@ -41,12 +36,6 @@ const Home = () => {
       { name: 'Appointments', text: 'calendar-month', icon: 'calendar-month', onPress: Press1 },
       { name: 'Requests', text: 'calendar-question', icon: 'calendar-question', onPress: Press2 },
       { name: 'History', text: 'calendar-check', icon: 'calendar-check', onPress: Press3 }
-    ];
-
-    const data2 = [
-      { name: 'Diabetic', icon: 'calendar-month', onPress: Press4 },
-      { name: 'Glaucoma', icon: 'calendar-question', onPress: Press4 },
-      { name: 'Cataract',  icon: 'calendar-check', onPress: Press4 }
     ];
   return (
     <>
@@ -90,34 +79,21 @@ const Home = () => {
       
      
 
-      
+      <View style={styles.reports}></View>
 
+      <Text
+        style={{
+          fontSize: 22,
+          fontWeight: 'bold',
+          marginTop: 20,
+          marginLeft: 10,
+        }}>
+        Reports
+      </Text>
+    
     
       
     </View> 
-    <View style={styles.detections}></View>
-
-<Text
-  style={{
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginTop: 20,
-    marginLeft: 10,
-    color:'black'
-  }}>
-  Detections
-</Text>
-<View style={styles.cardcontainer}>
-{data2.map((item, index) => (
-  <DiseaseCard
-    key={index}
-    name={item.name}
-   
-    icon={item.icon}
-    onPress={item.onPress}
-  />
-))}
-</View>
 
      
       </>
@@ -129,16 +105,10 @@ const styles = StyleSheet.create({
 
   Dashboard: {
     flexDirection: 'column',
-    // backgroundColor: '',
+    backgroundColor: 'white',
     flex:1,
   },
   cardcontainer: {
-    flex: 1,
-    justifyContent: 'center',
-    
-    flexDirection:"row"
-  },
-  detections: {
     flex: 1,
     justifyContent: 'center',
     
@@ -174,8 +144,24 @@ const styles = StyleSheet.create({
   reports: {
     flexDirection: 'row',
   },
-
- 
+  downloadicon: {
+    backgroundColor: '#629FFA',
+    borderRadius: 190,
+    width: 52,
+    height: 52,
+    left: 10,
+    bottom: -10,
+    borderColor: 'black',
+  },
+  downloadicon1: {
+    backgroundColor: '#ffffff',
+    borderRadius: 190,
+    width: 52,
+    height: 52,
+    left: 80,
+    bottom: 40,
+    borderColor: 'black',
+  },
 });
 
-export default Home
+export default DocHome

@@ -4,7 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import AppointmentCard from '../../../components/AppointmentCard';
 
-const  PatientAppointments = () => {
+const  CompleteAppointments = () => {
     console.log("user appointments")
   const [userAppointments, setUserAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,6 +21,7 @@ const  PatientAppointments = () => {
           .collection('Appointments')
           .where('userId', '==', currentUser.uid)
           .where('Status', '==', 'confirmed')
+          .where('Done', '==', true)
           .get();
 
         const appointments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -38,7 +39,16 @@ const  PatientAppointments = () => {
     return () => setUserAppointments([]);
   }, []);
 
- 
+  // const handleCancelAppointment = async (appointmentId) => {
+  //   try {
+  //     await firestore().collection('Appointments').doc(appointmentId).delete();
+  
+  //     // Optionally show a success message or perform other actions
+  //   } catch (error) {
+  //     console.error('Error canceling appointment:', error.message);
+  //     // Optionally show an error message
+  //   }
+  // };
   const handleCancelAppointment = async (appointmentId) => {
     try {
       Alert.alert(
@@ -71,7 +81,7 @@ const  PatientAppointments = () => {
       {loading ? (
         <ActivityIndicator style={styles.loadingIndicator} size="large" color="#629FFA" />
       ) : userAppointments.length === 0 ? (
-        <Text>No Scheduled appointments found.</Text>
+        <Text style={styles.text}>No Appointments History.</Text>
       ) : (
         userAppointments.map(appointment => (
           <AppointmentCard key={appointment.id} appointment={appointment} onCancel={handleCancelAppointment} />       
@@ -85,8 +95,9 @@ const  PatientAppointments = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
+    justifyContent: 'center',
     alignItems: 'center',
+   
   },
   loadingIndicator: {
     marginBottom: 20,
@@ -110,6 +121,10 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: 'bold',
   },
+  text:{
+    justifyContent:"center",
+    alignItems:'center'
+  }
 });
 
-export default PatientAppointments;
+export default CompleteAppointments;

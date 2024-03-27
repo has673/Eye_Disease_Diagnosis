@@ -20,7 +20,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Login from './Screen/User/Login';
 import Signup from './Screen/User/Signup';
 import Forgot from './Screen/User/Forgotpass';
-import MedicationScreen from './Screen/User/MedicationScreen';
+
 
 import Home from './Screen/User/Home';
 
@@ -42,6 +42,9 @@ import EditEdu from './Screen/Doctor/EditEdu';
 import DoctorAppointment from './Screen/User/Appointment/DoctorAppointment';
 import PatientAppointments from './Screen/User/Appointment/PatientAppointments';
 import PatientRequest from './Screen/User/Appointment/PatientRequest';
+import DocHome from './Screen/Doctor/DocHome';
+import CompleteAppointments from './Screen/User/Appointment/CompleteAppointments';
+import DoctorCompleteAppointment from './Screen/Doctor/DoctorCompleteAppointment';
 
 
 
@@ -63,7 +66,7 @@ function DoctorDashboard() {
     
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={DocHome}
         options={({ navigation }) => ({
           headerStyle: {
             backgroundColor: '#629FFA',
@@ -123,59 +126,6 @@ function DoctorDashboard() {
           ),
         }}
       />
-      <Tab.Screen
-        name="Appointments"
-        component={Appointments}
-        options={{
-          title: ' Appointments',
-          headerStyle: {
-            backgroundColor: '#629FFA',
-          },
-
-          headerTintColor: 'white',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontFamily: 'inter',
-            fontSize: 24,
-
-          },
-          tabBarIcon: ({ focused }) => (
-            <View>
-              <MaterialCommunityIcons
-                name='calendar-month'
-                size={28}
-
-              />
-            </View>
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="DoctorAppointmenst"
-        component={DoctorAppointment}
-        options={{
-          title: ' Requests',
-          headerStyle: {
-            backgroundColor: '#629FFA',
-          },
-
-          headerTintColor: 'white',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontFamily: 'inter',
-            fontSize: 24,
-
-          },
-          tabBarIcon: ({ focused }) => (
-            <View>
-              <MaterialCommunityIcons name='calendar-question' size={25} />
-            </View>
-          ),
-        }}
-      />
-
-
     </Tab.Navigator>
   )
 }
@@ -626,6 +576,68 @@ function App() {
             />
           ),
         })} />
+         <Stack.Screen name='Complete Appointments' component={CompleteAppointments} options={({ navigation }) => ({
+          title: 'Appointment ',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          
+          ),
+        })} />
+        <Stack.Screen name=' Doctor Appointment Requests' component={DoctorAppointment} options={({ navigation }) => ({
+          title: 'Appointment Requests',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+         <Stack.Screen name='Doctor Completed Appointments' component={DoctorCompleteAppointment} options={({ navigation }) => ({
+          title: 'Completed Appointments',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+      
 
       </Stack.Navigator>
     </NavigationContainer>
