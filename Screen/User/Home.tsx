@@ -45,9 +45,9 @@ const Home = () => {
     ];
 
     const data2 = [
-      { name: 'Diabetic', icon: 'calendar-month', onPress: Press4 },
-      { name: 'Glaucoma', icon: 'calendar-question', onPress: Press4 },
-      { name: 'Cataract',  icon: 'calendar-check', onPress: Press4 }
+      { name: 'Diabetic', icon: 'eye-outline', onPress: Press4 },
+      { name: 'Glaucoma', icon: 'eye-outline', onPress: Press4 },
+      { name: 'Cataract',  icon: 'eye', onPress: Press4 }
     ];
   return (
     <>
