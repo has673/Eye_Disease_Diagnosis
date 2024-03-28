@@ -10,6 +10,7 @@ const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const currentUser = auth().currentUser?.uid;
+  console.log('confirmed')
   console.log(currentUser)
   useEffect(() => {
     const unsubscribe = firestore()

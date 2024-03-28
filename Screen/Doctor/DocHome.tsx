@@ -19,7 +19,7 @@ const DocHome = () => {
     navigation.navigate('Doctor Appointment Requests')
   }
   const Press3=()=>{
-    navigation.navigate(' Doctor Appointment Requests')
+    navigation.navigate('Doctor Completed Appointments')
   }
 
   const Press4=()=>{
@@ -54,10 +54,12 @@ const DocHome = () => {
      
       </View> 
         <View style={styles.Dashboard}>
-
-
       <View style={styles.medicalcheck}>
-     
+      <Text style={styles.title}>Eye Disease Diagnosis</Text>
+        <Text style={styles.description}>
+          Here you can view information about various eye diseases and their treatments.
+        </Text>
+
 
       
       </View>
@@ -164,6 +166,18 @@ const styles = StyleSheet.create({
 
   reports: {
     flexDirection: 'row',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 10,
+    marginTop: 10,
+    textAlign:'center',
+  },
+  description: {
+    fontSize: 16,
+    color: 'white',
   },
 
  

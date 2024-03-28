@@ -23,7 +23,7 @@ const Home = () => {
   }
 
   const Press4=()=>{
-    // navigation.navigate('Check')
+    navigation.navigate('Check')
     console.log('lll')
   }
     useEffect(() => {
@@ -55,16 +55,16 @@ const Home = () => {
      
       </View> 
         <View style={styles.Dashboard}>
-
-
-      <View style={styles.medicalcheck}>
-     
-
-      
+        <View style={styles.medicalcheck}>
+      <Text style={styles.title}>Eye Disease Diagnosis</Text>
+        <Text style={styles.description}>
+          Here you can view information about various eye diseases and their treatments.
+        </Text>
+        {/* <Text style={styles.description}>
+        Manage your Appoitments with us. Connect with best Healthcare Providers. 
+        </Text> */}
       </View>
-
       <View style={styles.history}></View>
-
       <Text
         style={{
           fontSize: 22,
@@ -86,15 +86,7 @@ const Home = () => {
         />
       ))}
     </View>
-   
-
-      
-     
-
-      
-
     
-      
     </View> 
     <View style={styles.detections}></View>
 
@@ -133,11 +125,35 @@ const styles = StyleSheet.create({
     // backgroundColor: '',
     flex:1,
   },
+  
+  medicalcheck: {
+    height: 160,
+    backgroundColor: '#629FFA',
+    marginTop: 30,
+    marginLeft: 25,
+    marginRight: 25,
+    borderRadius: 10,
+  },
+
+  
   cardcontainer: {
     flex: 1,
     justifyContent: 'center',
     
     flexDirection:"row"
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 10,
+    marginTop: 10,
+    textAlign:'center',
+  },
+  description: {
+    fontSize: 16,
+    color: 'white',
+    textAlign:"center"
   },
   detections: {
     flex: 1,
