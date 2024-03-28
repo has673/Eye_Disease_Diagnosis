@@ -7,6 +7,7 @@ import Auth from '@react-native-firebase/auth';
 
 import { useNavigation } from '@react-navigation/native';
 import Card from '../../components/Card';
+import DiseaseCard from '../../components/DiseaseCard';
 
  
 const DocHome = () => {
@@ -15,10 +16,15 @@ const DocHome = () => {
     navigation.navigate('Appointments')
   }
   const Press2=()=>{
-    navigation.navigate(' Doctor Appointment Requests')
+    navigation.navigate('Doctor Appointment Requests')
   }
   const Press3=()=>{
-    navigation.navigate('Doctor Completed Appointments')
+    navigation.navigate(' Doctor Appointment Requests')
+  }
+
+  const Press4=()=>{
+    // navigation.navigate('Check')
+    console.log('lll')
   }
     useEffect(() => {
       const unsubscribe = Auth().onAuthStateChanged((user) => {
@@ -36,6 +42,12 @@ const DocHome = () => {
       { name: 'Appointments', text: 'calendar-month', icon: 'calendar-month', onPress: Press1 },
       { name: 'Requests', text: 'calendar-question', icon: 'calendar-question', onPress: Press2 },
       { name: 'History', text: 'calendar-check', icon: 'calendar-check', onPress: Press3 }
+    ];
+
+    const data2 = [
+      { name: 'Diabetic', icon: 'calendar-month', onPress: Press4 },
+      { name: 'Glaucoma', icon: 'calendar-question', onPress: Press4 },
+      { name: 'Cataract',  icon: 'calendar-check', onPress: Press4 }
     ];
   return (
     <>
@@ -73,27 +85,31 @@ const DocHome = () => {
           onPress={item.onPress}
         />
       ))}
-    </View>
-   
-
-      
-     
-
-      <View style={styles.reports}></View>
-
-      <Text
-        style={{
-          fontSize: 22,
-          fontWeight: 'bold',
-          marginTop: 20,
-          marginLeft: 10,
-        }}>
-        Reports
-      </Text>
-    
-    
-      
+    </View>    
     </View> 
+    <View style={styles.detections}></View>
+
+<Text
+  style={{
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginLeft: 10,
+    color:'black'
+  }}>
+  Detections
+</Text>
+<View style={styles.cardcontainer}>
+{data2.map((item, index) => (
+  <DiseaseCard
+    key={index}
+    name={item.name}
+   
+    icon={item.icon}
+    onPress={item.onPress}
+  />
+))}
+</View>
 
      
       </>
@@ -105,10 +121,16 @@ const styles = StyleSheet.create({
 
   Dashboard: {
     flexDirection: 'column',
-    backgroundColor: 'white',
+    // backgroundColor: '',
     flex:1,
   },
   cardcontainer: {
+    flex: 1,
+    justifyContent: 'center',
+    
+    flexDirection:"row"
+  },
+  detections: {
     flex: 1,
     justifyContent: 'center',
     
@@ -144,24 +166,8 @@ const styles = StyleSheet.create({
   reports: {
     flexDirection: 'row',
   },
-  downloadicon: {
-    backgroundColor: '#629FFA',
-    borderRadius: 190,
-    width: 52,
-    height: 52,
-    left: 10,
-    bottom: -10,
-    borderColor: 'black',
-  },
-  downloadicon1: {
-    backgroundColor: '#ffffff',
-    borderRadius: 190,
-    width: 52,
-    height: 52,
-    left: 80,
-    bottom: 40,
-    borderColor: 'black',
-  },
+
+ 
 });
 
 export default DocHome

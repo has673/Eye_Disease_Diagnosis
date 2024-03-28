@@ -416,7 +416,7 @@ function App() {
             />
           ),
         })} />
-        <Stack.Screen name='Check' component={Check} options={({ navigation }) => ({
+        {/* <Stack.Screen name='Check' component={Check} options={({ navigation }) => ({
           title: 'Diagnose',
           headerStyle: {
             backgroundColor: '#629FFA',
@@ -435,7 +435,7 @@ function App() {
 
             />
           ),
-        })} />
+        })} /> */}
         <Stack.Screen name='Appointments' component={Appointments} options={({ navigation }) => ({
           title: 'Your Appointments',
           headerStyle: {

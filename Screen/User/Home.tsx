@@ -23,7 +23,8 @@ const Home = () => {
   }
 
   const Press4=()=>{
-    navigation.navigate('Check')
+    // navigation.navigate('Check')
+    console.log('lll')
   }
     useEffect(() => {
       const unsubscribe = Auth().onAuthStateChanged((user) => {

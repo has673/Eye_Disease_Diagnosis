@@ -19,6 +19,8 @@
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
+    "@tensorflow/tfjs": "^4.17.0",
+    "@tensorflow/tfjs-react-native": "^1.0.0",
     "ant": "^0.2.0",
     "date-fns": "^3.6.0",
     "date.js": "^0.3.3",
