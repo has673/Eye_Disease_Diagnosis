@@ -34,7 +34,7 @@ import Registor from './Screen/Doctor/Registor';
 import DoctorLogin from './Screen/Doctor/DoctorLogin';
 import DocProfile from './Screen/Doctor/DocProfile';
 import DocEdit from './Screen/Doctor/DocEdit';
-import Check from './Screen/User/Check.js';
+import Check from './Screen/User/Check';
 import AllDoctor from './Screen/User/Appointment/AllDoctor';
 import Appointments from './Screen/Doctor/Appointments';
 import SingleDoctor from './Screen/User/Appointment/SingleDoctor';

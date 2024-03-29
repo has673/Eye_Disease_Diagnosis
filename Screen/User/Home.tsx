@@ -46,8 +46,7 @@ const Home = () => {
 
     const data2 = [
       { name: 'Diabetic', icon: 'eye-outline', onPress: Press4 },
-      { name: 'Glaucoma', icon: 'eye-outline', onPress: Press4 },
-      { name: 'Cataract',  icon: 'eye', onPress: Press4 }
+      { name: 'Glaucoma', icon: 'eye-outline', onPress: Press4 }
     ];
   return (
     <>
