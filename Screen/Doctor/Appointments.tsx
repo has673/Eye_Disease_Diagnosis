@@ -1,10 +1,12 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable prettier/prettier */
 import { StyleSheet, Text, View, ActivityIndicator, ScrollView , Alert} from 'react-native'
 import React from 'react'
 import auth from '@react-native-firebase/auth'; 
 import { useState , useEffect } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import DoneAppointmentCard from '../../components/DoneAppointmentCard';
-;
+
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -40,11 +42,21 @@ const Appointments = () => {
       }
   
       const appointmentData = appointmentSnapshot.data();
-      if (appointmentData && appointmentData.Status === 'confirmed' && appointmentData.appointmentDate>Date.now()) {
+      console.log(appointmentData);
+      console.log('function');
+      if (
+        appointmentData &&
+        appointmentData.Status === 'confirmed' &&
+        new Date(appointmentData.appointmentDate) > new Date()
+      ) {
+        // Update the appointment status to Done
         await appointmentRef.update({ Done: true });
+        console.log(appointmentRef);
         Alert.alert('Success', 'Appointment Done.');
-      } else {
+      } 
+    else {
         Alert.alert('Error', 'Appointment cannot be complete.');
+        console.log('err');
       }
     } catch (error) {
       console.error('Error confirming appointment:', error);

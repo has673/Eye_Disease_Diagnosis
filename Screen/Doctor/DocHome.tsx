@@ -1,70 +1,102 @@
-import { View, Text, TouchableOpacity, StyleSheet  , Image} from 'react-native'
-useNavigation
+import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+useNavigation;
 
-
-import React ,{useEffect} from 'react'
+import React, {useEffect} from 'react';
 import Auth from '@react-native-firebase/auth';
 
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Card from '../../components/Card';
 import DiseaseCard from '../../components/DiseaseCard';
 
- 
 const DocHome = () => {
-  const navigation = useNavigation()
-  const Press1=()=>{
-    navigation.navigate('Appointments')
-  }
-  const Press2=()=>{
-    navigation.navigate('Doctor Appointment Requests')
-  }
-  const Press3=()=>{
-    navigation.navigate('Doctor Completed Appointments')
-  }
+  const navigation = useNavigation();
+  const Press1 = () => {
+    navigation.navigate('Appointments');
+  };
+  const Press2 = () => {
+    navigation.navigate('Doctor Appointment Requests');
+  };
+  const Press3 = () => {
+    navigation.navigate('Doctor Completed Appointments');
+  };
 
-  const Press4=()=>{
+  const Press4 = () => {
     // navigation.navigate('Check')
-    console.log('lll')
-  }
-    useEffect(() => {
-      const unsubscribe = Auth().onAuthStateChanged((user) => {
-        if (!user) {
-          // If user is not authenticated, navigate to the login screen
-          navigation.navigate('Login');
-        }
-      });
-    
-      // Cleanup the subscription when the component unmounts
-      return unsubscribe;
-    }, [navigation]);
- 
-    const data = [
-      { name: 'Appointments', text: 'calendar-month', icon: 'calendar-month', onPress: Press1 },
-      { name: 'Requests', text: 'calendar-question', icon: 'calendar-question', onPress: Press2 },
-      { name: 'History', text: 'calendar-check', icon: 'calendar-check', onPress: Press3 }
-    ];
-    const data2 = [
-      { name: 'Diabetic', icon: 'eye-outline', onPress: Press4 },
-      { name: 'Glaucoma', icon: 'eye-outline', onPress: Press4 },
-      { name: 'Cataract',  icon: 'eye', onPress: Press4 }
-    ];
+    console.log('lll');
+  };
+  useEffect(() => {
+    const unsubscribe = Auth().onAuthStateChanged(user => {
+      if (!user) {
+        // If user is not authenticated, navigate to the login screen
+        navigation.navigate('Login');
+      }
+    });
+
+    // Cleanup the subscription when the component unmounts
+    return unsubscribe;
+  }, [navigation]);
+
+  const data = [
+    {
+      name: 'Appointments',
+      text: 'calendar-month',
+      icon: 'calendar-month',
+      onPress: Press1,
+    },
+    {
+      name: 'Requests',
+      text: 'calendar-question',
+      icon: 'calendar-question',
+      onPress: Press2,
+    },
+    {
+      name: 'History',
+      text: 'calendar-check',
+      icon: 'calendar-check',
+      onPress: Press3,
+    },
+  ];
+  const data2 = [
+    {name: 'Diabetic', icon: 'eye-outline', onPress: Press4},
+    {name: 'Glaucoma', icon: 'eye-outline', onPress: Press4},
+  ];
   return (
     <>
-     <View>
-     
-      </View> 
-        <View style={styles.Dashboard}>
-      <View style={styles.medicalcheck}>
-      <Text style={styles.title}>Eye Disease Diagnosis</Text>
-        <Text style={styles.description}>
-          Here you can view information about various eye diseases and their treatments.
+      <View></View>
+      <View style={styles.Dashboard}>
+        <View style={styles.medicalcheck}>
+          <Text style={styles.title}>Eye Disease Diagnosis</Text>
+          <Text style={styles.description}>
+            Here you can view information about various eye diseases and their
+            treatments.
+          </Text>
+        </View>
+
+        <View style={styles.history}></View>
+
+        <Text
+          style={{
+            fontSize: 22,
+            fontWeight: 'bold',
+            marginTop: 20,
+            marginLeft: 10,
+            color: 'black',
+          }}>
+          Appointments
         </Text>
-
-
-      
+        <View style={styles.cardcontainer}>
+          {data.map((item, index) => (
+            <Card
+              key={index}
+              name={item.name}
+              text={item.text}
+              icon={item.icon}
+              onPress={item.onPress}
+            />
+          ))}
+        </View>
       </View>
-
-      <View style={styles.history}></View>
+      <View style={styles.detections}></View>
 
       <Text
         style={{
@@ -72,72 +104,41 @@ const DocHome = () => {
           fontWeight: 'bold',
           marginTop: 20,
           marginLeft: 10,
-          color:'black'
+          color: 'black',
         }}>
-        Appointments
+        Detections
       </Text>
       <View style={styles.cardcontainer}>
-      {data.map((item, index) => (
-        <Card
-          key={index}
-          name={item.name}
-          text={item.text}
-          icon={item.icon}
-          onPress={item.onPress}
-        />
-      ))}
-    </View>    
-    </View> 
-    <View style={styles.detections}></View>
-
-<Text
-  style={{
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginTop: 20,
-    marginLeft: 10,
-    color:'black'
-  }}>
-  Detections
-</Text>
-<View style={styles.cardcontainer}>
-{data2.map((item, index) => (
-  <DiseaseCard
-    key={index}
-    name={item.name}
-   
-    icon={item.icon}
-    onPress={item.onPress}
-  />
-))}
-</View>
-
-     
-      </>
-    
-  )
-}
+        {data2.map((item, index) => (
+          <DiseaseCard
+            key={index}
+            name={item.name}
+            icon={item.icon}
+            onPress={item.onPress}
+          />
+        ))}
+      </View>
+    </>
+  );
+};
 const styles = StyleSheet.create({
-
-
   Dashboard: {
     flexDirection: 'column',
     // backgroundColor: '',
-    flex:1,
+    flex: 1,
   },
   cardcontainer: {
     flex: 1,
     justifyContent: 'center',
-    
-    flexDirection:"row"
+
+    flexDirection: 'row',
   },
   detections: {
     flex: 1,
     justifyContent: 'center',
-    
-    flexDirection:"row"
-  },
 
+    flexDirection: 'row',
+  },
 
   medicalcheck: {
     height: 160,
@@ -173,14 +174,12 @@ const styles = StyleSheet.create({
     color: 'white',
     marginBottom: 10,
     marginTop: 10,
-    textAlign:'center',
+    textAlign: 'center',
   },
   description: {
     fontSize: 16,
     color: 'white',
   },
-
- 
 });
 
-export default DocHome
+export default DocHome;

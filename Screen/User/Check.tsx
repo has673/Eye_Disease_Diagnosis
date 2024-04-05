@@ -1,6 +1,6 @@
-import React, { useState , useEffect } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
+import React, {useState, useEffect} from 'react';
+import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
 import axios from 'axios'; // Import Axios for making HTTP requests
 
 export default function Check() {
@@ -62,7 +62,7 @@ export default function Check() {
         name: 'image.jpg',
         type: 'image/jpg',
       });
-  
+
       const response = await fetch('http://192.168.137.87:5001/predict', {
         method: 'POST',
         headers: {
@@ -70,7 +70,7 @@ export default function Check() {
         },
         body: formData, // Pass formData as the request body
       });
-  
+
       if (response.ok) {
         const responseData = await response.json(); // Assuming the response is in JSON format
         setResult(responseData.result);
@@ -84,7 +84,7 @@ export default function Check() {
   };
   return (
     <View style={styles.container}>
-      <View style={{ width: '100%', height: '55%' }}>
+      <View style={{width: '100%', height: '55%'}}>
         <View style={styles.InsertImageContainer}>
           <Image
             style={styles.uploadImage}

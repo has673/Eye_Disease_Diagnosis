@@ -1,8 +1,13 @@
+/* eslint-disable quotes */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable prettier/prettier */
+/* eslint-disable semi */
 import React, { useState, useEffect } from 'react';
 import {  Text, StyleSheet, ActivityIndicator,  ScrollView , Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import AppointmentCard from '../../components/AppointmentCard';
+
+import DoctorCompleteCard from '../../components/DoctorCompleteCard';
 
 const DoctorCompleteAppointment = () => {
     console.log("doctor complete appointments")
@@ -47,7 +52,7 @@ const DoctorCompleteAppointment = () => {
         <Text style={styles.text}>No Appointments History.</Text>
       ) : (
         userAppointments.map(appointment => (
-          <AppointmentCard key={appointment.id} appointment={appointment} onCancel={handleCancelAppointment} />       
+          <DoctorCompleteCard key={appointment.id} appointment={appointment}  />       
         ))
       )}
     </ScrollView>
@@ -58,9 +63,9 @@ export default DoctorCompleteAppointment
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+      flexGrow: 1,
+      backgroundColor: '#FFFFFF',
+      padding: 10,
        
       },
       loadingIndicator: {

@@ -1,3 +1,5 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 // import { format } from 'date-fns';
@@ -5,16 +7,19 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 const DocAppointmentCard = ({ appointment, onCancel , onAccept }) => {
     // const formattedDate = format(new Date(appointment.appointmentDate), 'EEEE, MMMM d, yyyy');
     // const formattedTime = format(new Date(appointment.appointmentDate), 'h:mm a');
+    const appointmentDate = appointment.appointmentDate.toDate();
+  
+    // Format date to a human-readable string
+    const formattedDate = appointmentDate.toLocaleString();
   return (
     <View style={styles.cardContainer}>
       <View style={styles.card}>
         <View  style={styles.inner}>
         <Text style={styles.text}>{`Patient Name: ${appointment.PatientName}`}</Text>
-        <Text style={styles.textdate}>{`Appointment Date: ${appointment.appointmentDate}`}</Text>
+        <Text style={styles.textdate}>{`Appointment Date: ${formattedDate}`}</Text>
+        
         </View>
-        {/* <Text style={styles.text}>{`Appointment Time: ${formattedTime}`}</Text> */}
-        {/* <Text style={styles.text}>{`Address: ${appointment.Clinic}`}</Text>
-        <Text style={styles.text}>{`Address: ${appointment.Address}`}</Text> */}
+
         <View style={styles.row}>
         <TouchableOpacity style={styles.cancelButton} onPress={() => onCancel(appointment.id)}>
           <Text style={styles.cancelButtonText}>Cancel</Text>

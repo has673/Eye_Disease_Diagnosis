@@ -2,29 +2,25 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 // import { format } from 'date-fns';
 
-const AppointmentCard = ({ appointment, onCancel }) => {
- 
-  const appointmentDate = appointment.appointmentDate.toDate();
-  
-  // // Format date to a human-readable string
-  const formattedDate = appointmentDate.toLocaleString();
+const DoctorCompleteCard = ({ appointment}) => {
+  // const formattedDate = format(new Date(appointment.appointmentDate), 'EEEE, MMMM d, yyyy');
+  // const formattedTime = format(new Date(appointment.appointmentDate), 'h:mm a');
   return (
     <View style={styles.cardContainer}>
       <View style={styles.card}>
         <View style={styles.inner}>
-          <Text style={styles.text}>{`Doctor Name: ${appointment.DoctorName}`}</Text>
-
-          <Text style={styles.text}>{`Date: ${appointment.formattedDate}`}</Text>
+          <Text style={styles.text}>{`Doctor Name: ${appointment.PatientName}`}</Text>
+          {/* <Text style={styles.text}>{`Appointment Date: ${appointment.appointmentDate}`}</Text> */}
+          {/* <Text style={styles.text}>{`Appointment Time: ${formattedTime}`}</Text> */}
+      
+          <Text style={styles.text}>{`Date: ${appointment.appointmentDate}`}</Text>
           <Text style={styles.textname}>{appointment.Clinic}</Text>
           
         </View>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => onCancel(appointment.id)}>
-          <Text style={styles.cancelButtonText}>Cancel</Text>
-
-        </TouchableOpacity>
+        
 
       </View>
     </View>
@@ -34,7 +30,7 @@ const AppointmentCard = ({ appointment, onCancel }) => {
 const styles = StyleSheet.create({
   cardContainer: {
     alignItems: 'center',
-    marginBottom:25
+    marginTop:100
  
   },
   card: {
@@ -84,4 +80,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AppointmentCard;
+export default DoctorCompleteCard;

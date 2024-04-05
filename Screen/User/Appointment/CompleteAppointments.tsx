@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
 import {  Text, StyleSheet, ActivityIndicator,  ScrollView , Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
@@ -16,7 +17,7 @@ const  CompleteAppointments = () => {
         if (!currentUser) {
           throw new Error('User not authenticated');
         }
-        
+
         const snapshot = await firestore()
           .collection('Appointments')
           .where('userId', '==', currentUser.uid)
@@ -39,43 +40,6 @@ const  CompleteAppointments = () => {
     return () => setUserAppointments([]);
   }, []);
 
-  // const handleCancelAppointment = async (appointmentId) => {
-  //   try {
-  //     await firestore().collection('Appointments').doc(appointmentId).delete();
-  
-  //     // Optionally show a success message or perform other actions
-  //   } catch (error) {
-  //     console.error('Error canceling appointment:', error.message);
-  //     // Optionally show an error message
-  //   }
-  // };
-  const handleCancelAppointment = async (appointmentId) => {
-    try {
-      Alert.alert(
-        'Confirm Delete',
-        'Are you sure you want to cancel this appointment?',
-        [
-          {
-            text: 'Cancel',
-            style: 'cancel',
-          },
-          {
-            text: 'Delete',
-            onPress: async () => {
-              await firestore().collection('Appointments').doc(appointmentId).delete();
-              setUserAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentId));
-              Alert.alert('Success', 'Appointment canceled successfully.');
-            },
-          },
-        ],
-        { cancelable: false }
-      );
-    } catch (error) {
-      console.error('Error canceling appointment:', error);
-      Alert.alert('Error', 'Failed to cancel appointment. Please try again.');
-    }
-  }
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {loading ? (
@@ -84,7 +48,7 @@ const  CompleteAppointments = () => {
         <Text style={styles.text}>No Appointments History.</Text>
       ) : (
         userAppointments.map(appointment => (
-          <AppointmentCard key={appointment.id} appointment={appointment} onCancel={handleCancelAppointment} />       
+          <AppointmentCard key={appointment.id} appointment={appointment}  />
         ))
       )}
     </ScrollView>
@@ -97,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-   
+
   },
   loadingIndicator: {
     marginBottom: 20,

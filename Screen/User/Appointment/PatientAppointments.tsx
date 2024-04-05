@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import {  View, Text, StyleSheet, ActivityIndicator,  ScrollView , Alert } from 'react-native';
+/* eslint-disable prettier/prettier */
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import AppointmentCard from '../../../components/AppointmentCard';
 
-const  PatientAppointments = () => {
-    console.log("user appointments")
+const PatientAppointments = () => {
+  console.log('user appointments');
   const [userAppointments, setUserAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -16,14 +24,17 @@ const  PatientAppointments = () => {
         if (!currentUser) {
           throw new Error('User not authenticated');
         }
-        
+
         const snapshot = await firestore()
           .collection('Appointments')
           .where('userId', '==', currentUser.uid)
           .where('Status', '==', 'confirmed')
           .get();
 
-        const appointments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const appointments = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setUserAppointments(appointments);
         setLoading(false);
       } catch (error) {
@@ -38,8 +49,7 @@ const  PatientAppointments = () => {
     return () => setUserAppointments([]);
   }, []);
 
- 
-  const handleCancelAppointment = async (appointmentId) => {
+  const handleCancelAppointment = async appointmentId => {
     try {
       Alert.alert(
         'Confirm Delete',
@@ -52,39 +62,49 @@ const  PatientAppointments = () => {
           {
             text: 'Delete',
             onPress: async () => {
-              await firestore().collection('Appointments').doc(appointmentId).delete();
-              setUserAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentId));
+              await firestore()
+                .collection('Appointments')
+                .doc(appointmentId)
+                .delete();
+              setUserAppointments(prevAppointments =>
+                prevAppointments.filter(
+                  appointment => appointment.id !== appointmentId,
+                ),
+              );
               Alert.alert('Success', 'Appointment canceled successfully.');
             },
           },
         ],
-        { cancelable: false }
+        {cancelable: false},
       );
     } catch (error) {
       console.error('Error canceling appointment:', error);
       Alert.alert('Error', 'Failed to cancel appointment. Please try again.');
     }
-  }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-    {loading ? (
-      <ActivityIndicator size="large" color="#629FFA" />
-    ) : (
-      <View>
-        {userAppointments.length > 0 ? (
-          <View>
-            {userAppointments.map((appointment) => (
-              <AppointmentCard key={appointment.id} appointment={appointment} onCancel={handleCancelAppointment} />   
-            ))}
-          </View>
-        ) : (
-          <Text style={styles.text}>No appointment requests!.</Text>
-        )}
-      </View>
-    )}
-  </ScrollView>
-
+      {loading ? (
+        <ActivityIndicator size="large" color="#629FFA" />
+      ) : (
+        <View>
+          {userAppointments.length > 0 ? (
+            <View>
+              {userAppointments.map(appointment => (
+                <AppointmentCard
+                  key={appointment.id}
+                  appointment={appointment}
+                  onCancel={handleCancelAppointment}
+                />
+              ))}
+            </View>
+          ) : (
+            <Text style={styles.text}>No Scheduled Appointments!.</Text>
+          )}
+        </View>
+      )}
+    </ScrollView>
   );
 };
 
@@ -98,9 +118,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: 'red',
   },
-  text:{
-    textAlign:'center'
-  }
+  text: {
+    textAlign: 'center',
+  },
 });
+// eslint-disable-next-line prettier/prettier
 
 export default PatientAppointments;

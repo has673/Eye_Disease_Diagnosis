@@ -1,3 +1,5 @@
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable prettier/prettier */
 import { View, Text, TouchableOpacity, StyleSheet  , Image} from 'react-native'
 useNavigation
 

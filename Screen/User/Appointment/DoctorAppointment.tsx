@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable prettier/prettier */
 import { View, ScrollView, StyleSheet, ActivityIndicator, Text,  Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
@@ -89,6 +91,7 @@ const DoctorAppointment = () => {
       {appointments.length > 0 ? (
         <View>
           {appointments.map((appointment) => (
+            // eslint-disable-next-line no-trailing-spaces
             <DocAppointmentCard key={appointment.id} appointment={appointment} onCancel={cancelAppointment} onAccept={confirmAppointment}/>   
           ))}
         </View>

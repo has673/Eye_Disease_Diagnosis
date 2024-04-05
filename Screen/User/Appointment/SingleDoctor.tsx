@@ -1,39 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, ActivityIndicator, Text, Image, TouchableOpacity, Alert } from 'react-native';
+/* eslint-disable prettier/prettier */
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  ActivityIndicator,
+  Text,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import auth from '@react-native-firebase/auth'; // Import Firebase Auth
 // import { DateTime } from 'date.js';
 
-const SingleDoctorScreen = ({ route }) => {
-  const { doctorId } = route.params;
+const SingleDoctorScreen = ({route}) => {
+  const {doctorId} = route.params;
   const [doctorData, setDoctorData] = useState(null);
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  // const [selectedDate, setSelectedDate] = useState(DateTime.now()); 
+  // const [selectedDate, setSelectedDate] = useState(DateTime.now());
 
   const showDatePicker = () => {
     setDatePickerVisible(true);
-
   };
 
   const hideDatePicker = () => {
     setDatePickerVisible(false);
   };
 
-  const handleDateConfirm = (date) => {
+  const handleDateConfirm = date => {
     hideDatePicker();
     setSelectedDate(date);
-    bookAppointment()
+    bookAppointment();
   };
 
   const getUser = async () => {
     try {
       const currentUser = auth().currentUser;
       if (currentUser) {
-        const documentSnapshot = await firestore().collection('User').doc(currentUser.uid).get();
+        const documentSnapshot = await firestore()
+          .collection('User')
+          .doc(currentUser.uid)
+          .get();
 
         if (documentSnapshot.exists) {
           const fetchedData = documentSnapshot.data();
@@ -48,18 +60,17 @@ const SingleDoctorScreen = ({ route }) => {
     }
   };
 
-
   useEffect(() => {
     const unsubscribe = firestore()
       .collection('Doctor')
       .doc(doctorId)
-      .onSnapshot((snapshot) => {
+      .onSnapshot(snapshot => {
         const doctor = snapshot.data();
         setDoctorData(doctor);
         setLoading(false); // Set loading to false when data is fetched
       });
 
-    getUser()
+    getUser();
 
     return () => unsubscribe();
   }, [doctorId]);
@@ -72,18 +83,20 @@ const SingleDoctorScreen = ({ route }) => {
       }
 
       // Assuming you have a collection named 'Appointments' in Firestore
-      const doctorName = doctorData && doctorData.Name ? doctorData.Name : 'Unknown Doctor';
+      const appointmentDateTime = new Date(selectedDate);
+      const doctorName =
+        doctorData && doctorData.Name ? doctorData.Name : 'Unknown Doctor';
       await firestore().collection('Appointments').add({
         doctorId: doctorId,
         DoctorName: doctorName,
-        appointmentDate: selectedDate.toISOString(), // Convert date to ISO string for storage
+        appointmentDate: appointmentDateTime, // Convert date to ISO string for storage
         userId: currentUser.uid, // Add the user ID
         PatientName: userData.Name, // Add the username
         Clinic: doctorData?.Clinic,
         Address: doctorData?.Address,
-        Status: "unconfirmed",
-        Done: false
-
+        // eslint-disable-next-line prettier/prettier
+        Status: 'unconfirmed',
+        Done: false,
       });
       Alert.alert('Appointment Booked Successfully');
     } catch (error) {
@@ -95,10 +108,19 @@ const SingleDoctorScreen = ({ route }) => {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.doctorContainer}>
         {loading ? (
-          <ActivityIndicator style={styles.spinner} size="large" color="#0000ff" />
+          <ActivityIndicator
+            style={styles.spinner}
+            size="large"
+            color="#0000ff"
+          />
         ) : (
           <Image
-            source={{ uri: doctorData && doctorData.profileImage ? doctorData.profileImage : 'https://via.placeholder.com/150' }}
+            source={{
+              uri:
+                doctorData && doctorData.profileImage
+                  ? doctorData.profileImage
+                  : 'https://via.placeholder.com/150',
+            }}
             style={styles.image}
           />
         )}
@@ -129,9 +151,6 @@ const SingleDoctorScreen = ({ route }) => {
             <Text style={styles.label}>Date of Specialization:</Text>
             <Text style={styles.value}>{doctorData.dateOfSpecialization}</Text>
 
-
-
-
             <TouchableOpacity style={styles.button} onPress={showDatePicker}>
               <Text style={styles.buttonText}>Book Appointment</Text>
             </TouchableOpacity>
@@ -140,7 +159,6 @@ const SingleDoctorScreen = ({ route }) => {
               mode="datetime"
               onConfirm={handleDateConfirm}
               onCancel={hideDatePicker}
-
             />
           </View>
         ) : (
@@ -189,7 +207,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginTop: 10,
     width: 170,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   buttonText: {
     color: '#FFFFFF',
