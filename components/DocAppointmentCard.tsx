@@ -16,7 +16,7 @@ const DocAppointmentCard = ({ appointment, onCancel , onAccept }) => {
       <View style={styles.card}>
         <View  style={styles.inner}>
         <Text style={styles.text}>{`Patient Name: ${appointment.PatientName}`}</Text>
-        <Text style={styles.textdate}>{`Appointment Date: ${formattedDate}`}</Text>
+        <Text style={styles.textdate}>{` Date: ${formattedDate}`}</Text>
         
         </View>
 

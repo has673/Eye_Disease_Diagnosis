@@ -2,16 +2,16 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 // import { format } from 'date-fns';
+import moment from 'moment';
 
 const DoneAppointmentCard = ({ appointment, onDone, onCancel}) => {
-    // const formattedDate = format(new Date(appointment.appointmentDate), 'EEEE, MMMM d, yyyy');
-    // const formattedTime = format(new Date(appointment.appointmentDate), 'h:mm a');
+  const formattedDate = moment(appointment.appointmentDate.toDate()).format('MMMM Do YYYY, h:mm:ss a');
   return (
     <View style={styles.cardContainer}>
       <View style={styles.card}>
         
         <Text style={styles.text}>{`Patient Name: ${appointment.PatientName}`}</Text>
-        <Text style={styles.text}>{`Appointment Date: ${appointment.appointmentDate}`}</Text>
+        <Text style={styles.text}>{` Date: ${formattedDate}`}</Text>
     
         <View style={styles.row}>
         <TouchableOpacity style={styles.cancelButton} onPress={() => onCancel(appointment.id)}>

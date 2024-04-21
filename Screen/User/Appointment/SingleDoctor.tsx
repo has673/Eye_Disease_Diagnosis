@@ -84,12 +84,13 @@ const SingleDoctorScreen = ({route}) => {
 
       // Assuming you have a collection named 'Appointments' in Firestore
       const appointmentDateTime = new Date(selectedDate);
+      const appointmentTimestamp = firestore.Timestamp.fromDate(appointmentDateTime);
       const doctorName =
         doctorData && doctorData.Name ? doctorData.Name : 'Unknown Doctor';
       await firestore().collection('Appointments').add({
         doctorId: doctorId,
         DoctorName: doctorName,
-        appointmentDate: appointmentDateTime, // Convert date to ISO string for storage
+        appointmentDate: appointmentTimestamp, // Convert date to ISO string for storage
         userId: currentUser.uid, // Add the user ID
         PatientName: userData.Name, // Add the username
         Clinic: doctorData?.Clinic,

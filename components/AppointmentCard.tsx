@@ -9,7 +9,7 @@ const AppointmentCard = ({ appointment, onCancel }) => {
  
   const appointmentDate = appointment.appointmentDate.toDate();
   
-  // // Format date to a human-readable string
+  
   const formattedDate = appointmentDate.toLocaleString();
   return (
     <View style={styles.cardContainer}>
@@ -17,7 +17,7 @@ const AppointmentCard = ({ appointment, onCancel }) => {
         <View style={styles.inner}>
           <Text style={styles.text}>{`Doctor Name: ${appointment.DoctorName}`}</Text>
 
-          <Text style={styles.text}>{`Date: ${appointment.formattedDate}`}</Text>
+          <Text style={styles.text}>{`Date: ${formattedDate}`}</Text>
           <Text style={styles.textname}>{appointment.Clinic}</Text>
           
         </View>

@@ -6,8 +6,10 @@ import { View, Text, StyleSheet } from 'react-native';
 // import { format } from 'date-fns';
 
 const DoctorCompleteCard = ({ appointment}) => {
-  // const formattedDate = format(new Date(appointment.appointmentDate), 'EEEE, MMMM d, yyyy');
-  // const formattedTime = format(new Date(appointment.appointmentDate), 'h:mm a');
+  const appointmentDate = appointment.appointmentDate.toDate();
+  
+  // // Format date to a human-readable string
+  const formattedDate = appointmentDate.toLocaleString();
   return (
     <View style={styles.cardContainer}>
       <View style={styles.card}>
@@ -16,7 +18,7 @@ const DoctorCompleteCard = ({ appointment}) => {
           {/* <Text style={styles.text}>{`Appointment Date: ${appointment.appointmentDate}`}</Text> */}
           {/* <Text style={styles.text}>{`Appointment Time: ${formattedTime}`}</Text> */}
       
-          <Text style={styles.text}>{`Date: ${appointment.appointmentDate}`}</Text>
+          <Text style={styles.text}>{`Date: ${formattedDate}`}</Text>
           <Text style={styles.textname}>{appointment.Clinic}</Text>
           
         </View>
