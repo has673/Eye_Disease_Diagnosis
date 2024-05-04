@@ -15,6 +15,9 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import auth from '@react-native-firebase/auth'; // Import Firebase Auth
 // import { DateTime } from 'date.js';
 
+import StarRating from 'react-native-star-rating';
+
+
 const SingleDoctorScreen = ({route}) => {
   const {doctorId} = route.params;
   const [doctorData, setDoctorData] = useState(null);

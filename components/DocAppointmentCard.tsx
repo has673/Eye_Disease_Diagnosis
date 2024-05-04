@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   },
   cancelButton: {
-    backgroundColor: '#FF6347',
+    backgroundColor: 'red',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 15,

@@ -36,33 +36,33 @@ const Appointments = () => {
     try {
       const appointmentRef = firestore().collection('Appointments').doc(appointmentId);
       const appointmentSnapshot = await appointmentRef.get();
-  
+      
       if (!appointmentSnapshot.exists) {
         throw new Error('Appointment not found');
       }
   
       const appointmentData = appointmentSnapshot.data();
-      console.log(appointmentData);
-      console.log('function');
-      if (
-        appointmentData &&
-        appointmentData.Status === 'confirmed' &&
-        new Date(appointmentData.appointmentDate) > new Date()
-      ) {
-        // Update the appointment status to Done
-        await appointmentRef.update({ Done: true });
-        console.log(appointmentRef);
-        Alert.alert('Success', 'Appointment Done.');
-      } 
-    else {
-        Alert.alert('Error', 'Appointment cannot be complete.');
-        console.log('err');
-      }
+      const appointmentDate = appointmentData?.appointmentDate.toDate(); // Convert timestamp to Date object
+      console.log(appointmentDate)
+      const currentDate = new Date();
+      console.log(currentDate)
+      await appointmentRef.update({ Done: true });
+       Alert.alert('Success', 'Appointment Done.')
+      // if ( appointmentDate > currentDate) {
+      //   // Update the appointment status to Done
+      //   console.log('no error')
+      //   await appointmentRef.update({ Done: true });
+      //   Alert.alert('Success', 'Appointment Done.');
+      // } else{
+      //   console.log('alert error')
+      //   Alert.alert('Error', 'Appointment cannot be completed.');
+      // }
     } catch (error) {
       console.error('Error confirming appointment:', error);
       Alert.alert('Error', 'Failed to complete appointment. Please try again.');
     }
   };
+  
   const cancelAppointment = async (appointmentId) => {
     try {
       Alert.alert(

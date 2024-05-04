@@ -32,8 +32,8 @@ const DoctorCompleteCard = ({ appointment}) => {
 const styles = StyleSheet.create({
   cardContainer: {
     alignItems: 'center',
-    marginTop:100
- 
+    marginBottom:25
+
   },
   card: {
     backgroundColor: '#629FFA',
@@ -46,37 +46,19 @@ const styles = StyleSheet.create({
   text: {
     color: '#FFFFFF',
     marginBottom: 10,
-    fontWeight: "bold",
-    
+    fontWeight: "bold",  
     
   },
-  // textclinic: {
-  //   color: '#FFFFFF',
-  //   marginBottom: 7,
-  //   marginRight: 110,
-  //   fontWeight: "bold",
-  // },
+
   textname: {
     color: '#FFFFFF',
     marginBottom: 7,
     textAlign:'left',
     fontWeight: "bold",
   },
-  cancelButton: {
-    backgroundColor: 'red',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignSelf: 'center',
-    width: 100,
-  },
 
-  cancelButtonText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-    textAlign: 'center'
-  },
+
+  
   inner: {
     alignItems: "center"
   }
