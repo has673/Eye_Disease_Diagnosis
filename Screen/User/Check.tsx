@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
-import axios from 'axios'; // Import Axios for making HTTP requests
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 export default function Check() {
   const [filePath, setFilePath] = useState(null);
-  const [result, setResult] = useState('');
+  const [screenResult, setScreenResult] = useState('');
+  const [predictResult, setPredictResult] = useState('');
 
   const selectImage = () => {
     setFilePath(null);
@@ -30,30 +30,6 @@ export default function Check() {
     });
   };
 
-  // const submitImage = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('image', {
-  //       uri: filePath.uri,
-  //       name: 'image.jpg',
-  //       type: 'image/jpg',
-  //     });
-  //     console.log( filePath.uri)
-  //     const response = await axios.post('http://192.168.18.73:5000/predict', formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-
-  //     setResult(response.data.result);
-  //     console.log(response)
-  //   } catch (error) {
-  //     console.error('Error submitting image:', error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   testServer(); // Test the server when the component mounts
-  // }, []);
   const submitImage = async () => {
     try {
       const formData = new FormData();
@@ -63,28 +39,48 @@ export default function Check() {
         type: 'image/jpg',
       });
 
-      const response = await fetch('http://192.168.137.87:5001/predict', {
+      setScreenResult('');
+      setPredictResult('');
+
+      const screenResponse = await fetch('http://192.168.18.97:5001/screen', {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        body: formData, // Pass formData as the request body
+        body: formData,
       });
 
-      if (response.ok) {
-        const responseData = await response.json(); // Assuming the response is in JSON format
-        setResult(responseData.result);
-        console.log(responseData); // Log the response data
+      if (screenResponse.ok) {
+        const screenData = await screenResponse.json();
+        setScreenResult(screenData.result);
+
+        if (screenData.result === 'Diabetic Retinopathy Symptoms Present') {
+          const predictResponse = await fetch('http://192.168.18.97:5001/predict', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+            body: formData,
+          });
+
+          if (predictResponse.ok) {
+            const predictData = await predictResponse.json();
+            setPredictResult(predictData.result);
+          } else {
+            console.error('Error in predict route:', predictResponse.status);
+          }
+        }
       } else {
-        console.error('Error:', response.status); // Log the error status if the request fails
+        console.error('Error in screen route:', screenResponse.status);
       }
     } catch (error) {
       console.error('Error submitting image:', error);
     }
   };
+
   return (
     <View style={styles.container}>
-      <View style={{width: '100%', height: '55%'}}>
+      <View style={{ width: '100%', height: '55%' }}>
         <View style={styles.InsertImageContainer}>
           <Image
             style={styles.uploadImage}
@@ -107,9 +103,16 @@ export default function Check() {
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       ) : null}
-      {result ? (
+      {screenResult ? (
         <View style={styles.resultContainer}>
-          <Text style={styles.resultText}>{result}</Text>
+          <Text style={styles.resultHeader}>Screen Result:</Text>
+          <Text style={styles.resultText}>{screenResult}</Text>
+        </View>
+      ) : null}
+      {predictResult ? (
+        <View style={styles.resultContainer}>
+          <Text style={styles.resultHeader}>Predict Result:</Text>
+          <Text style={styles.resultText}>{predictResult}</Text>
         </View>
       ) : null}
     </View>
@@ -166,9 +169,18 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     backgroundColor: '#eee',
+    alignSelf: 'stretch',
+    paddingHorizontal: 20,
+  },
+  resultHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
   },
   resultText: {
     fontSize: 18,
     textAlign: 'center',
+    marginBottom: 5,
   },
 });

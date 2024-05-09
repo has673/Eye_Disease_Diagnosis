@@ -75,6 +75,51 @@ const Registor = () => {
       }
     }
   };
+  const postRegno = async () => {
+    Alert.alert(
+      'PMDC Verification',
+      'We are verifying Doctor from PMDC \nPlease Wait Until You get response ',
+      [
+        {
+          text: 'OK',
+          onPress: () => console.log('OK Pressed'),
+        },
+      ],
+    );
+
+    // setIsLoading(true); // Show loader
+
+    try {
+      const response = await fetch('http://10.113.93.206:5001/scraper', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({registrationNumber: pmdc}),
+      });
+
+      if (response.ok) {
+        // setIsLoading(false);
+        const responseData = await response.text();
+        if (responseData === 'Exist') {
+          Alert.alert('Doctor Verified From PMDC');
+          // Handleregistor();
+        } else {
+          Alert.alert('Doctor Does Not Exist');
+          console.log('Doctor does not exist');
+        }
+      } else {
+        const errorData = await response.text();
+        console.error('Error:', errorData);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      // setIsLoading(false); // Hide loader
+    }
+  };
+
+
   
   return (
     <View style={styles.container}>
@@ -112,7 +157,7 @@ const Registor = () => {
         <TouchableOpacity
           style={styles.btn}
           onPress={() => {
-            Handleregistor();
+            postRegno();
           // Navigate to login screen after signup
           }}
         >
