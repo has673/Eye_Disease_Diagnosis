@@ -1,11 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 export default function Check() {
   const [filePath, setFilePath] = useState(null);
   const [screenResult, setScreenResult] = useState('');
   const [predictResult, setPredictResult] = useState('');
+  const navigation = useNavigation()
 
   const selectImage = () => {
     setFilePath(null);
@@ -29,7 +31,10 @@ export default function Check() {
       }
     });
   };
-
+const navigateToReport=()=>{
+  console.log('report')
+  navigation.navigate('Report', { screenResult, predictResult });
+}
   const submitImage = async () => {
     try {
       const formData = new FormData();
@@ -42,7 +47,7 @@ export default function Check() {
       setScreenResult('');
       setPredictResult('');
 
-      const screenResponse = await fetch('http://192.168.18.97:5001/screen', {
+      const screenResponse = await fetch('http://192.168.0.108:5001/screen', {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -55,7 +60,7 @@ export default function Check() {
         setScreenResult(screenData.result);
 
         if (screenData.result === 'Diabetic Retinopathy Symptoms Present') {
-          const predictResponse = await fetch('http://192.168.18.97:5001/predict', {
+          const predictResponse = await fetch('http://192.168.0.108:5001/predict', {
             method: 'POST',
             headers: {
               'Content-Type': 'multipart/form-data',
@@ -79,6 +84,7 @@ export default function Check() {
   };
 
   return (
+    
     <View style={styles.container}>
       <View style={{ width: '100%', height: '55%' }}>
         <View style={styles.InsertImageContainer}>
@@ -103,6 +109,11 @@ export default function Check() {
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       ) : null}
+       {screenResult && predictResult ? (
+        <TouchableOpacity onPress={navigateToReport} style={styles.reportButton}>
+          <Text style={styles.buttonText}>View Report</Text>
+        </TouchableOpacity>
+      ) : null}
       {screenResult ? (
         <View style={styles.resultContainer}>
           <Text style={styles.resultHeader}>Screen Result:</Text>
@@ -116,6 +127,7 @@ export default function Check() {
         </View>
       ) : null}
     </View>
+    
   );
 }
 
@@ -145,6 +157,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 20,
     alignSelf: 'center',
+  },
+  reportButton: {
+    backgroundColor: '#629FFA',
+    width: 120,
+    padding: 10,
+    borderRadius: 15,
+    marginTop: 20,
+    borderColor: 'black',
   },
   label: {
     fontSize: 20,

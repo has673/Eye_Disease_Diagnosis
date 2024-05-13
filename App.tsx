@@ -45,6 +45,7 @@ import PatientRequest from './Screen/User/Appointment/PatientRequest';
 import DocHome from './Screen/Doctor/DocHome';
 import CompleteAppointments from './Screen/User/Appointment/CompleteAppointments';
 import DoctorCompleteAppointment from './Screen/Doctor/DoctorCompleteAppointment';
+import Report from './Screen/User/Report';
 
 
 
@@ -637,6 +638,27 @@ function App() {
             />
           ),
         })} />
+           <Stack.Screen name='Report' component={Report} options={({ navigation }) => ({
+          title: 'Report',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })} />
+      
       
 
       </Stack.Navigator>

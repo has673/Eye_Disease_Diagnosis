@@ -75,22 +75,11 @@ const Profile = () => {
             <Image source={require('../../assets/Line.png')} />
           </View>
 
-          <View style={styles.myView}>
-            <View>
-              <Ionicons name='notifications-outline' size={25} />
-            </View>
-            <TouchableOpacity>
-              <Text style={{ fontSize: 20, fontWeight: 'bold', color: "black", marginLeft: 20 }}>
-                Notification
-              </Text>
-            </TouchableOpacity>
-
-          </View>
-          <View style={{ paddingTop: 10, paddingLeft: 17 }}>
-            <Image source={require('../../assets/Line.png')} />
-          </View>
+        
 
           <View style={styles.myView}>
+          <TouchableOpacity onPress={() => navigation.navigate('Registor')} style={{ flexDirection: 'row', alignItems: 'center' }}>
+
             <View>
               <MaterialCommunityIcons name='doctor' size={25} />
             </View>
@@ -99,7 +88,7 @@ const Profile = () => {
               Doctor Registor
             </Text>
 
-
+       </TouchableOpacity>
           </View>
           <View style={{ paddingTop: 10, paddingLeft: 17 }}>
             <Image source={require('../../assets/Line.png')} />
