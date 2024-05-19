@@ -42,8 +42,8 @@ const Appointments = () => {
       }
   
       const appointmentData = appointmentSnapshot.data();
-      const appointmentDate = appointmentData?.appointmentDate.toDate(); // Convert timestamp to Date object
-      console.log(appointmentDate)
+      // const appointmentDate = appointmentData?.appointmentDate.toDate(); // Convert timestamp to Date object
+      // console.log(appointmentDate)
       const currentDate = new Date();
       console.log(currentDate)
       await appointmentRef.update({ Done: true });

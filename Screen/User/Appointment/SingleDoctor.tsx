@@ -27,6 +27,7 @@ const SingleDoctorScreen = ({ route }) => {
     hideDatePicker();
     setSelectedDate(date);
     bookAppointment();
+  
   };
 
   const getUser = async () => {
@@ -100,7 +101,16 @@ const SingleDoctorScreen = ({ route }) => {
       });
 
       setBookingAppointment(false); // Hide activity indicator after booking appointment
-      Alert.alert('Appointment Booked Successfully');
+      Alert.alert(
+        'Appointment Booked Successfully',
+        '',
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.navigate('Home'), // Navigate to Home screen
+          },
+        ]
+      );
     } catch (error) {
       console.error('Error booking appointment:', error);
       Alert.alert('Failed to book appointment. Please try again.');

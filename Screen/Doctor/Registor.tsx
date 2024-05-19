@@ -38,6 +38,7 @@ const Registor = () => {
             email: email,
             Name: name,
             Regno: pmdc,
+            profileImage:"https://firebasestorage.googleapis.com/v0/b/braindiseasedetector.appspot.com/o/ProfilePicUsers%2Fnawababbas756%40gmail.com%2F1000000635.jpg?alt=media&token=f4489e29-cfc6-4e86-90ed-07058c5ceeb5",
           }
           await firestore().collection('Doctor').doc(isusercreated.user.uid).set(Userdata)
           

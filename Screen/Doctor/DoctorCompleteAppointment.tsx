@@ -11,6 +11,7 @@ import DoctorCompleteCard from '../../components/DoctorCompleteCard';
 
 const DoctorCompleteAppointment = () => {
     console.log("doctor complete appointments")
+    console.log('ll')
     const [userAppointments, setUserAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
   

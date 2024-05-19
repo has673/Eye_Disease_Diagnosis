@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {  Text, StyleSheet, ActivityIndicator,  ScrollView , Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import AppointmentCard from '../../../components/AppointmentCard';
-
+import UserAppointmentCard from '../../../components/UserAppointmentCard'
 const  CompleteAppointments = () => {
     console.log("user appointments")
   const [userAppointments, setUserAppointments] = useState([]);
@@ -48,7 +47,7 @@ const  CompleteAppointments = () => {
         <Text style={styles.text}>No Appointments History.</Text>
       ) : (
         userAppointments.map(appointment => (
-          <AppointmentCard key={appointment.id} appointment={appointment}  />
+          <UserAppointmentCard key={appointment.id} appointment={appointment}  />
         ))
       )}
     </ScrollView>
@@ -58,37 +57,14 @@ const  CompleteAppointments = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexGrow: 1,
+    padding: 10,
 
   },
   loadingIndicator: {
-    marginBottom: 20,
-  },
-  appointmentCard: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 10,
     marginBottom: 10,
-    width: '80%',
   },
-  cancelButton: {
-    backgroundColor: '#FF5733',
-    marginTop: 5,
-    padding: 5,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  cancelButtonText: {
-    color: '#FFF',
-    fontWeight: 'bold',
-  },
-  text:{
-    justifyContent:"center",
-    alignItems:'center'
-  }
+
 });
 
 export default CompleteAppointments;
