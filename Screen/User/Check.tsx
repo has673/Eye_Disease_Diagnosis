@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 
+
 export default function Check() {
   const [filePath, setFilePath] = useState(null);
   const [screenResult, setScreenResult] = useState('');
@@ -48,8 +49,8 @@ export default function Check() {
 
       setScreenResult('');
       setPredictResult('');
-
-      const screenResponse = await fetch('http://192.168.0.108:5001/screen', {
+      
+      const screenResponse = await fetch('http://192.168.18.52:5001/screen', {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -62,7 +63,7 @@ export default function Check() {
         setScreenResult(screenData.result);
 
         if (screenData.result === 'Diabetic Retinopathy Symptoms Present') {
-          const predictResponse = await fetch('http://192.168.0.108:5001/predict', {
+          const predictResponse = await fetch('http://192.168.18.52:5001/predict', {
             method: 'POST',
             headers: {
               'Content-Type': 'multipart/form-data',

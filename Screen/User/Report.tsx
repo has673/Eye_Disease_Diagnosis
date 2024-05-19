@@ -60,6 +60,23 @@ const Report = () => {
       Alert.alert('Error', 'Failed to capture screenshot.');
     }
   };
+  const saveDiagnosisData = async () => {
+    try {
+      await firestore().collection('Diagnosis').add({
+        userId: user,
+        date: formattedDate,
+        time: formattedTime,
+        name: userData.Name,
+        diagnosis: screenResult,
+        severity: predictResult,
+      
+      });
+      Alert.alert('Success', 'Diagnosis data saved successfully.');
+    } catch (error) {
+      console.error('Error saving diagnosis data:', error);
+      Alert.alert('Error', 'Failed to save diagnosis data.');
+    }
+  };
   
 
   const generateReportNumber = () => {
@@ -77,7 +94,7 @@ const Report = () => {
         <View>
           <ViewShot ref={viewShot} options={{ fileName: "DR Report", format: "jpg", quality: 0.9 }}>
           <Image style={styles.stretch} source={require('../../assets/logo.png')} />
-            <Text style={styles.big}>Report</Text>
+      
             <View style={styles.row}>
               <Text style={[styles.heading, styles.bold]}>Report Number:</Text>
               <Text style={styles.text}>{reportNumber}</Text>
@@ -104,10 +121,15 @@ const Report = () => {
             </View>
             <Image source={{ uri: imageUri }} style={styles.capturedImage} />
           </ViewShot>
+          <View style={styles.btns}>
+           <TouchableOpacity style={styles.button1} onPress={saveDiagnosisData}>
+            <Text style={styles.buttonText}>Save</Text>
+          </TouchableOpacity> 
           
           <TouchableOpacity style={styles.button} onPress={captureScreenshot}>
             <Text style={styles.buttonText}>Capture</Text>
           </TouchableOpacity> 
+        </View>
         </View>
       )}
     
@@ -120,8 +142,11 @@ const styles = StyleSheet.create({
     width: 335,
     height: 150,
     marginTop: 10,
-   
     alignSelf: 'center',
+  },
+  btn:{
+   bottom:10,
+
   },
   container: {
     flex: 1,
@@ -168,13 +193,24 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     textAlign:'justify'
   },
+  button1: {
+    backgroundColor: '#629FFA',
+    padding: 10,
+    borderRadius: 15,
+    marginTop: 10,
+    alignItems: 'center',
+    alignSelf:'center',
+    width:90,
+    justifyContent:'center',
+    textAlign:'justify'
+  },
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
   },
   capturedImage: {
     width: '100%',
-    height: 200,
+    height: 150,
     resizeMode: 'contain',
     marginTop: 20,
   },
