@@ -97,7 +97,7 @@ const Profile = () => {
           <View style={styles.myView}>
             <TouchableOpacity onPress={() => navigation.navigate('Diagnosis')} style={{ flexDirection: 'row', alignItems: 'center' }}>
               <View>
-                <Ionicons name='calendar' size={25} />
+                <Ionicons name='medkit' size={25} />
               </View>
 
               <Text style={{ fontSize: 20, fontWeight: 'bold', color: "black", marginLeft: 20, marginTop: 5 }}>

@@ -62,13 +62,13 @@ const Report = () => {
   };
   const saveDiagnosisData = async () => {
     try {
-      await firestore().collection('Diagnosis').add({
+      await firestore().collection('diagnosis').add({
         userId: user,
         date: formattedDate,
         time: formattedTime,
         name: userData.Name,
         diagnosis: screenResult,
-        severity: predictResult,
+        severity: predictResult|| 'Normal',
       
       });
       Alert.alert('Success', 'Diagnosis data saved successfully.');
