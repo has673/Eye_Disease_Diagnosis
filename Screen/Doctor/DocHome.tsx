@@ -58,7 +58,7 @@ const DocHome = () => {
   ];
   const data2 = [
     {name: 'Diabetic', icon: 'eye-outline', onPress: Press4},
-    {name: 'Glaucoma', icon: 'eye-outline', onPress: Press4},
+   
   ];
   return (
     <>
@@ -179,6 +179,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     color: 'white',
+    textAlign:"center"
   },
 });
 
