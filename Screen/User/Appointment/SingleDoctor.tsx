@@ -4,15 +4,17 @@ import firestore from '@react-native-firebase/firestore';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import auth from '@react-native-firebase/auth';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+
 const SingleDoctorScreen = ({ route }) => {
   const { doctorId } = route.params;
   const [doctorData, setDoctorData] = useState(null);
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [bookingAppointment, setBookingAppointment] = useState(false); // State to control the visibility of the activity indicator
 
   const showDatePicker = () => {
     setDatePickerVisible(true);
@@ -35,10 +37,8 @@ const SingleDoctorScreen = ({ route }) => {
         const documentSnapshot = await firestore().collection('User').doc(currentUser.uid).get();
         if (documentSnapshot.exists) {
           const fetchedData = documentSnapshot.data();
-          console.log('User Data', fetchedData);
           setUserData(fetchedData || {});
           setLoading(false);
-          console.log('profile');
         }
       }
     } catch (error) {
@@ -64,52 +64,50 @@ const SingleDoctorScreen = ({ route }) => {
       if (!currentUser) {
         throw new Error('User not authenticated');
       }
-  
-      // Assuming you have a collection named 'Appointments' in Firestore
+      
+      setBookingAppointment(true); // Show activity indicator while booking appointment
+
       const appointmentDateTime = new Date(selectedDate);
       const appointmentTimestamp = firestore.Timestamp.fromDate(appointmentDateTime);
       const doctorName = doctorData && doctorData.Name ? doctorData.Name : 'Unknown Doctor';
-      
-      // Use currentUser.uid_doctorId as the document ID
+
       const appointmentRef = firestore().collection('Appointments').doc(`${currentUser.uid}_${doctorId}`);
       
       await appointmentRef.set({
         doctorId: doctorId,
         DoctorName: doctorName,
-        appointmentDate: appointmentTimestamp, // Convert date to ISO string for storage
-        userId: currentUser.uid, // Add the user ID
-        PatientName: userData.Name, // Add the username
+        appointmentDate: appointmentTimestamp,
+        userId: currentUser.uid,
+        PatientName: userData.Name,
         Clinic: doctorData?.Clinic,
         Address: doctorData?.Address,
         Status: 'unconfirmed',
         Done: false,
       });
-  
-      const chatId = `${currentUser.uid}_${doctorId}`; // Corrected chatId syntax
+
+      const chatId = `${currentUser.uid}_${doctorId}`;
       const newMsg = {
-        id: Date.now().toString(), // Use a unique id based on timestamp
-        text: "Appointment Booked", // Placeholder text
+        id: Date.now().toString(),
+        text: "Appointment Booked",
         from: currentUser.uid,
         fromMe: false,
       };
-  
-      // Create an object of messages under the document ID chatId
+
       const messagesRef = firestore().collection('Chats').doc(chatId);
       await messagesRef.set({
         doctorId: doctorId,
         userId: currentUser.uid,
-        messages: [newMsg] // Include the new message in the messages array
+        messages: [newMsg]
       });
-  
-      console.log ('chat created')
+
+      setBookingAppointment(false); // Hide activity indicator after booking appointment
       Alert.alert('Appointment Booked Successfully');
-      // navigation.navigate('messages');
     } catch (error) {
       console.error('Error booking appointment:', error);
       Alert.alert('Failed to book appointment. Please try again.');
+      setBookingAppointment(false); // Hide activity indicator in case of error
     }
   };
-  
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -127,12 +125,7 @@ const SingleDoctorScreen = ({ route }) => {
         {loading ? (
           <ActivityIndicator size="large" color="#629FFA" />
         ) : doctorData ? (
-          
           <View style={styles.doctorDetails}>
-           {/* <Entypo name='chat' size={30} style={styles.chat} onPress={()=>{
-         navigation.navigate('UserMessages');
-
-           }}/> */}
             <Text style={styles.label}>Name:</Text>
             <Text style={styles.value}>{doctorData.Name}</Text>
 
@@ -154,8 +147,12 @@ const SingleDoctorScreen = ({ route }) => {
             <Text style={styles.label}>Date of Specialization:</Text>
             <Text style={styles.value}>{doctorData.dateOfSpecialization}</Text>
 
-            <TouchableOpacity style={styles.button} onPress={showDatePicker}>
-              <Text style={styles.buttonText}>Book Appointment</Text>
+            <TouchableOpacity style={styles.button} onPress={showDatePicker} disabled={bookingAppointment}>
+              {bookingAppointment ? ( // If booking is in progress, display the loader
+                <ActivityIndicator size="small" color="#FFFFFF" />
+              ) : (
+                <Text style={styles.buttonText}>Book Appointment</Text>
+              )}
             </TouchableOpacity>
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
@@ -177,6 +174,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: '#FFFFFF',
     padding: 20,
+  },
+  ActivityIndicatorContainer:{
+    color:'blue'
+
   },
   doctorContainer: {
     alignItems: 'center',
