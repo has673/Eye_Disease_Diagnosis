@@ -31,11 +31,13 @@ export default function Check() {
       }
     });
   };
-const navigateToReport=()=>{
-  console.log('report')
-  navigation.navigate('Report', { screenResult, predictResult });
-}
+
+  const navigateToReport = () => {
+    navigation.navigate('Report', { screenResult, predictResult, imageUri: filePath.uri });
+  };
+
   const submitImage = async () => {
+    // Your submitImage function code here
     try {
       const formData = new FormData();
       formData.append('image', {
@@ -84,54 +86,58 @@ const navigateToReport=()=>{
   };
 
   return (
-    
-    <View style={styles.container}>
-      <View style={{ width: '100%', height: '55%' }}>
-        <View style={styles.InsertImageContainer}>
-          <Image
-            style={styles.uploadImage}
-            resizeMode="contain"
-            source={{
-              uri: filePath
-                ? filePath.uri
-                : 'https://icon-library.com/images/file-upload-icon/file-upload-icon-22.jpg',
-            }}
-          />
-          <TouchableOpacity style={styles.selectImage} onPress={selectImage}>
-            <Text style={styles.label}>
-              {filePath ? 'CHANGE' : 'CHOOSE'} IMAGE
-            </Text>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <View style={{ width: '100%', height: '55%' }}>
+          <View style={styles.InsertImageContainer}>
+            <Image
+              style={styles.uploadImage}
+              resizeMode="contain"
+              source={{
+                uri: filePath
+                  ? filePath.uri
+                  : 'https://icon-library.com/images/file-upload-icon/file-upload-icon-22.jpg',
+              }}
+            />
+            <TouchableOpacity style={styles.selectImage} onPress={selectImage}>
+              <Text style={styles.label}>
+                {filePath ? 'CHANGE' : 'CHOOSE'} IMAGE
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        {filePath ? (
+          <TouchableOpacity onPress={submitImage} style={styles.submitButton}>
+            <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
-        </View>
+        ) : null}
+        {(screenResult || predictResult) ? (
+          <TouchableOpacity onPress={navigateToReport} style={styles.reportButton}>
+            <Text style={styles.buttonText}>View Report</Text>
+          </TouchableOpacity>
+        ) : null}
+        {screenResult ? (
+          <View style={styles.resultContainer}>
+            <Text style={styles.resultHeader}>Screen Result:</Text>
+            <Text style={styles.resultText}>{screenResult}</Text>
+          </View>
+        ) : null}
+        {predictResult ? (
+          <View style={styles.resultContainer}>
+            <Text style={styles.resultHeader}>Predict Result:</Text>
+            <Text style={styles.resultText}>{predictResult}</Text>
+          </View>
+        ) : null}
       </View>
-      {filePath ? (
-        <TouchableOpacity onPress={submitImage} style={styles.submitButton}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-      ) : null}
-       {screenResult && predictResult ? (
-        <TouchableOpacity onPress={navigateToReport} style={styles.reportButton}>
-          <Text style={styles.buttonText}>View Report</Text>
-        </TouchableOpacity>
-      ) : null}
-      {screenResult ? (
-        <View style={styles.resultContainer}>
-          <Text style={styles.resultHeader}>Screen Result:</Text>
-          <Text style={styles.resultText}>{screenResult}</Text>
-        </View>
-      ) : null}
-      {predictResult ? (
-        <View style={styles.resultContainer}>
-          <Text style={styles.resultHeader}>Predict Result:</Text>
-          <Text style={styles.resultText}>{predictResult}</Text>
-        </View>
-      ) : null}
-    </View>
-    
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -177,7 +183,7 @@ const styles = StyleSheet.create({
     width: 90,
     padding: 10,
     borderRadius: 15,
-    marginTop: -45,
+    marginTop: -15,
     borderColor: 'black',
   },
   buttonText: {

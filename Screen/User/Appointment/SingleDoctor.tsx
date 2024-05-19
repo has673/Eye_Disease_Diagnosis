@@ -3,13 +3,15 @@ import { View, ScrollView, StyleSheet, ActivityIndicator, Text, Image, Touchable
 import firestore from '@react-native-firebase/firestore';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import auth from '@react-native-firebase/auth';
-
+import Entypo from 'react-native-vector-icons/Entypo';
+import { useNavigation} from '@react-navigation/native';
 const SingleDoctorScreen = ({ route }) => {
   const { doctorId } = route.params;
   const [doctorData, setDoctorData] = useState(null);
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
+  const navigation = useNavigation()
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const showDatePicker = () => {
@@ -62,12 +64,16 @@ const SingleDoctorScreen = ({ route }) => {
       if (!currentUser) {
         throw new Error('User not authenticated');
       }
-
+  
       // Assuming you have a collection named 'Appointments' in Firestore
       const appointmentDateTime = new Date(selectedDate);
       const appointmentTimestamp = firestore.Timestamp.fromDate(appointmentDateTime);
       const doctorName = doctorData && doctorData.Name ? doctorData.Name : 'Unknown Doctor';
-      await firestore().collection('Appointments').add({
+      
+      // Use currentUser.uid_doctorId as the document ID
+      const appointmentRef = firestore().collection('Appointments').doc(`${currentUser.uid}_${doctorId}`);
+      
+      await appointmentRef.set({
         doctorId: doctorId,
         DoctorName: doctorName,
         appointmentDate: appointmentTimestamp, // Convert date to ISO string for storage
@@ -78,12 +84,32 @@ const SingleDoctorScreen = ({ route }) => {
         Status: 'unconfirmed',
         Done: false,
       });
+  
+      const chatId = `${currentUser.uid}_${doctorId}`; // Corrected chatId syntax
+      const newMsg = {
+        id: Date.now().toString(), // Use a unique id based on timestamp
+        text: "Appointment Booked", // Placeholder text
+        from: currentUser.uid,
+        fromMe: false,
+      };
+  
+      // Create an object of messages under the document ID chatId
+      const messagesRef = firestore().collection('Chats').doc(chatId);
+      await messagesRef.set({
+        doctorId: doctorId,
+        userId: currentUser.uid,
+        messages: [newMsg] // Include the new message in the messages array
+      });
+  
+      console.log ('chat created')
       Alert.alert('Appointment Booked Successfully');
+      // navigation.navigate('messages');
     } catch (error) {
       console.error('Error booking appointment:', error);
       Alert.alert('Failed to book appointment. Please try again.');
     }
   };
+  
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -101,7 +127,12 @@ const SingleDoctorScreen = ({ route }) => {
         {loading ? (
           <ActivityIndicator size="large" color="#629FFA" />
         ) : doctorData ? (
+          
           <View style={styles.doctorDetails}>
+           {/* <Entypo name='chat' size={30} style={styles.chat} onPress={()=>{
+         navigation.navigate('UserMessages');
+
+           }}/> */}
             <Text style={styles.label}>Name:</Text>
             <Text style={styles.value}>{doctorData.Name}</Text>
 
@@ -158,6 +189,9 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 75,
+  },
+  chat:{
+    alignSelf:'center'
   },
   detailsContainer: {
     flex: 1,

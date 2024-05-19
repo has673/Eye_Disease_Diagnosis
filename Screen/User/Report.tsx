@@ -4,8 +4,8 @@ import { useRoute } from '@react-navigation/native';
 import Auth from '@react-native-firebase/auth';
 import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity , Image , Alert } from 'react-native';
 import ViewShot from 'react-native-view-shot'; 
-import RNFS from 'react-native-fs';
-import {CameraRoll} from '@react-native-camera-roll/camera-roll';
+// import RNFS from 'react-native-fs';
+// import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 
 
 const Report = () => {
@@ -18,12 +18,12 @@ const Report = () => {
   const [loading, setLoading] = useState(true);
   const [capturedImage, setCapturedImage] = useState(null);
   const route = useRoute();
-  const { screenResult, predictResult } = route.params;
+  const { screenResult, predictResult, imageUri } = route.params;
   const user = Auth().currentUser?.uid;
   const currentDate = new Date(); // Get current date
   const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`; // Format date as needed
   const formattedTime = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
-  const ref = useRef();
+  const viewShot = useRef(null);
   
   useEffect(() => {
     getUser();
@@ -47,26 +47,17 @@ const Report = () => {
 
   const captureScreenshot = async () => {
     try {
-      // Capture the view shot
-      const uri = await ref.current.capture();
-  
-      setCapturedImage(uri);
-  
-      // Create a destination path in the device's filesystem
-      const destinationPath = `${RNFS.TemporaryDirectoryPath}/image.jpg`;
-  
-      // Move the captured image to the destination path
-      await RNFS.moveFile(uri, destinationPath);
-  
-      // Save the image to the device's gallery using CameraRoll
-      await CameraRoll.save(destinationPath);
-  
-      // Show a success message
-      Alert.alert('Image Saved', 'Image saved successfully in the gallery.');
+       console.log('err')
+      const capturedImage = await viewShot.current?.capture();
+      if (capturedImage) {
+        setCapturedImage(capturedImage);
+        console.log('err2')
+      } else {
+        throw new Error('Failed to capture screenshot.');
+      }
     } catch (error) {
-      // Show an error message if something goes wrong
-      console.error(error);
-      Alert.alert('Error', 'Failed to save image.');
+      console.error('Error capturing screenshot:', error);
+      Alert.alert('Error', 'Failed to capture screenshot.');
     }
   };
   
@@ -84,7 +75,7 @@ const Report = () => {
         <ActivityIndicator style={styles.spinner} size="large" color="#629FFA" />
       ) : (
         <View>
-          <ViewShot ref={ref} options={{ fileName: "DR Report", format: "jpg", quality: 0.9 }}>
+          <ViewShot ref={viewShot} options={{ fileName: "DR Report", format: "jpg", quality: 0.9 }}>
           <Image style={styles.stretch} source={require('../../assets/logo.png')} />
             <Text style={styles.big}>Report</Text>
             <View style={styles.row}>
@@ -111,13 +102,15 @@ const Report = () => {
               <Text style={[styles.heading, styles.bold]}>Severity:</Text>
               <Text style={styles.text}>{predictResult}</Text>
             </View>
+            <Image source={{ uri: imageUri }} style={styles.capturedImage} />
           </ViewShot>
+          
           <TouchableOpacity style={styles.button} onPress={captureScreenshot}>
             <Text style={styles.buttonText}>Capture</Text>
-          </TouchableOpacity>
-          
+          </TouchableOpacity> 
         </View>
       )}
+    
     </View>
   );
 };
@@ -125,8 +118,8 @@ const Report = () => {
 const styles = StyleSheet.create({
   stretch: {
     width: 335,
-    height: 186,
-    marginTop: 40,
+    height: 150,
+    marginTop: 10,
    
     alignSelf: 'center',
   },

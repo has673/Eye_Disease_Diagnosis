@@ -10,13 +10,13 @@ const Message = ({ navigation }) => {
 
   const fetchChats = async () => {
     try {
-      const userId = auth().currentUser?.uid;
-      setCurrentUserId(userId);
-      console.log('Current User ID:', userId);
+      const userId1 = auth().currentUser?.uid;
+      setCurrentUserId(userId1);
+      console.log('Current User ID:', userId1);
 
       const querySnapshot = await firestore()
         .collection('Chats')
-        .where('userId', '==', userId)
+        .where('doctorId', '==', userId1)
         .get();
 
       // console.log('Number of chats fetched:', querySnapshot.size);
