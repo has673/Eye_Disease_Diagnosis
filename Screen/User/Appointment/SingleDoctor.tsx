@@ -3,7 +3,6 @@ import { View, ScrollView, StyleSheet, ActivityIndicator, Text, Image, Touchable
 import firestore from '@react-native-firebase/firestore';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import auth from '@react-native-firebase/auth';
-import Entypo from 'react-native-vector-icons/Entypo';
 import { useNavigation } from '@react-navigation/native';
 
 const SingleDoctorScreen = ({ route }) => {

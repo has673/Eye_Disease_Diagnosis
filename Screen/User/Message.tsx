@@ -86,7 +86,7 @@ const Message = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.instructions}>
-        To start a new chat, go to booked services. You can only chat with the service provider whose service you have booked.
+        To start a new chat, make an appointment request first.
       </Text>
       {chats.length > 0 ? (
         chats.map((chat) => (
