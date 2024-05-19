@@ -94,7 +94,21 @@ const Profile = () => {
             <Image source={require('../../assets/Line.png')} />
           </View>
 
+          <View style={styles.myView}>
+            <TouchableOpacity onPress={() => navigation.navigate('Diagnosis')} style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View>
+                <Ionicons name='calendar' size={25} />
+              </View>
 
+              <Text style={{ fontSize: 20, fontWeight: 'bold', color: "black", marginLeft: 20, marginTop: 5 }}>
+                Diagnosis
+              </Text>
+            </TouchableOpacity>
+          </View>
+          
+          <View style={{ paddingTop: 10, paddingLeft: 17 }}>
+            <Image source={require('../../assets/Line.png')} />
+          </View>
 
 
           {/* <View style={styles.myView}>
@@ -119,6 +133,7 @@ const Profile = () => {
               </Text>
             </TouchableOpacity>
           </View>
+          
           <View style={{ paddingTop: 10, paddingLeft: 17 }}>
             <Image source={require('../../assets/Line.png')} />
           </View>
@@ -139,6 +154,7 @@ const Profile = () => {
 
 
           </View>
+          
         </View>
 
       </View>

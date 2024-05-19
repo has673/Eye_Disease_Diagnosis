@@ -48,6 +48,7 @@ import DoctorCompleteAppointment from './Screen/Doctor/DoctorCompleteAppointment
 import Report from './Screen/User/Report';
 import UserMessages from './Screen/User/UserMessages';
 import Doc_Message from './Screen/User/Doc_Message'
+import AllDiagnosis from './Screen/User/AllDiagnosis';
 
 
 
@@ -279,6 +280,27 @@ function App() {
         />
         <Stack.Screen name='Forgot' component={Forgot} options={({ navigation }) => ({
           title: 'Forgot Password',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+        })}
+        />
+          <Stack.Screen name='Diagnosis' component={AllDiagnosis} options={({ navigation }) => ({
+          title: 'Diagnosis',
           headerStyle: {
             backgroundColor: '#629FFA',
           },
