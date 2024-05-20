@@ -28,7 +28,9 @@ const SingleDoctorScreen = ({ route }) => {
     hideDatePicker();
     setSelectedDate(date);
     bookAppointment();
+  
   };
+
 
   const getUser = async () => {
     try {
@@ -117,8 +119,7 @@ const SingleDoctorScreen = ({ route }) => {
       setBookingAppointment(false); // Hide activity indicator in case of error
     }
   };
-
-  const calculateAverageRating = () => {
+const calculateAverageRating = () => {
     if (!doctorData || !doctorData.feedbacks || doctorData.feedbacks.length === 0) {
       return 0; // If no feedbacks or doctor data available, return 0 rating
     }
@@ -126,7 +127,6 @@ const SingleDoctorScreen = ({ route }) => {
     const totalRating = doctorData.feedbacks.reduce((accumulator, feedback) => accumulator + feedback.rating, 0);
     return totalRating / doctorData.feedbacks.length; // Calculate average rating
   };
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.doctorContainer}>
@@ -134,20 +134,21 @@ const SingleDoctorScreen = ({ route }) => {
           <ActivityIndicator style={styles.spinner} size="large" color="#0000ff" />
         ) : (
           <>
-            <Image
-              source={{ uri: doctorData && doctorData.profileImage ? doctorData.profileImage : 'https://via.placeholder.com/150' }}
-              style={styles.image}
-            />
-            <StarRating
-              disabled={true}
-              maxStars={5}
-              rating={calculateAverageRating()} // Use the calculated average rating here
-              starSize={24}
-              fullStarColor="#FFD700"
-              emptyStarColor="#D3D3D3"
-            />
-          </>
+          <Image
+            source={{ uri: doctorData && doctorData.profileImage ? doctorData.profileImage : 'https://via.placeholder.com/150' }}
+            style={styles.image}
+          />
+          <StarRating
+          disabled={true}
+          maxStars={5}
+          rating={calculateAverageRating()} // Use the calculated average rating here
+          starSize={24}
+          fullStarColor="#FFD700"
+          emptyStarColor="#D3D3D3"
+        />
+        </>
         )}
+
       </View>
       <View style={styles.detailsContainer}>
         {loading ? (
@@ -205,6 +206,7 @@ const styles = StyleSheet.create({
   },
   ActivityIndicatorContainer:{
     color:'blue'
+
   },
   doctorContainer: {
     alignItems: 'center',

@@ -57,7 +57,7 @@ const DocHome = () => {
     },
   ];
   const data2 = [
-    {name: 'Diabetic', icon: 'eye-outline', onPress: Press4},
+    {name: 'Diabetic Retinopathy', icon: 'eye-outline', onPress: Press4},
    
   ];
   return (
