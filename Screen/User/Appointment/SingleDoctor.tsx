@@ -4,6 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
+import StarRating from 'react-native-star-rating';
 
 const SingleDoctorScreen = ({ route }) => {
   const { doctorId } = route.params;
@@ -27,7 +28,6 @@ const SingleDoctorScreen = ({ route }) => {
     hideDatePicker();
     setSelectedDate(date);
     bookAppointment();
-  
   };
 
   const getUser = async () => {
@@ -118,16 +118,35 @@ const SingleDoctorScreen = ({ route }) => {
     }
   };
 
+  const calculateAverageRating = () => {
+    if (!doctorData || !doctorData.feedbacks || doctorData.feedbacks.length === 0) {
+      return 0; // If no feedbacks or doctor data available, return 0 rating
+    }
+
+    const totalRating = doctorData.feedbacks.reduce((accumulator, feedback) => accumulator + feedback.rating, 0);
+    return totalRating / doctorData.feedbacks.length; // Calculate average rating
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.doctorContainer}>
         {loading ? (
           <ActivityIndicator style={styles.spinner} size="large" color="#0000ff" />
         ) : (
-          <Image
-            source={{ uri: doctorData && doctorData.profileImage ? doctorData.profileImage : 'https://via.placeholder.com/150' }}
-            style={styles.image}
-          />
+          <>
+            <Image
+              source={{ uri: doctorData && doctorData.profileImage ? doctorData.profileImage : 'https://via.placeholder.com/150' }}
+              style={styles.image}
+            />
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={calculateAverageRating()} // Use the calculated average rating here
+              starSize={24}
+              fullStarColor="#FFD700"
+              emptyStarColor="#D3D3D3"
+            />
+          </>
         )}
       </View>
       <View style={styles.detailsContainer}>
@@ -186,7 +205,6 @@ const styles = StyleSheet.create({
   },
   ActivityIndicatorContainer:{
     color:'blue'
-
   },
   doctorContainer: {
     alignItems: 'center',

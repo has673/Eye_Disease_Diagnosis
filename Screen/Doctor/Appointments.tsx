@@ -48,15 +48,7 @@ const Appointments = () => {
       console.log(currentDate)
       await appointmentRef.update({ Done: true });
        Alert.alert('Success', 'Appointment Done.')
-      // if ( appointmentDate > currentDate) {
-      //   // Update the appointment status to Done
-      //   console.log('no error')
-      //   await appointmentRef.update({ Done: true });
-      //   Alert.alert('Success', 'Appointment Done.');
-      // } else{
-      //   console.log('alert error')
-      //   Alert.alert('Error', 'Appointment cannot be completed.');
-      // }
+      
     } catch (error) {
       console.error('Error confirming appointment:', error);
       Alert.alert('Error', 'Failed to complete appointment. Please try again.');

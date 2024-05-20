@@ -2,11 +2,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 // import { format } from 'date-fns';
-import moment from 'moment';
+
 
 const DoneAppointmentCard = ({ appointment, onDone, onCancel}) => {
-  const formattedDate = moment(appointment.appointmentDate.toDate()).format('MMMM Do YYYY, h:mm:ss a');
-  return (
+  // const appointmentDate = appointment.appointmentDate.toDate();
+  
+  
+  // const formattedDate = appointmentDate.toLocaleString();
+  const formattedDate = appointment.appointmentDate.toDate().toLocaleString()
+   return (
     <View style={styles.cardContainer}>
       <View style={styles.card}>
         
@@ -35,8 +39,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#629FFA',
     borderRadius: 20,
     padding: 10,
-    width: 300,
-    height:130,
+    width: 270,
+    height:120,
   },
   text: {
     color: '#FFFFFF',

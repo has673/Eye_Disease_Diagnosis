@@ -4,8 +4,8 @@ import { useRoute } from '@react-navigation/native';
 import Auth from '@react-native-firebase/auth';
 import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity , Image , Alert } from 'react-native';
 import ViewShot from 'react-native-view-shot'; 
-// import RNFS from 'react-native-fs';
-// import {CameraRoll} from '@react-native-camera-roll/camera-roll';
+import RNFS from 'react-native-fs';
+ import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 
 
 const Report = () => {
@@ -23,7 +23,7 @@ const Report = () => {
   const currentDate = new Date(); // Get current date
   const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`; // Format date as needed
   const formattedTime = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
-  const viewShot = useRef(null);
+  const ref = useRef();
   
   useEffect(() => {
     getUser();
@@ -46,20 +46,31 @@ const Report = () => {
   };
 
   const captureScreenshot = async () => {
+    console.log('called');
     try {
-       console.log('err')
-      const capturedImage = await viewShot.current?.capture();
-      if (capturedImage) {
-        setCapturedImage(capturedImage);
-        console.log('err2')
-      } else {
-        throw new Error('Failed to capture screenshot.');
-      }
+      // Capture the view shot
+      const uri = await ref.current.capture();
+  
+      setCapturedImage(uri);
+  
+      // Create a destination path in the device's filesystem
+      const destinationPath = `${RNFS.DocumentDirectoryPath}/image.jpg`;
+  
+      // Move the captured image to the destination path
+      await RNFS.moveFile(uri, destinationPath);
+  
+      // Save the image to the device's gallery using CameraRoll
+      await CameraRoll.save(destinationPath, { type: 'photo' });
+  
+      // Show a success message
+      Alert.alert('Image Saved', 'Image saved successfully in the gallery.');
     } catch (error) {
-      console.error('Error capturing screenshot:', error);
-      Alert.alert('Error', 'Failed to capture screenshot.');
+      // Show an error message if something goes wrong
+      console.log(error);
+      Alert.alert('Error', 'Failed to save image.');
     }
   };
+  
   const saveDiagnosisData = async () => {
     try {
       await firestore().collection('diagnosis').add({
@@ -92,7 +103,7 @@ const Report = () => {
         <ActivityIndicator style={styles.spinner} size="large" color="#629FFA" />
       ) : (
         <View>
-          <ViewShot ref={viewShot} options={{ fileName: "DR Report", format: "jpg", quality: 0.9 }}>
+          <ViewShot ref={ref} options={{ fileName: "DRReport", format: "jpg", quality: 1 }}>
           <Image style={styles.stretch} source={require('../../assets/logo.png')} />
       
             <View style={styles.row}>
