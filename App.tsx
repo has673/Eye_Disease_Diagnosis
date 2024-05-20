@@ -49,6 +49,7 @@ import Report from './Screen/User/Report';
 import UserMessages from './Screen/User/UserMessages';
 import Doc_Message from './Screen/User/Doc_Message'
 import AllDiagnosis from './Screen/User/AllDiagnosis';
+import ViewReport from './Screen/User/ViewReport';
 
 
 
@@ -276,6 +277,7 @@ function App() {
 
             />
           ),
+         
         })}
         />
         <Stack.Screen name='Forgot' component={Forgot} options={({ navigation }) => ({
@@ -299,8 +301,8 @@ function App() {
           ),
         })}
         />
-          <Stack.Screen name='Diagnosis' component={AllDiagnosis} options={({ navigation }) => ({
-          title: 'Diagnosis',
+          <Stack.Screen name='ViewReport' component={ViewReport} options={({ navigation }) => ({
+          title: 'Report',
           headerStyle: {
             backgroundColor: '#629FFA',
           },
@@ -317,6 +319,18 @@ function App() {
               color="white"
 
             />
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name='person-circle-outline'
+                size={25}
+                color='white'
+                onPress={() => {
+                  navigation.navigate('Profile');
+                }}
+              />
+            </View>
           ),
         })}
         />
@@ -458,6 +472,50 @@ function App() {
               color="white"
 
             />
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name='person-circle-outline'
+                size={30}
+                color='white'
+                onPress={() => {
+                  navigation.navigate('Profile');
+                }}
+              />
+            </View>
+          ),
+        })} />
+                <Stack.Screen name='Diagnosis' component={AllDiagnosis} options={({ navigation }) => ({
+          title: 'Diagnosis',
+          headerStyle: {
+            backgroundColor: '#629FFA',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={25}
+              color="white"
+
+            />
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name='person-circle-outline'
+                size={30}
+                color='white'
+                onPress={() => {
+                  navigation.navigate('Profile');
+                }}
+              />
+            </View>
           ),
         })} />
         <Stack.Screen name='Appointments' component={Appointments} options={({ navigation }) => ({
@@ -680,6 +738,18 @@ function App() {
               color="white"
 
             />
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name='person-circle-outline'
+                size={25}
+                color='white'
+                onPress={() => {
+                  navigation.navigate('Profile');
+                }}
+              />
+            </View>
           ),
         })} />
    

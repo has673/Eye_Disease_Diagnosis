@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const DiagnosisCard = ({ diagnosis }) => {
+const DiagnosisCard = ({ diagnosis,onPress }) => {
   let diagnosisText = diagnosis.diagnosis;
 
   // Adjust the diagnosis text for better readability
@@ -14,12 +14,14 @@ const DiagnosisCard = ({ diagnosis }) => {
 
   return (
     <View style={styles.cardContainer}>
-      <View style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={() => onPress(diagnosis)}>
         <View style={styles.inner}>
-          <Text style={styles.text}>{`Result: ${diagnosis.severity}`}</Text>
-          <Text style={styles.text}>{`Severity: ${diagnosisText}`}</Text>
+          <Text style={styles.text}>{`Severity: ${diagnosis.severity}`}</Text>
+          <Text style={styles.text}>{`Result: ${diagnosisText}`}</Text>
+          <Text style={styles.text}>{`Date: ${diagnosis.date}`}</Text>
+          <Text style={styles.text}>{`Time: ${diagnosis.time}`}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

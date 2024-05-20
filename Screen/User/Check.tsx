@@ -2,13 +2,13 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
-
+import ipAddress from '../config';
 
 export default function Check() {
   const [filePath, setFilePath] = useState(null);
   const [screenResult, setScreenResult] = useState('');
   const [predictResult, setPredictResult] = useState('');
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const selectImage = () => {
     setFilePath(null);
@@ -38,7 +38,6 @@ export default function Check() {
   };
 
   const submitImage = async () => {
-    // Your submitImage function code here
     try {
       const formData = new FormData();
       formData.append('image', {
@@ -49,8 +48,8 @@ export default function Check() {
 
       setScreenResult('');
       setPredictResult('');
-      
-      const screenResponse = await fetch('http://192.168.18.52:5001/screen', {
+
+      const screenResponse = await fetch(`http://${ipAddress}:5001/screen`, {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -63,7 +62,7 @@ export default function Check() {
         setScreenResult(screenData.result);
 
         if (screenData.result === 'Diabetic Retinopathy Symptoms Present') {
-          const predictResponse = await fetch('http://192.168.18.52:5001/predict', {
+          const predictResponse = await fetch(`http://${ipAddress}:5001/predict`, {
             method: 'POST',
             headers: {
               'Content-Type': 'multipart/form-data',
@@ -85,7 +84,6 @@ export default function Check() {
       console.error('Error submitting image:', error);
     }
   };
-
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>

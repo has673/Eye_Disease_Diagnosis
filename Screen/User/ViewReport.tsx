@@ -4,39 +4,33 @@ import { useRoute } from '@react-navigation/native';
 import Auth from '@react-native-firebase/auth';
 import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import ViewShot from 'react-native-view-shot';
-import storage from '@react-native-firebase/storage';
+
 
 import RNFS from 'react-native-fs';
 import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 
-const Report = () => {
+const ViewReport = () => {
   const [userData, setUserData] = useState({
     Name: '',
     city: '',
     age: '',
     phonenumber: '',
   });
-  const generateReportNumber = () => {
-    const prefix = 'DR'; // You can customize the prefix if needed
-    const randomSuffix = Math.floor(Math.random() * 10000); // Adjust the range as needed
-    return `${prefix}${randomSuffix}`;
-  };
+
   const [loading, setLoading] = useState(true);
   const route = useRoute();
-  const [reportNumber] = useState(generateReportNumber()); 
-  const { screenResult, predictResult, imageUri } = route.params;
-  const [profileImageUrl, setProfileImageUrl] = useState('');
+
+
+const { diagnosisId } = route.params;
+console.log(diagnosisId)
+const [imageLoading, setImageLoading] = useState(true);
+const [diagnosisData, setDiagnosisData] = useState(null);
   const user = Auth().currentUser?.uid;
-  const currentDate = new Date();
-  const [saving, setSaving] = useState(false);
+
   const [capturedImage, setCapturedImage] = useState(null);
-  const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-  const formattedTime = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
+
   const ref = useRef();
 
-  useEffect(() => {
-    getUser();
-  }, []);
 
   const getUser = async () => {
     try {
@@ -52,31 +46,19 @@ const Report = () => {
     }
   };
 
-  const saveReportData = async () => {
-    try {
-      setSaving(true);
-      const imageRef = storage().ref(`reports/${reportNumber}.jpg`);
-      await imageRef.putFile(imageUri);
-      const downloadURL = await imageRef.getDownloadURL();
-      await firestore().collection('Diagnosis').add({
-        userId: user,
-        date: formattedDate,
-        time: formattedTime,
-        name: userData.Name,
-        diagnosis: screenResult,
-        severity: predictResult || 'Normal',
-        imageUri: downloadURL,
-        reportNumber: generateReportNumber()
-      });
-      Alert.alert('Success', 'Report data saved successfully.');
-    } catch (error) {
-      console.error('Error saving report data:', error);
-      Alert.alert('Error', 'Failed to save report data.');
-    }
-    finally {
-      setSaving(false); // Set saving state to false when the save process is complete
-    }
-  };
+  useEffect(() => {
+    console.log(diagnosisId)
+    const unsubscribe = firestore().collection('Diagnosis').doc(diagnosisId).onSnapshot(snapshot => {
+      const diagnosis = snapshot.data();
+      setDiagnosisData(diagnosis);
+      console.log(diagnosis)
+      setLoading(false); // Set loading to false when data is fetched
+    });
+
+    getUser();
+
+    return () => unsubscribe();
+  }, [diagnosisId]);
 
  
   const captureScreenshot = async () => {
@@ -112,21 +94,20 @@ const Report = () => {
       ) : (
         <View>
           <ViewShot ref={ref} options={{  fileName: 'DR Report',format: "jpg", quality: 1 }}>
-            <View style={styles.ViewShotContainer}>
             <Image style={styles.stretch} source={require('../../assets/logo.png')} />
-            <View style={styles.row}>
+            {/* <View style={styles.row}>
               <Text style={[styles.heading, styles.bold]}>Report Number:</Text>
-              <Text style={styles.text}>{reportNumber}</Text>
-            </View>
+              <Text style={styles.text}>{diagnosisData?.reportNumber}</Text>
+            </View> */}
 
             <View style={styles.row}>
 
               <Text style={[styles.heading, styles.bold]}>Date:</Text>
-              <Text style={styles.text}>{formattedDate}</Text>
+              <Text style={styles.text}>{diagnosisData?.date}</Text>
             </View>
             <View style={styles.row}>
               <Text style={[styles.heading, styles.bold]}>Time:</Text>
-              <Text style={styles.text}>{formattedTime}</Text>
+              <Text style={styles.text}>{diagnosisData?.time}</Text>
             </View>
             <View style={styles.row}>
               <Text style={[styles.heading, styles.bold]}>Name:</Text>
@@ -134,23 +115,26 @@ const Report = () => {
             </View>
             <View style={styles.row}>
               <Text style={[styles.heading, styles.bold]}>Diagnosis:</Text>
-              <Text style={styles.text}>{screenResult}</Text>
+              <Text style={styles.text}>{diagnosisData?.diagnosis}</Text>
             </View>
             <View style={styles.row}>
               <Text style={[styles.heading, styles.bold]}>Severity:</Text>
-              <Text style={styles.text}>{predictResult}</Text>
+              <Text style={styles.text}>{diagnosisData?.severity}</Text>
             </View>
-            <Image source={{ uri: imageUri }} style={styles.capturedImage} />
-            </View>
+            {diagnosisData?.imageUri && (
+              <View style={styles.imageContainer}>
+                {imageLoading && <ActivityIndicator style={styles.imageLoader} size="large" color="#629FFA" />}
+                <Image
+                  source={{ uri: diagnosisData.imageUri }}
+                  style={styles.capturedImage}
+                  onLoad={() => setImageLoading(false)}
+                  onError={() => setImageLoading(false)}
+                />
+              </View>
+            )}
           </ViewShot>
           <View style={styles.btns}>
-          <TouchableOpacity style={styles.button1} onPress={saveReportData} disabled={saving}>
-              {saving ? (
-                <ActivityIndicator size="small" color="#FFFFFF" />
-              ) : (
-                <Text style={styles.buttonText}>Save</Text>
-              )}
-            </TouchableOpacity>
+          
             <TouchableOpacity style={styles.button} onPress={captureScreenshot}>
               <Text style={styles.buttonText}>Capture</Text>
             </TouchableOpacity>
@@ -176,11 +160,6 @@ const styles = StyleSheet.create({
   spinner: {
     marginTop: 50,
   },
-  ViewShotContainer:{
-    flexGrow:1,
-    justifyContent:'center',
-
-  },
   heading: {
     fontWeight: 'bold',
     fontSize: 15,
@@ -198,6 +177,19 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginLeft: 5,
     marginBottom: 10,
+  },
+  imageContainer: {
+    position: 'relative',
+    width: '100%',
+    height: 150,
+    marginTop: 20,
+  },
+  imageLoader: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginLeft: -18,
+    marginTop: -18,
   },
   button1: {
     backgroundColor: '#629FFA',
@@ -224,7 +216,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#629FFA',
     padding: 10,
     borderRadius: 15,
-    marginTop: 10,
+    marginTop: 35,
     alignItems: 'center',
     alignSelf: 'center',
     width: 90,
@@ -233,4 +225,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Report;
+export default ViewReport;
